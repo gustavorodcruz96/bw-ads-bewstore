@@ -1,27 +1,48 @@
-import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import logo from "@/assets/bew-logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentY = window.scrollY;
+      const atTop = currentY <= 20;
+
+      setIsScrolled(!atTop);
+
+      if (atTop) {
+        setIsVisible(true);
+      } else {
+        if (currentY > lastScrollY.current + 2) {
+          setIsVisible(false);
+        } else if (currentY < lastScrollY.current - 2) {
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollY.current = currentY;
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsappLink = "https://wa.me/5531999999999?text=Olá! Gostaria de um orçamento para troca de tela.";
+  const whatsappLink =
+    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transform transition-all duration-200 ${
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+      } ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-md py-3"
+          ? "bg-background/75 backdrop-blur-lg shadow-md py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -62,14 +83,10 @@ const Header = () => {
           </a>
           <Button
             asChild
-            className={`gap-2 ${
-              isScrolled 
-                ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
-                : 'bg-primary-foreground text-primary hover:bg-gray-200'
-            }`}
+            className="gap-2"
           >
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <Phone className="h-4 w-4" />
+              <WhatsAppIcon className="h-4 w-4" />
               Orçamento
             </a>
           </Button>
@@ -110,8 +127,8 @@ const Header = () => {
               Depoimentos
             </a>
             <Button asChild className="w-full gap-2 mt-2">
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <Phone className="h-4 w-4" />
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                <WhatsAppIcon className="h-4 w-4" />
                 Solicitar Orçamento
               </a>
             </Button>

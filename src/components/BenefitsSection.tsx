@@ -3,13 +3,13 @@ import { Shield, Clock, Wrench, CreditCard, MapPin, ThumbsUp } from "lucide-reac
 const benefits = [
   {
     icon: Shield,
-    title: "Garantia de 90 Dias",
-    description: "Todos os serviços incluem garantia total de 90 dias para sua tranquilidade.",
+    title: "Garantia real em serviços",
+    description: "Garantia documentada em todos os serviços realizados na B&W Store.",
   },
   {
     icon: Clock,
-    title: "Troca Expressa",
-    description: "Substituição de tela em até 1 hora. Não fique sem seu aparelho.",
+    title: "Agilidade no atendimento",
+    description: "Atendimento rápido, com horário agendado e comunicação clara sobre prazos.",
   },
   {
     icon: Wrench,
@@ -28,8 +28,8 @@ const benefits = [
   },
   {
     icon: ThumbsUp,
-    title: "+500 Clientes",
-    description: "Mais de 500 clientes satisfeitos com avaliação 5 estrelas.",
+    title: "Clientes satisfeitos",
+    description: "Atendimento focado em resolver o problema e explicar cada etapa.",
   },
 ];
 
@@ -42,7 +42,7 @@ const BenefitsSection = () => {
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
             Diferenciais
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6">
             Por que escolher a B&W Store?
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -51,22 +51,26 @@ const BenefitsSection = () => {
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {benefits.map((benefit, index) => (
             <div
               key={benefit.title}
-              className="text-center group"
+              className="group h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-background shadow-card mb-6 group-hover:scale-110 transition-transform duration-300">
-                <benefit.icon className="h-8 w-8 text-foreground" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                {benefit.title}
-              </h3>
-              <p className="text-muted-foreground">
-                {benefit.description}
-              </p>
+              <article className="flex h-full flex-col rounded-3xl bg-card/90 border border-border/60 shadow-card px-6 py-6 text-left transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg sm:h-auto md:h-[230px] lg:h-[260px] overflow-hidden">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md self-start">
+                  <benefit.icon className="h-5 w-5" />
+                </div>
+                <div className="mt-auto flex w-full flex-col gap-2 overflow-y-auto">
+                  <h3 className="text-base md:text-lg font-semibold text-foreground">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              </article>
             </div>
           ))}
         </div>

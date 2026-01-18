@@ -1,12 +1,13 @@
-import { ArrowRight, Shield, Clock, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-iphone.png";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import heroImage from "@/assets/hero-bew.webp";
 
 const HeroSection = () => {
-  const whatsappLink = "https://wa.me/5531999999999?text=Olá! Gostaria de um orçamento para troca de tela.";
+  const whatsappLink =
+    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
 
   return (
-    <section className="relative min-h-screen flex items-center bg-dark-gradient overflow-hidden">
+    <section className="relative flex items-center bg-dark-gradient overflow-hidden pt-20 pb-16 md:py-0 h-auto min-h-[820px] md:h-[1000px]">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -15,7 +16,7 @@ const HeroSection = () => {
         }} />
       </div>
 
-      <div className="container relative z-10 pt-24 pb-16 md:pt-32 md:pb-24">
+      <div className="container relative z-10 pt-20 pb-16 md:pt-28 md:pb-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
@@ -24,14 +25,14 @@ const HeroSection = () => {
               Atendimento em Belo Horizonte
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
               Tela Quebrada?
               <br />
-              <span className="text-gray-400">Renovamos seu iPhone.</span>
+              <span className="text-gray-400">Renovamos seu Dispositivo.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-              Troca de vidro e substituição de tela com peças de alta qualidade. 
+              Substituição de vidro e de tela com peças de alta qualidade. 
               Atendimento rápido e garantia em todos os serviços.
             </p>
 
@@ -39,11 +40,11 @@ const HeroSection = () => {
               <Button
                 asChild
                 size="lg"
-                className="gap-2 text-base px-8 py-6 bg-primary-foreground text-primary hover:bg-gray-200 shadow-button"
+                className="gap-2 text-base px-8 py-6"
               >
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon className="h-5 w-5" />
                   Solicitar Orçamento
-                  <ArrowRight className="h-5 w-5" />
                 </a>
               </Button>
               <Button
@@ -56,21 +57,7 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            {/* Trust Badges */}
-            <div className="flex flex-wrap gap-6 justify-center lg:justify-start mt-10 animate-fade-up" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-2 text-gray-400">
-                <Shield className="h-5 w-5" />
-                <span className="text-sm">Garantia de 90 dias</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-400">
-                <Clock className="h-5 w-5" />
-                <span className="text-sm">Entrega em 1h</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-400">
-                <Award className="h-5 w-5" />
-                <span className="text-sm">+500 telas trocadas</span>
-              </div>
-            </div>
+           
           </div>
 
           {/* Image */}
@@ -79,32 +66,11 @@ const HeroSection = () => {
               <img
                 src={heroImage}
                 alt="iPhone com tela quebrada"
-                className="w-full max-w-md lg:max-w-lg animate-float"
+                className="w-full max-w-md lg:max-w-lg opacity-80 brightness-75 saturate-50"
               />
-              {/* Floating Card */}
-              <div className="absolute -left-4 bottom-20 bg-background rounded-2xl p-4 shadow-2xl animate-fade-up hidden sm:block" style={{ animationDelay: '0.5s' }}>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Peças originais</p>
-                    <p className="text-sm text-muted-foreground">Qualidade garantida</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Curve */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path d="M0 120L1440 120L1440 60C1440 60 1140 0 720 0C300 0 0 60 0 60L0 120Z" fill="hsl(var(--background))"/>
-        </svg>
       </div>
     </section>
   );

@@ -1,13 +1,14 @@
-import { MapPin, Phone, Clock, Instagram, Facebook } from "lucide-react";
+import { MapPin, Phone, Clock, Instagram } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 import logo from "@/assets/bew-logo.png";
 
 const Footer = () => {
   return (
     <footer className="bg-foreground text-primary-foreground">
       <div className="container py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="flex flex-col md:flex-row gap-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="md:basis-[36%] lg:basis-[38%] md:min-w-[260px] lg:min-w-[280px]">
             <img src={logo} alt="B&W Store" className="h-12 mb-6" />
             <p className="text-gray-400 mb-6 max-w-md">
               Especialistas em troca de vidro e substituição de tela para iPhone, iPad e Apple Watch. 
@@ -15,62 +16,63 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com/bwstore"
+                href="https://www.instagram.com/bewstoreoficial/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors"
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a
-                href="https://facebook.com/bwstore"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
             </div>
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="font-bold text-lg mb-6">Contato</h4>
+          <div className="md:flex-1">
+            <h4 className="font-semibold text-lg mb-6">Contato</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
                 <span className="text-gray-400">
-                  Centro, Belo Horizonte - MG
+                  Rua Alagoas, 1050 – Savassi<br />
+                  Belo Horizonte – MG
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-gray-400" />
-                <a href="tel:+5531999999999" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  (31) 99999-9999
+                <a href="tel:+553138890437" className="text-gray-400 hover:text-primary-foreground transition-colors">
+                  Fixo: (31) 3889-0437
                 </a>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-center gap-3">
+                <WhatsAppIcon className="h-5 w-5 text-gray-400" />
+                <a href="https://wa.me/5531990742171" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-foreground transition-colors">
+                  WhatsApp: (31) 99074-2171
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-400">
-                  Seg - Sex: 9h às 18h<br />
-                  Sáb: 9h às 14h
-                </span>
+                <a
+                  href="mailto:contato@bewstore.com.br"
+                  className="text-gray-400 hover:text-primary-foreground transition-colors"
+                >
+                  contato@bewstore.com.br
+                </a>
               </li>
             </ul>
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="font-bold text-lg mb-6">Serviços</h4>
+          <div className="md:flex-1">
+            <h4 className="font-semibold text-lg mb-6">Serviços</h4>
             <ul className="space-y-3">
               <li>
                 <a href="#servicos" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  Troca de Tela iPhone
+                  Substituição de Tela iPhone
                 </a>
               </li>
               <li>
                 <a href="#servicos" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  Troca de Vidro
+                  Substituição de Vidro
                 </a>
               </li>
               <li>
@@ -96,13 +98,9 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="container py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm text-center md:text-left">
+          <div className="flex justify-center items-center">
+            <p className="text-gray-500 text-sm text-center">
               © {new Date().getFullYear()} B&W Store. Todos os direitos reservados.
-            </p>
-            <p className="text-gray-600 text-xs text-center md:text-right max-w-lg">
-              Prestadora de serviços independente. Não possuímos vínculo com a Apple Inc. 
-              Todas as marcas mencionadas são propriedade de seus respectivos detentores.
             </p>
           </div>
         </div>
