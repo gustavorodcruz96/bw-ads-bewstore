@@ -9,12 +9,12 @@ const benefits = [
   {
     icon: Clock,
     title: "Agilidade no atendimento",
-    description: "Atendimento rápido, com horário agendado e comunicação clara sobre prazos.",
+    description: "Atendimento rápido, com horário agendado para sua maior comodidade.",
   },
   {
     icon: Wrench,
-    title: "Peças Premium",
-    description: "Utilizamos apenas peças de alta qualidade com certificação.",
+    title: "Saúde 100%",
+    description: "Utilizamos apenas baterias com capacidade original e alta durabilidade.",
   },
   {
     icon: CreditCard,

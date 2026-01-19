@@ -5,21 +5,21 @@ const testimonials = [
     name: "Isabela Mariana",
     role: "Cliente",
     content:
-      "Atendimento excelente, fui atendida pela Fabiana que me passou total segurança, super prestativa… assistência durante todo o momento até a entrega.",
+      "Minha bateria estava durando 3 horas. Troquei na B&W e agora dura o dia todo! Atendimento excelente da Fabiana.",
     rating: 5,
   },
   {
     name: "Rodrigo Zieguelboim",
     role: "Cliente",
     content:
-      "Foi maravilhosa! Amei o resultado do meu telefone. A equipe é super atenciosa e bem ágil. Super recomendo.",
+      "Meu iPhone parecia lento, achei que fosse o sistema. Eles diagnosticaram a bateria e trocaram na hora. Ficou novo!",
     rating: 5,
   },
   {
     name: "Welberte Martins",
     role: "Cliente",
     content:
-      "Excelente, Igor e Rafaela são extremamente competentes, profissionais e carismáticos! Vou voltar diversas vezes pela qualidade do serviço e atendimento.",
+      "Serviço impecável. Mostraram a saúde da bateria antiga e da nova. Transparência total e rapidez.",
     rating: 5,
   },
 ];

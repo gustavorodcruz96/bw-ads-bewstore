@@ -1,12 +1,12 @@
 import { ArrowRight, Award, Shield, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
-import especialistaMain from "@/assets/especialista-01.webp";
-import especialistaSecondary from "@/assets/especialista.webp";
+import especialistaMain from "@/assets/especialista-bateria-2.webp";
+import especialistaSecondary from "@/assets/especialista-bateria-1.webp";
 
 const SpecialistsSection = () => {
   const whatsappLink =
-    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
+    "https://wa.me/5531990742171?text=Ol%C3%A1%2C%20vi%20o%20an%C3%BAncio%20e%20quero%20um%20or%C3%A7amento%20de%20troca%20da%20bateria%20do%20meu%20aparelho%20Apple%21%20%23BT25B";
 
   return (
     <section
@@ -23,12 +23,11 @@ const SpecialistsSection = () => {
             Equipe especialista
           </p>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground mb-4">
-            Técnicos que tratam seu aparelho como peça única
+            Técnicos que entendem a energia do seu aparelho
           </h2>
           <p className="text-base md:text-lg text-muted-foreground">
             Na B&amp;W Store, seu dispositivo é atendido por profissionais dedicados a
-            reparos de tela, com processos refinados e cuidado de laboratório em
-            cada etapa do serviço.
+            restaurar a autonomia, com diagnóstico preciso de consumo e ciclos de carga.
           </p>
         </div>
 
@@ -39,25 +38,25 @@ const SpecialistsSection = () => {
           >
             <div className="max-w-xl">
               <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-6">
-                Diagnóstico preciso antes de qualquer decisão
+                Diagnóstico preciso de consumo
               </h3>
               <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
-                Cada atendimento começa com um exame completo do aparelho: brilho,
-                toque, cores e estrutura. Assim, você entende exatamente o que
-                está acontecendo e escolhe o melhor caminho com segurança.
+                Cada atendimento começa com uma análise completa: ciclos de bateria,
+                consumo em standby e performance do processador. Assim, garantimos que a 
+                substituição da bateria resolverá seu problema de autonomia.
               </p>
               <ul className="space-y-4 text-base text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <div className="h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                  Avaliação técnica minuciosa antes da substituição de tela
+                  Verificação de ciclos de carga e saúde química
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                  Explicação transparente sobre riscos, peças e investimento
+                  Programação da nova bateria para reconhecimento do sistema
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                  Ajustes finos para preservar a experiência original de fábrica
+                  Teste de drenagem para garantir a autonomia esperada
                 </li>
               </ul>
             </div>

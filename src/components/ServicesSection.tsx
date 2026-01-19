@@ -2,15 +2,15 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
-import imgIphone from "@/assets/Troca de Tela.webp";
-import imgVidro from "@/assets/Troca de Vidro.webp";
-import imgIpad from "@/assets/Tela para iPad.webp";
-import imgWatch from "@/assets/Vidro Apple Watch.webp";
+import imgIphone from "@/assets/batery-iphone.webp";
+import imgBateriaBew from "@/assets/bateria-iphone-bew.webp";
+import imgIpad from "@/assets/ipad-batery.webp";
+import imgWatch from "@/assets/applewatch-batery.webp";
 
 const services = [
   {
-    title: "Substituição de Tela",
-    description: "Telas originais e premium.",
+    title: "Bateria para iPhone",
+    description: "Saúde 100% e alta durabilidade.",
     image: imgIphone,
     colSpan: "md:col-span-1",
     rowSpan: "md:row-span-2",
@@ -18,37 +18,37 @@ const services = [
     imageStyle: "w-full h-[50%] md:h-[60%] absolute bottom-6 md:bottom-0 left-0 object-contain object-bottom",
   },
   {
-    title: "Tela para iPad",
-    description: "Todas as gerações.",
+    title: "Bateria para iPad",
+    description: "Autonomia para o dia todo.",
     image: imgIpad,
     colSpan: "md:col-span-2",
     rowSpan: "md:row-span-1",
     bgGradient: "from-zinc-900 to-black",
-    imageStyle: "w-full md:w-[65%] absolute -right-6 md:-right-4 -bottom-3 md:-bottom-16",
+    imageStyle: "w-[50%] md:w-[45%] absolute right-2 bottom-0 object-contain",
   },
   {
-    title: "Substituição de Vidro",
-    description: "Mantenha seu display original.",
-    image: imgVidro,
-    colSpan: "md:col-span-1",
-    rowSpan: "md:row-span-1",
-    bgGradient: "from-zinc-800 to-zinc-900",
-    imageStyle: "w-[80%] h-[70%] absolute -right-4 -bottom-2 object-contain object-bottom-right rotate-[10deg]",
-  },
-  {
-    title: "Vidro Apple Watch",
-    description: "Acabamento perfeito.",
+    title: "Bateria Apple Watch",
+    description: "Seu relógio sempre ativo.",
     image: imgWatch,
     colSpan: "md:col-span-1",
     rowSpan: "md:row-span-1",
+    bgGradient: "from-zinc-800 to-zinc-900",
+    imageStyle: "w-[65%] h-[65%] absolute right-4 bottom-0 object-contain object-bottom-right",
+  },
+  {
+    title: "Diagnóstico Completo",
+    description: "Análise de ciclos e consumo.",
+    image: imgBateriaBew,
+    colSpan: "md:col-span-1",
+    rowSpan: "md:row-span-1",
     bgGradient: "from-zinc-800 to-zinc-950",
-    imageStyle: "w-[70%] h-[60%] absolute right-0 -bottom-2 object-contain object-bottom-right",
+    imageStyle: "w-[60%] h-[60%] absolute right-2 bottom-2 object-contain object-bottom-right",
   },
 ];
 
 const ServicesSection = () => {
   const whatsappLink =
-    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
+    "https://wa.me/5531990742171?text=Ol%C3%A1%2C%20vi%20o%20an%C3%BAncio%20e%20quero%20um%20or%C3%A7amento%20de%20troca%20da%20bateria%20do%20meu%20aparelho%20Apple%21%20%23BT25B";
 
   return (
     <section
@@ -68,7 +68,7 @@ const ServicesSection = () => {
             Nossos Serviços
           </h2>
           <p className="text-lg text-gray-600 font-light">
-            Tecnologia de ponta para devolver a vida ao seu dispositivo Apple.
+            Tecnologia de ponta para devolver a autonomia ao seu dispositivo Apple.
           </p>
         </div>
 

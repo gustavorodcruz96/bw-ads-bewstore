@@ -80,7 +80,7 @@ const VideosSection = () => {
             Artistas na B&W Store
           </h2>
           <p className="text-lg text-gray-600 font-light">
-            Veja quem já passou por aqui e aprovou nossos serviços.
+            Veja quem já recuperou a performance do seu iPhone com a gente.
           </p>
         </div>
 

@@ -3,7 +3,7 @@ import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const CTASection = () => {
   const whatsappLink =
-    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
+    "https://wa.me/5531990742171?text=Ol%C3%A1%2C%20vi%20o%20an%C3%BAncio%20e%20quero%20um%20or%C3%A7amento%20de%20troca%20da%20bateria%20do%20meu%20aparelho%20Apple%21%20%23BT25B";
 
   return (
     <section className="py-20 md:py-28 bg-dark-gradient relative overflow-hidden">
@@ -18,11 +18,11 @@ const CTASection = () => {
       <div className="container relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary-foreground mb-6">
-            Tela quebrada não precisa ser dor de cabeça
+            Bateria viciada não precisa ser dor de cabeça
           </h2>
           <p className="text-xl text-gray-400 mb-10">
             Solicite seu orçamento agora mesmo pelo WhatsApp. 
-            Resposta rápida e sem compromisso.
+            Substituição rápida e garantia de autonomia.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

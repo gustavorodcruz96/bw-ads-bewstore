@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
-import heroImage from "@/assets/hero-bew.webp";
+import heroImage from "@/assets/bateria-bew-devices.webp";
 
 const HeroSection = () => {
   const whatsappLink =
-    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
+    "https://wa.me/5531990742171?text=Ol%C3%A1%2C%20vi%20o%20an%C3%BAncio%20e%20quero%20um%20or%C3%A7amento%20de%20troca%20da%20bateria%20do%20meu%20aparelho%20Apple%21%20%23BT25B";
 
   return (
     <section className="relative flex items-center bg-dark-gradient overflow-hidden pt-20 pb-16 md:py-0 h-auto min-h-[820px] md:h-[1000px]">
@@ -26,14 +26,14 @@ const HeroSection = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
-              Tela Quebrada?
+              Bateria Viciada?
               <br />
-              <span className="text-gray-400">Renovamos seu Dispositivo.</span>
+              <span className="text-gray-400">Recupere a Autonomia.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-              Substituição de vidro e de tela com peças de alta qualidade. 
-              Atendimento rápido e garantia em todos os serviços.
+              Substituição de bateria com peças de alta qualidade. 
+              Atendimento rápido e garantia de performance original.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up" style={{ animationDelay: '0.3s' }}>
@@ -65,7 +65,7 @@ const HeroSection = () => {
             <div className="relative">
               <img
                 src={heroImage}
-                alt="iPhone com tela quebrada"
+                alt="iPhone com bateria nova"
                 className="w-full max-w-md lg:max-w-lg opacity-80 brightness-75 saturate-50"
               />
             </div>

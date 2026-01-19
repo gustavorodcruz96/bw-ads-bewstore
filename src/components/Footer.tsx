@@ -11,8 +11,8 @@ const Footer = () => {
           <div className="md:basis-[36%] lg:basis-[38%] md:min-w-[260px] lg:min-w-[280px]">
             <img src={logo} alt="B&W Store" className="h-12 mb-6" />
             <p className="text-gray-400 mb-6 max-w-md">
-              Especialistas em troca de vidro e substituição de tela para iPhone, iPad e Apple Watch. 
-              Qualidade, agilidade e garantia em todos os serviços.
+              Especialistas em substituição de bateria para iPhone, iPad e Apple Watch. 
+              Qualidade, agilidade e garantia de autonomia.
             </p>
             <div className="flex gap-4">
               <a
@@ -45,7 +45,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <WhatsAppIcon className="h-5 w-5 text-gray-400" />
-                <a href="https://wa.me/5531990742171" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-foreground transition-colors">
+                <a href="https://wa.me/5531990742171?text=Ol%C3%A1%2C%20vi%20o%20an%C3%BAncio%20e%20quero%20um%20or%C3%A7amento%20de%20troca%20da%20bateria%20do%20meu%20aparelho%20Apple%21%20%23BT25B" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-foreground transition-colors">
                   WhatsApp: (31) 99074-2171
                 </a>
               </li>
@@ -67,22 +67,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a href="#servicos" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  Substituição de Tela iPhone
+                  Substituição de Bateria iPhone
                 </a>
               </li>
               <li>
                 <a href="#servicos" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  Substituição de Vidro
+                  Bateria para iPad
                 </a>
               </li>
               <li>
                 <a href="#servicos" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  Tela para iPad
+                  Bateria Apple Watch
                 </a>
               </li>
               <li>
                 <a href="#servicos" className="text-gray-400 hover:text-primary-foreground transition-colors">
-                  Vidro Apple Watch
+                  Diagnóstico de Bateria
                 </a>
               </li>
               <li>

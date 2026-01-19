@@ -34,7 +34,7 @@ const Header = () => {
   }, []);
 
   const whatsappLink =
-    "https://wa.me/5531990742171?text=Olá! Gostaria de um orçamento para substituição de tela.";
+    "https://wa.me/5531990742171?text=Ol%C3%A1%2C%20vi%20o%20an%C3%BAncio%20e%20quero%20um%20or%C3%A7amento%20de%20troca%20da%20bateria%20do%20meu%20aparelho%20Apple%21%20%23BT25B";
 
   return (
     <header
