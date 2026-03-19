@@ -181,9 +181,9 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // Buscar channelId e contactId da sessão no Helena
+        // Buscar channelId e telefone do contato para enviar resposta
         let msgChannelId = "";
-        let msgContactId = session.helena_contact_id || "";
+        let msgPhone = "";
         try {
           const sessionRes = await fetch(`https://api.helena.run/chat/v2/session/${sessionId}`, {
             headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
@@ -191,14 +191,33 @@ export async function POST(request: NextRequest) {
           if (sessionRes.ok) {
             const sessionData = await sessionRes.json();
             msgChannelId = sessionData.channelId || "";
-            msgContactId = sessionData.contactId || msgContactId;
+            const contactId = sessionData.contactId || session.helena_contact_id || "";
+
+            // Buscar telefone do contato
+            if (contactId) {
+              const contactRes = await fetch(`https://api.helena.run/core/v1/contact/${contactId}`, {
+                headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
+              });
+              if (contactRes.ok) {
+                const contactData = await contactRes.json();
+                // Helena phone format: "+55|31983105055" -> "+5531983105055"
+                const rawPhone = contactData.phonenumber || "";
+                msgPhone = rawPhone.replace("|", "");
+              }
+            }
           }
         } catch (e) {
-          console.error("[Webhook] Failed to fetch session details:", e);
+          console.error("[Webhook] Failed to fetch session/contact details:", e);
         }
 
-        if (!msgChannelId || !msgContactId) {
-          console.log(`[Webhook] Missing channelId=${msgChannelId} or contactId=${msgContactId}, cannot reply`);
+        // Fallback: tentar pegar telefone do payload details.from
+        if (!msgPhone) {
+          const details = content.details as Record<string, string> | null;
+          msgPhone = details?.from || "";
+        }
+
+        if (!msgChannelId || !msgPhone) {
+          console.log(`[Webhook] Missing channelId=${msgChannelId} or phone=${msgPhone}, cannot reply`);
           break;
         }
 
@@ -209,8 +228,8 @@ export async function POST(request: NextRequest) {
           console.log(`[Webhook] Agent response:`, JSON.stringify(response));
 
           if (response.reply) {
-            console.log(`[Webhook] Sending reply via Helena: channel=${msgChannelId}, contact=${msgContactId}`);
-            await sendMessage(msgChannelId, msgContactId, response.reply);
+            console.log(`[Webhook] Sending reply via Helena: channel=${msgChannelId}, phone=${msgPhone}`);
+            await sendMessage(msgChannelId, msgPhone, response.reply);
             console.log(`[Webhook] Agent replied successfully: ${sessionId}`);
           }
         } catch (err) {

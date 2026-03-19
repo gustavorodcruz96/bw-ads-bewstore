@@ -98,15 +98,15 @@ export async function listSessionMessages(sessionId: string) {
 // Mensagens
 export async function sendMessage(
   channelId: string,
-  contactId: string,
+  phone: string,
   text: string
 ) {
   return helenaFetch("/chat/v1/message/send", {
     method: "POST",
     body: JSON.stringify({
       channelId,
-      contactId,
-      text,
+      to: phone,
+      body: { text },
     }),
   });
 }
