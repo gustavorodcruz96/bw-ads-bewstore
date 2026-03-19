@@ -339,7 +339,7 @@ export default function LandingPage() {
         rel="noopener noreferrer"
         aria-label="Conversar com a Bew Store pelo WhatsApp"
         onClick={handleWhatsAppClick}
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E] shadow-lg shadow-green-900/40 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-green-800/50"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] shadow-lg shadow-black/30 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:bg-[#22c55e]"
       >
         <WhatsAppIcon className="w-7 h-7 md:w-8 md:h-8 text-white" />
       </a>
