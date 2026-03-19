@@ -27,10 +27,12 @@ export async function POST(request: NextRequest) {
         break;
 
       case "CONTACT_UPDATE":
+      case "CONTACT_TAG_UPDATE":
         await handleContactUpdate(content);
         break;
 
-      case "SESSION_UPDATED":
+      case "SESSION_UPDATE":
+      case "SESSION_COMPLETE":
         await handleSessionUpdate(content);
         break;
 
