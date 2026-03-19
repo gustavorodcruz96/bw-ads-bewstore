@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
             });
             if (contactRes.ok) {
               const contactData = await contactRes.json();
-              phone = contactData.phonenumber || contactData.phoneNumber || "";
+              const rawPhone = contactData.phoneNumber || contactData.phonenumber || "";
+              phone = rawPhone.replace("|", "");
               name = contactData.name || "";
             }
           } catch (e) {
@@ -200,9 +201,10 @@ export async function POST(request: NextRequest) {
               });
               if (contactRes.ok) {
                 const contactData = await contactRes.json();
-                // Helena phone format: "+55|31983105055" -> "+5531983105055"
-                const rawPhone = contactData.phonenumber || "";
+                // Helena phone: "phoneNumber" (camelCase), format: "+55|19981780538"
+                const rawPhone = contactData.phoneNumber || contactData.phonenumber || contactData.phoneNumberFormatted || "";
                 msgPhone = rawPhone.replace("|", "");
+                console.log(`[Webhook] Contact phone resolved: ${msgPhone}`);
               }
             }
           }
