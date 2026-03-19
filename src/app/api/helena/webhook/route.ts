@@ -117,14 +117,14 @@ async function handleMessageReceived(content: Record<string, unknown>) {
     .eq("helena_session_id", sessionId)
     .single();
 
-  // Só atender leads que vieram do TikTok Ads
-  if (!session?.utm_source?.toLowerCase().includes("tiktok")) {
-    console.log(`[Helena Webhook] Session ${sessionId} not from TikTok (source: ${session?.utm_source}), skipping agent`);
+  // Só atender conversas que vieram da LP (tem UTM registrado no Supabase)
+  if (!session) {
+    console.log(`[Helena Webhook] Session ${sessionId} not from LP, skipping agent`);
     return;
   }
 
-  // Se já está em negociação ou venda, não interferir (humano atendendo)
-  if (session?.status === "negotiation" || session?.status === "sale" || session?.status === "completed") {
+  // Se já está em negociação, venda ou concluído, não interferir (humano atendendo)
+  if (session.status === "negotiation" || session.status === "sale" || session.status === "completed") {
     console.log(`[Helena Webhook] Session ${sessionId} already handled by human, skipping agent`);
     return;
   }
