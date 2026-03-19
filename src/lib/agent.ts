@@ -41,7 +41,8 @@ FORMATO DE RESPOSTA (JSON):
   "extractedInfo": {
     "modeloDesejado": "se mencionou ou null",
     "orcamento": "se mencionou ou null",
-    "urgencia": "se mencionou ou null"
+    "urgencia": "se mencionou ou null",
+    "nomeCliente": "se o cliente mencionou o próprio nome ou null"
   }
 }
 - shouldTransfer: true quando lead qualificado (tem modelo + orçamento + urgência) ou pediu atendimento humano
@@ -55,6 +56,7 @@ type AgentResponse = {
     modeloDesejado?: string;
     orcamento?: string;
     urgencia?: string;
+    nomeCliente?: string;
   };
 };
 
@@ -138,6 +140,22 @@ export async function processMessage(
     },
   ]);
 
+  // Salvar informações extraídas na sessão
+  const extractedUpdates: Record<string, string> = {};
+  if (parsed.extractedInfo?.modeloDesejado) {
+    extractedUpdates.modelo_desejado = parsed.extractedInfo.modeloDesejado;
+    extractedUpdates.sale_product = parsed.extractedInfo.modeloDesejado;
+  }
+  if (parsed.extractedInfo?.orcamento) {
+    extractedUpdates.orcamento = parsed.extractedInfo.orcamento;
+  }
+  if (parsed.extractedInfo?.urgencia) {
+    extractedUpdates.urgencia = parsed.extractedInfo.urgencia;
+  }
+  if (parsed.extractedInfo?.nomeCliente) {
+    extractedUpdates.name = parsed.extractedInfo.nomeCliente;
+  }
+
   // Atualizar status do lead no pipeline
   if (parsed.shouldTransfer || parsed.leadQualified) {
     await supabase
@@ -146,6 +164,7 @@ export async function processMessage(
         status: "negotiation",
         agent_handled: true,
         updated_at: new Date().toISOString(),
+        ...extractedUpdates,
       })
       .eq("helena_session_id", helenaSessionId);
   } else {
@@ -155,6 +174,7 @@ export async function processMessage(
         status: "in_progress",
         agent_handled: true,
         updated_at: new Date().toISOString(),
+        ...extractedUpdates,
       })
       .eq("helena_session_id", helenaSessionId);
   }

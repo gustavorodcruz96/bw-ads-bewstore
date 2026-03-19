@@ -116,11 +116,15 @@ export async function POST(request: NextRequest) {
         const contactId = String(content.id || "");
         const phone = String(content.phonenumber || "");
 
-        const hasVenda = tags.some(
-          (t) =>
-            t.name?.toLowerCase().includes("venda-confirmada") ||
-            t.name?.toLowerCase().includes("venda confirmada")
-        );
+        const hasVenda = tags.some((t) => {
+          const tagName = t.name?.toLowerCase() || "";
+          return (
+            tagName.includes("venda de aparelho") ||
+            tagName.includes("venda26") ||
+            tagName.includes("venda-confirmada") ||
+            tagName.includes("venda confirmada")
+          );
+        });
 
         if (hasVenda) {
           console.log(`[Webhook] VENDA! Contact: ${contactId}`);
