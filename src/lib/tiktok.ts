@@ -53,7 +53,7 @@ export async function sendTikTokEvent(params: TikTokEventParams) {
   const payload: Record<string, unknown> = {
     event: params.event,
     event_id: params.event_id,
-    timestamp: params.timestamp || new Date().toISOString(),
+    event_time: Math.floor(new Date(params.timestamp || new Date().toISOString()).getTime() / 1000),
   };
 
   if (params.context) {
