@@ -14,227 +14,146 @@ export async function POST(request: NextRequest) {
   try {
     const payload: WebhookPayload = await request.json();
     const { eventType, content } = payload;
+    const supabase = createServiceClient();
 
-    console.log(`[Helena Webhook] Event: ${eventType}`);
-
-    // Teste direto de insert
-    if (eventType === "SESSION_NEW" && content.id) {
-      const supabase = createServiceClient();
-      const { data: testData, error: testErr } = await supabase.from("sessions").insert({
-        helena_session_id: String(content.id),
-        phone: String(content.phonenumber || ""),
-        name: String(content.name || ""),
-        utm_source: (content.utm as any)?.utm_source || null,
-        utm_medium: (content.utm as any)?.utm_medium || null,
-        utm_campaign: (content.utm as any)?.utm_campaign || null,
-        status: "new",
-      }).select();
-      console.log("[Helena Webhook] DIRECT INSERT:", testErr ? JSON.stringify(testErr) : JSON.stringify(testData));
-    }
+    console.log(`[Webhook] ${eventType}`);
 
     switch (eventType) {
-      case "SESSION_NEW":
-        // handleNewSession already ran above via direct insert
-        break;
+      case "SESSION_NEW": {
+        const sessionId = String(content.id || "");
+        const phone = String(content.phonenumber || "");
+        const name = String(content.name || "");
+        const utm = content.utm as Record<string, string> | null;
 
-      case "MESSAGE_RECEIVED":
-        await handleMessageReceived(content);
+        // Salvar sessão no Supabase
+        const { error } = await supabase.from("sessions").insert({
+          helena_session_id: sessionId,
+          phone: phone || null,
+          name: name || null,
+          utm_source: utm?.utm_source || null,
+          utm_medium: utm?.utm_medium || null,
+          utm_campaign: utm?.utm_campaign || null,
+          utm_content: utm?.utm_content || null,
+          ttclid: utm?.ttclid || null,
+          status: "new",
+        });
+
+        if (error) {
+          console.error("[Webhook] Session insert error:", error.message);
+        } else {
+          console.log(`[Webhook] Session saved: ${sessionId}`);
+        }
+
+        // TikTok Contact event (fire-and-forget)
+        sendTikTokEvent({
+          event: "Contact",
+          event_id: `contact-${sessionId}`,
+          properties: { content_type: "product", content_id: "whatsapp-contact" },
+          user: { phone_number: phone, external_id: sessionId, ttclid: utm?.ttclid },
+        }).catch(() => {});
+
         break;
+      }
+
+      case "MESSAGE_RECEIVED": {
+        const direction = content.direction as string;
+        if (direction !== "INCOMING") break;
+
+        const agentOn = await isAgentEnabled();
+        if (!agentOn) break;
+
+        const sessionId = content.sessionId as string;
+        const channelId = content.channelId as string;
+        const contactId = content.contactId as string;
+        const text = String(content.text || "");
+        const msgType = String(content.type || "text");
+
+        // Verificar se sessão existe no Supabase (veio da LP)
+        const { data: session } = await supabase
+          .from("sessions")
+          .select("status")
+          .eq("helena_session_id", sessionId)
+          .single();
+
+        if (!session) {
+          console.log(`[Webhook] Session ${sessionId} not from LP, skipping`);
+          break;
+        }
+
+        if (["negotiation", "sale", "completed"].includes(session.status)) {
+          console.log(`[Webhook] Session ${sessionId} handled by human, skipping`);
+          break;
+        }
+
+        try {
+          const response = await processMessage(sessionId, text, msgType);
+
+          if (response.reply) {
+            await sendMessage(channelId, contactId, response.reply);
+            console.log(`[Webhook] Agent replied: ${sessionId}`);
+          }
+        } catch (err) {
+          console.error("[Webhook] Agent error:", err);
+        }
+
+        break;
+      }
 
       case "CONTACT_UPDATE":
-      case "CONTACT_TAG_UPDATE":
-        await handleContactUpdate(content);
+      case "CONTACT_TAG_UPDATE": {
+        const tags = (content.tags as Array<{ name: string }>) || [];
+        const contactId = String(content.id || "");
+        const phone = String(content.phonenumber || "");
+
+        const hasVenda = tags.some(
+          (t) =>
+            t.name?.toLowerCase().includes("venda-confirmada") ||
+            t.name?.toLowerCase().includes("venda confirmada")
+        );
+
+        if (hasVenda) {
+          console.log(`[Webhook] VENDA! Contact: ${contactId}`);
+
+          await supabase
+            .from("sessions")
+            .update({ status: "sale", updated_at: new Date().toISOString() })
+            .eq("helena_session_id", contactId);
+
+          sendTikTokEvent({
+            event: "CompletePayment",
+            event_id: `sale-${contactId}-${Date.now()}`,
+            properties: {
+              currency: "BRL",
+              value: 0,
+              content_type: "product",
+              contents: [{ content_id: "iphone-seminovo", content_name: "iPhone Seminovo" }],
+            },
+            user: { phone_number: phone, external_id: contactId },
+          }).catch(() => {});
+        }
+
         break;
+      }
 
       case "SESSION_UPDATE":
-      case "SESSION_COMPLETE":
-        await handleSessionUpdate(content);
-        break;
+      case "SESSION_COMPLETE": {
+        const status = content.status as string;
+        const sessionId = String(content.id || "");
 
-      default:
-        console.log(`[Helena Webhook] Unhandled event: ${eventType}`);
+        if (status === "COMPLETED") {
+          await supabase
+            .from("sessions")
+            .update({ status: "completed", updated_at: new Date().toISOString() })
+            .eq("helena_session_id", sessionId);
+        }
+
+        break;
+      }
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error("[Helena Webhook] Error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    console.error("[Webhook] Error:", error);
+    return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }
-}
-
-async function handleNewSession(content: Record<string, unknown>) {
-  try {
-    const sessionId = content.id as string;
-    const contactPhone = content.phonenumber as string;
-    const contactName = (content.name as string) || null;
-    const utm = content.utm as Record<string, string> | null;
-
-    console.log(`[Helena Webhook] handleNewSession START - id: ${sessionId}, phone: ${contactPhone}`);
-
-    // Salvar no Supabase
-    const supabase = createServiceClient();
-    const { data, error: dbError } = await supabase.from("sessions").insert({
-      helena_session_id: sessionId,
-      phone: contactPhone || null,
-      name: contactName,
-      utm_source: utm?.utm_source || null,
-      utm_medium: utm?.utm_medium || null,
-      utm_campaign: utm?.utm_campaign || null,
-      utm_content: utm?.utm_content || null,
-      ttclid: utm?.ttclid || null,
-      status: "new",
-    }).select();
-
-    if (dbError) {
-      console.error("[Helena Webhook] DB ERROR:", JSON.stringify(dbError));
-    } else {
-      console.log("[Helena Webhook] DB SUCCESS:", JSON.stringify(data));
-    }
-
-    // TikTok event (non-blocking, fire-and-forget)
-    sendTikTokEvent({
-      event: "Contact",
-      event_id: `contact-${sessionId}`,
-      properties: { content_type: "product", content_id: "whatsapp-contact" },
-      user: { phone_number: contactPhone, external_id: sessionId, ttclid: utm?.ttclid },
-    }).catch(() => {});
-  } catch (err) {
-    console.error("[Helena Webhook] handleNewSession EXCEPTION:", err);
-  }
-}
-
-async function handleMessageReceived(content: Record<string, unknown>) {
-  // Só processa mensagens do cliente (não do atendente)
-  const direction = content.direction as string;
-  if (direction !== "INCOMING") return;
-
-  const agentEnabled = await isAgentEnabled();
-  if (!agentEnabled) {
-    console.log("[Helena Webhook] Agent disabled, skipping");
-    return;
-  }
-
-  const sessionId = content.sessionId as string;
-  const channelId = content.channelId as string;
-  const contactId = content.contactId as string;
-  const messageText = (content.text as string) || "";
-  const messageType = (content.type as string) || "text";
-
-  // Verificar sessão no Supabase
-  const supabase = createServiceClient();
-  const { data: session } = await supabase
-    .from("sessions")
-    .select("status, utm_source")
-    .eq("helena_session_id", sessionId)
-    .single();
-
-  // Só atender conversas que vieram da LP (tem UTM registrado no Supabase)
-  if (!session) {
-    console.log(`[Helena Webhook] Session ${sessionId} not from LP, skipping agent`);
-    return;
-  }
-
-  // Se já está em negociação, venda ou concluído, não interferir (humano atendendo)
-  if (session.status === "negotiation" || session.status === "sale" || session.status === "completed") {
-    console.log(`[Helena Webhook] Session ${sessionId} already handled by human, skipping agent`);
-    return;
-  }
-
-  console.log(`[Helena Webhook] Processing message with agent: ${sessionId}`);
-
-  try {
-    // Processar com IA
-    const agentResponse = await processMessage(
-      sessionId,
-      messageText,
-      messageType
-    );
-
-    // Responder via Helena API
-    if (agentResponse.reply) {
-      await sendMessage(channelId, contactId, agentResponse.reply);
-      console.log(`[Helena Webhook] Agent replied to session ${sessionId}`);
-    }
-
-    // Se precisa transferir, atualizar status e parar de responder
-    if (agentResponse.shouldTransfer) {
-      console.log(`[Helena Webhook] Lead qualified, transferring session ${sessionId}`);
-      // O status já foi atualizado para "negotiation" pelo agent.ts
-      // Aqui poderia transferir para um departamento específico via Helena API
-    }
-  } catch (agentError) {
-    console.error("[Helena Webhook] Agent processing failed:", agentError);
-    // Falha silenciosa - não responder nada é melhor que responder errado
-  }
-}
-
-async function handleContactUpdate(content: Record<string, unknown>) {
-  const tags = (content.tags as Array<{ name: string }>) || [];
-  const contactId = content.id as string;
-  const phone = content.phonenumber as string;
-
-  const hasVendaTag = tags.some(
-    (tag) =>
-      tag.name?.toLowerCase().includes("venda-confirmada") ||
-      tag.name?.toLowerCase().includes("venda confirmada")
-  );
-
-  if (hasVendaTag) {
-    console.log(`[Helena Webhook] VENDA CONFIRMADA! Contact: ${contactId}`);
-    await sendConversionEvent(contactId, phone);
-
-    try {
-      const supabase = createServiceClient();
-      await supabase
-        .from("sessions")
-        .update({ status: "sale", updated_at: new Date().toISOString() })
-        .eq("helena_session_id", contactId);
-    } catch (dbError) {
-      console.error("[Helena Webhook] Failed to update session:", dbError);
-    }
-  }
-}
-
-async function handleSessionUpdate(content: Record<string, unknown>) {
-  const status = content.status as string;
-  const sessionId = content.id as string;
-
-  if (status === "COMPLETED") {
-    try {
-      const supabase = createServiceClient();
-      await supabase
-        .from("sessions")
-        .update({ status: "completed", updated_at: new Date().toISOString() })
-        .eq("helena_session_id", sessionId);
-    } catch (dbError) {
-      console.error("[Helena Webhook] Failed to update session:", dbError);
-    }
-  }
-}
-
-async function sendConversionEvent(contactId: string, phone: string) {
-  const result = await sendTikTokEvent({
-    event: "CompletePayment",
-    event_id: `sale-${contactId}-${Date.now()}`,
-    properties: {
-      currency: "BRL",
-      value: 0,
-      content_type: "product",
-      contents: [
-        {
-          content_id: "iphone-seminovo",
-          content_name: "iPhone Seminovo",
-        },
-      ],
-    },
-    user: {
-      phone_number: phone,
-      external_id: contactId,
-    },
-  });
-
-  console.log("[Helena Webhook] CompletePayment sent to TikTok:", result);
 }
