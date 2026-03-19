@@ -182,47 +182,6 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // Buscar channelId e telefone do contato para enviar resposta
-        let msgChannelId = "";
-        let msgPhone = "";
-        try {
-          const sessionRes = await fetch(`https://api.helena.run/chat/v2/session/${sessionId}`, {
-            headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
-          });
-          if (sessionRes.ok) {
-            const sessionData = await sessionRes.json();
-            msgChannelId = sessionData.channelId || "";
-            const contactId = sessionData.contactId || session.helena_contact_id || "";
-
-            // Buscar telefone do contato
-            if (contactId) {
-              const contactRes = await fetch(`https://api.helena.run/core/v1/contact/${contactId}`, {
-                headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
-              });
-              if (contactRes.ok) {
-                const contactData = await contactRes.json();
-                // Helena phone: "phoneNumber" (camelCase), format: "+55|19981780538"
-                const rawPhone = contactData.phoneNumber || contactData.phonenumber || contactData.phoneNumberFormatted || "";
-                msgPhone = rawPhone.replace("|", "");
-                console.log(`[Webhook] Contact phone resolved: ${msgPhone}`);
-              }
-            }
-          }
-        } catch (e) {
-          console.error("[Webhook] Failed to fetch session/contact details:", e);
-        }
-
-        // Fallback: tentar pegar telefone do payload details.from
-        if (!msgPhone) {
-          const details = content.details as Record<string, string> | null;
-          msgPhone = details?.from || "";
-        }
-
-        if (!msgChannelId || !msgPhone) {
-          console.log(`[Webhook] Missing channelId=${msgChannelId} or phone=${msgPhone}, cannot reply`);
-          break;
-        }
-
         console.log(`[Webhook] Processing message with agent...`);
 
         try {
@@ -230,8 +189,8 @@ export async function POST(request: NextRequest) {
           console.log(`[Webhook] Agent response:`, JSON.stringify(response));
 
           if (response.reply) {
-            console.log(`[Webhook] Sending reply via Helena: channel=${msgChannelId}, phone=${msgPhone}`);
-            await sendMessage(msgChannelId, msgPhone, response.reply);
+            console.log(`[Webhook] Sending reply to session: ${sessionId}`);
+            await sendMessage(sessionId, response.reply);
             console.log(`[Webhook] Agent replied successfully: ${sessionId}`);
           }
         } catch (err) {

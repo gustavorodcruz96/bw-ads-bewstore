@@ -95,19 +95,14 @@ export async function listSessionMessages(sessionId: string) {
   return helenaFetch(`/chat/v1/session/${sessionId}/message`);
 }
 
-// Mensagens
+// Mensagens - enviar dentro de uma sessão
 export async function sendMessage(
-  channelId: string,
-  phone: string,
+  sessionId: string,
   text: string
 ) {
-  return helenaFetch("/chat/v1/message/send", {
+  return helenaFetch(`/chat/v1/session/${sessionId}/message`, {
     method: "POST",
-    body: JSON.stringify({
-      channelId,
-      to: phone,
-      body: { text },
-    }),
+    body: JSON.stringify({ text }),
   });
 }
 
