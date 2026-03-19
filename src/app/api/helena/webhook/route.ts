@@ -16,25 +16,50 @@ export async function POST(request: NextRequest) {
     const { eventType, content } = payload;
     const supabase = createServiceClient();
 
-    console.log(`[Webhook] ${eventType}`);
+    // LOG COMPLETO para debug - remover após confirmar estrutura
+    console.log(`[Webhook] ${eventType} PAYLOAD:`, JSON.stringify(payload, null, 2));
 
     switch (eventType) {
       case "SESSION_NEW": {
-        const sessionId = String(content.id || "");
-        const phone = String(content.phonenumber || "");
-        const name = String(content.name || "");
-        const utm = content.utm as Record<string, string> | null;
+        // Tentar múltiplos formatos de campos do Helena
+        const sessionId = String(content.id || content.sessionId || content.session_id || "");
+        const phone = String(
+          content.phonenumber || content.phoneNumber || content.phone ||
+          (content.contact as Record<string, unknown>)?.phonenumber ||
+          (content.contact as Record<string, unknown>)?.phoneNumber ||
+          ""
+        );
+        const name = String(
+          content.name ||
+          (content.contact as Record<string, unknown>)?.name ||
+          ""
+        );
+
+        // UTM pode estar em content.utm, content.utmParams, content.metadata, ou no nível root
+        const utm = (
+          content.utm || content.utmParams || content.utm_params ||
+          content.metadata || content.tracking || {}
+        ) as Record<string, string>;
+
+        // Também verificar se UTMs estão no nível root do content
+        const utmSource = utm?.utm_source || utm?.utmSource || content.utm_source as string || null;
+        const utmMedium = utm?.utm_medium || utm?.utmMedium || content.utm_medium as string || null;
+        const utmCampaign = utm?.utm_campaign || utm?.utmCampaign || content.utm_campaign as string || null;
+        const utmContent = utm?.utm_content || utm?.utmContent || content.utm_content as string || null;
+        const ttclid = utm?.ttclid || content.ttclid as string || null;
+
+        console.log(`[Webhook] SESSION_NEW parsed: sessionId=${sessionId}, phone=${phone}, utmSource=${utmSource}`);
 
         // Salvar sessão no Supabase
         const { error } = await supabase.from("sessions").insert({
           helena_session_id: sessionId,
           phone: phone || null,
           name: name || null,
-          utm_source: utm?.utm_source || null,
-          utm_medium: utm?.utm_medium || null,
-          utm_campaign: utm?.utm_campaign || null,
-          utm_content: utm?.utm_content || null,
-          ttclid: utm?.ttclid || null,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          utm_content: utmContent,
+          ttclid: ttclid,
           status: "new",
         });
 
@@ -44,8 +69,7 @@ export async function POST(request: NextRequest) {
           console.log(`[Webhook] Session saved: ${sessionId}`);
 
           // Transferir sessão para dept Varejo (tira do chatbot automático)
-          // Só se veio da LP (tem UTM)
-          if (utm?.utm_source) {
+          if (utmSource) {
             try {
               await transferSession(sessionId, "73089578-a962-42da-9767-fbbf4ee81075");
               console.log(`[Webhook] Session transferred to Varejo: ${sessionId}`);
@@ -60,24 +84,35 @@ export async function POST(request: NextRequest) {
           event: "Contact",
           event_id: `contact-${sessionId}`,
           properties: { content_type: "product", content_id: "whatsapp-contact" },
-          user: { phone_number: phone, external_id: sessionId, ttclid: utm?.ttclid },
+          user: { phone_number: phone, external_id: sessionId, ttclid: ttclid || undefined },
         }).catch(() => {});
 
         break;
       }
 
       case "MESSAGE_RECEIVED": {
-        const direction = content.direction as string;
-        if (direction !== "INCOMING") break;
+        const direction = String(content.direction || content.type || "");
+        console.log(`[Webhook] MESSAGE direction=${direction}`);
+
+        if (direction !== "INCOMING" && direction !== "incoming") break;
 
         const agentOn = await isAgentEnabled();
+        console.log(`[Webhook] Agent enabled: ${agentOn}`);
         if (!agentOn) break;
 
-        const sessionId = content.sessionId as string;
-        const channelId = content.channelId as string;
-        const contactId = content.contactId as string;
-        const text = String(content.text || "");
-        const msgType = String(content.type || "text");
+        // Tentar múltiplos formatos de campo
+        const sessionId = String(content.sessionId || content.session_id || content.session?.id || "");
+        const channelId = String(content.channelId || content.channel_id || content.channel?.id || "");
+        const contactId = String(content.contactId || content.contact_id || content.contact?.id || "");
+        const text = String(content.text || content.body || content.message || "");
+        const msgType = String(content.type || content.messageType || "text");
+
+        console.log(`[Webhook] MSG parsed: session=${sessionId}, channel=${channelId}, contact=${contactId}, text="${text.substring(0, 50)}"`);
+
+        if (!sessionId) {
+          console.log("[Webhook] No sessionId found, skipping");
+          break;
+        }
 
         // Verificar se sessão existe no Supabase (veio da LP)
         const { data: session } = await supabase
@@ -86,25 +121,31 @@ export async function POST(request: NextRequest) {
           .eq("helena_session_id", sessionId)
           .single();
 
+        console.log(`[Webhook] Session lookup result:`, session);
+
         if (!session) {
-          console.log(`[Webhook] Session ${sessionId} not from LP, skipping`);
+          console.log(`[Webhook] Session ${sessionId} not in Supabase, skipping`);
           break;
         }
 
         if (["negotiation", "sale", "completed"].includes(session.status)) {
-          console.log(`[Webhook] Session ${sessionId} handled by human, skipping`);
+          console.log(`[Webhook] Session ${sessionId} status=${session.status}, handled by human, skipping`);
           break;
         }
 
+        console.log(`[Webhook] Processing message with agent...`);
+
         try {
           const response = await processMessage(sessionId, text, msgType);
+          console.log(`[Webhook] Agent response:`, JSON.stringify(response));
 
           if (response.reply) {
+            console.log(`[Webhook] Sending reply via Helena: channel=${channelId}, contact=${contactId}`);
             await sendMessage(channelId, contactId, response.reply);
-            console.log(`[Webhook] Agent replied: ${sessionId}`);
+            console.log(`[Webhook] Agent replied successfully: ${sessionId}`);
           }
         } catch (err) {
-          console.error("[Webhook] Agent error:", err);
+          console.error("[Webhook] Agent error:", err instanceof Error ? err.message : err);
         }
 
         break;
