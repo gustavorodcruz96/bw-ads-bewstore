@@ -13,8 +13,12 @@ import {
   Clock,
   Award,
   Smartphone,
-  MessageCircle,
 } from "lucide-react";
+
+// Wrapper para usar WhatsAppIcon como ícone de benefit
+function WhatsAppBenefitIcon({ className }: { className?: string }) {
+  return <img src="/whatsapp.svg" alt="WhatsApp" className={`${className} invert brightness-200`} />;
+}
 
 const BENEFITS = [
   {
@@ -28,8 +32,8 @@ const BENEFITS = [
     description: "IMEI limpo, sem bloqueio, pronto para uso",
   },
   {
-    icon: MessageCircle,
-    title: "Atendimento especializado",
+    icon: WhatsAppBenefitIcon,
+    title: "Atendimento via WhatsApp",
     description: "Nossos consultores ajudam você a escolher o iPhone ideal",
   },
   {
@@ -330,7 +334,7 @@ export default function LandingPage() {
         rel="noopener noreferrer"
         aria-label="Conversar com a Bew Store pelo WhatsApp"
         onClick={handleWhatsAppClick}
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] hover:bg-[#20bd5a] shadow-lg shadow-green-500/30 flex items-center justify-center transition-all duration-200 hover:scale-110"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E] shadow-lg shadow-green-900/40 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-green-800/50"
       >
         <WhatsAppIcon className="w-7 h-7 md:w-8 md:h-8 text-white" />
       </a>
