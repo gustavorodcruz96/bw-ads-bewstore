@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendTikTokEvent } from "@/lib/tiktok";
 import { createServiceClient } from "@/lib/supabase";
 import { processMessage, isAgentEnabled } from "@/lib/agent";
-import { sendMessage } from "@/lib/helena";
+import { sendMessage, transferSession } from "@/lib/helena";
 
 type WebhookPayload = {
   eventType: string;
@@ -42,6 +42,17 @@ export async function POST(request: NextRequest) {
           console.error("[Webhook] Session insert error:", error.message);
         } else {
           console.log(`[Webhook] Session saved: ${sessionId}`);
+
+          // Transferir sessão para dept Varejo (tira do chatbot automático)
+          // Só se veio da LP (tem UTM)
+          if (utm?.utm_source) {
+            try {
+              await transferSession(sessionId, "73089578-a962-42da-9767-fbbf4ee81075");
+              console.log(`[Webhook] Session transferred to Varejo: ${sessionId}`);
+            } catch (e) {
+              console.error("[Webhook] Transfer failed:", e);
+            }
+          }
         }
 
         // TikTok Contact event (fire-and-forget)

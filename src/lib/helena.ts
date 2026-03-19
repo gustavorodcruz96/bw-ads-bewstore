@@ -69,6 +69,28 @@ export async function getSession(sessionId: string) {
   return helenaFetch(`/chat/v2/session/${sessionId}`);
 }
 
+// Transferir sessão para departamento (tira do chatbot)
+export async function transferSession(
+  sessionId: string,
+  departmentId: string
+) {
+  return helenaFetch(`/chat/v1/session/${sessionId}/transfer`, {
+    method: "PUT",
+    body: JSON.stringify({ departmentId }),
+  });
+}
+
+// Alterar sessão (pode pausar chatbot)
+export async function updateSession(
+  sessionId: string,
+  data: Record<string, unknown>
+) {
+  return helenaFetch(`/chat/v2/session/${sessionId}/partial`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
 export async function listSessionMessages(sessionId: string) {
   return helenaFetch(`/chat/v1/session/${sessionId}/message`);
 }
