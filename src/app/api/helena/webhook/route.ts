@@ -56,24 +56,9 @@ async function handleNewSession(content: Record<string, unknown>) {
   const contactName = (content.name as string) || null;
   const utm = content.utm as Record<string, string> | null;
 
-  console.log(`[Helena Webhook] New session: ${sessionId}, UTM:`, utm);
+  console.log(`[Helena Webhook] New session: ${sessionId}, phone: ${contactPhone}, UTM:`, utm);
 
-  // Enviar evento Contact ao TikTok
-  await sendTikTokEvent({
-    event: "Contact",
-    event_id: `contact-${sessionId}`,
-    properties: {
-      content_type: "product",
-      content_name: "WhatsApp Contact - iPhone Seminovo",
-    },
-    user: {
-      phone_number: contactPhone,
-      external_id: sessionId,
-      ttclid: utm?.ttclid,
-    },
-  });
-
-  // Salvar no Supabase
+  // 1. Salvar no Supabase PRIMEIRO (prioridade)
   const supabase = createServiceClient();
   const { error: dbError } = await supabase.from("sessions").insert({
     helena_session_id: sessionId,
@@ -88,10 +73,26 @@ async function handleNewSession(content: Record<string, unknown>) {
   });
 
   if (dbError) {
-    console.error("[Helena Webhook] DB insert error:", dbError.message, dbError.code);
+    console.error("[Helena Webhook] DB insert error:", dbError.message, dbError.code, dbError.details);
   } else {
     console.log(`[Helena Webhook] Session saved: ${sessionId}`);
   }
+
+  // 2. Enviar evento Contact ao TikTok (non-blocking)
+  sendTikTokEvent({
+    event: "Contact",
+    event_id: `contact-${sessionId}`,
+    properties: {
+      content_type: "product",
+      content_id: "whatsapp-contact",
+      content_name: "WhatsApp Contact - iPhone Seminovo",
+    },
+    user: {
+      phone_number: contactPhone,
+      external_id: sessionId,
+      ttclid: utm?.ttclid,
+    },
+  }).catch((err) => console.error("[Helena Webhook] TikTok event failed:", err));
 }
 
 async function handleMessageReceived(content: Record<string, unknown>) {
