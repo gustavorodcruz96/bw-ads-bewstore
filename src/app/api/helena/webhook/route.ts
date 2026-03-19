@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const payload: WebhookPayload = await request.json();
     const { eventType, content } = payload;
 
-    console.log(`[Helena Webhook] Event: ${eventType}`);
+    console.log(`[Helena Webhook] Event: ${eventType}`, JSON.stringify(content).substring(0, 500));
 
     switch (eventType) {
       case "SESSION_NEW":
@@ -74,21 +74,23 @@ async function handleNewSession(content: Record<string, unknown>) {
   });
 
   // Salvar no Supabase
-  try {
-    const supabase = createServiceClient();
-    await supabase.from("sessions").insert({
-      helena_session_id: sessionId,
-      phone: contactPhone || null,
-      name: contactName,
-      utm_source: utm?.utm_source || null,
-      utm_medium: utm?.utm_medium || null,
-      utm_campaign: utm?.utm_campaign || null,
-      utm_content: utm?.utm_content || null,
-      ttclid: utm?.ttclid || null,
-      status: "new",
-    });
-  } catch (dbError) {
-    console.error("[Helena Webhook] Failed to save session:", dbError);
+  const supabase = createServiceClient();
+  const { error: dbError } = await supabase.from("sessions").insert({
+    helena_session_id: sessionId,
+    phone: contactPhone || null,
+    name: contactName,
+    utm_source: utm?.utm_source || null,
+    utm_medium: utm?.utm_medium || null,
+    utm_campaign: utm?.utm_campaign || null,
+    utm_content: utm?.utm_content || null,
+    ttclid: utm?.ttclid || null,
+    status: "new",
+  });
+
+  if (dbError) {
+    console.error("[Helena Webhook] DB insert error:", dbError.message, dbError.code);
+  } else {
+    console.log(`[Helena Webhook] Session saved: ${sessionId}`);
   }
 }
 
