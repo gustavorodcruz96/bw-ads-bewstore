@@ -21,38 +21,44 @@ export async function POST(request: NextRequest) {
 
     switch (eventType) {
       case "SESSION_NEW": {
-        // Tentar múltiplos formatos de campos do Helena
-        const sessionId = String(content.id || content.sessionId || content.session_id || "");
-        const phone = String(
-          content.phonenumber || content.phoneNumber || content.phone ||
-          (content.contact as Record<string, unknown>)?.phonenumber ||
-          (content.contact as Record<string, unknown>)?.phoneNumber ||
-          ""
-        );
-        const name = String(
-          content.name ||
-          (content.contact as Record<string, unknown>)?.name ||
-          ""
-        );
+        // Helena SESSION_NEW fields: id, contactId, channelId, departmentId, status, utm, etc.
+        const sessionId = String(content.id || "");
+        const helenaContactId = String(content.contactId || "");
+        const helenaChannelId = String(content.channelId || "");
 
-        // UTM pode estar em content.utm, content.utmParams, content.metadata, ou no nível root
-        const utm = (
-          content.utm || content.utmParams || content.utm_params ||
-          content.metadata || content.tracking || {}
-        ) as Record<string, string>;
+        // Buscar dados do contato via API para pegar telefone e nome
+        let phone = "";
+        let name = "";
+        if (helenaContactId) {
+          try {
+            const contactRes = await fetch(`https://api.helena.run/core/v1/contact/${helenaContactId}`, {
+              headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
+            });
+            if (contactRes.ok) {
+              const contactData = await contactRes.json();
+              phone = contactData.phonenumber || contactData.phoneNumber || "";
+              name = contactData.name || "";
+            }
+          } catch (e) {
+            console.error("[Webhook] Failed to fetch contact:", e);
+          }
+        }
 
-        // Também verificar se UTMs estão no nível root do content
-        const utmSource = utm?.utm_source || utm?.utmSource || content.utm_source as string || null;
-        const utmMedium = utm?.utm_medium || utm?.utmMedium || content.utm_medium as string || null;
-        const utmCampaign = utm?.utm_campaign || utm?.utmCampaign || content.utm_campaign as string || null;
-        const utmContent = utm?.utm_content || utm?.utmContent || content.utm_content as string || null;
-        const ttclid = utm?.ttclid || content.ttclid as string || null;
+        // Helena UTM structure: { source, medium, campaign, content, clid, term, headline, referralUrl }
+        const utm = (content.utm || {}) as Record<string, string>;
+
+        const utmSource = utm?.source || utm?.utm_source || null;
+        const utmMedium = utm?.medium || utm?.utm_medium || null;
+        const utmCampaign = utm?.campaign || utm?.utm_campaign || null;
+        const utmContent = utm?.content || utm?.utm_content || null;
+        const ttclid = utm?.clid || utm?.ttclid || null;
 
         console.log(`[Webhook] SESSION_NEW parsed: sessionId=${sessionId}, phone=${phone}, utmSource=${utmSource}`);
 
         // Salvar sessão no Supabase
         const { error } = await supabase.from("sessions").insert({
           helena_session_id: sessionId,
+          helena_contact_id: helenaContactId || null,
           phone: phone || null,
           name: name || null,
           utm_source: utmSource,
@@ -91,23 +97,25 @@ export async function POST(request: NextRequest) {
       }
 
       case "MESSAGE_RECEIVED": {
-        const direction = String(content.direction || content.type || "");
-        console.log(`[Webhook] MESSAGE direction=${direction}`);
+        // Helena direction: FROM_HUB = do cliente, TO_HUB = do agente/bot
+        const direction = String(content.direction || "");
+        const origin = String(content.origin || "");
+        console.log(`[Webhook] MESSAGE direction=${direction}, origin=${origin}`);
 
-        if (direction !== "INCOMING" && direction !== "incoming") break;
+        // Só processar mensagens do cliente (FROM_HUB) e não de bots
+        if (direction !== "FROM_HUB") break;
+        if (origin === "BOT") break;
 
         const agentOn = await isAgentEnabled();
         console.log(`[Webhook] Agent enabled: ${agentOn}`);
         if (!agentOn) break;
 
-        // Tentar múltiplos formatos de campo
-        const sessionId = String(content.sessionId || content.session_id || content.session?.id || "");
-        const channelId = String(content.channelId || content.channel_id || content.channel?.id || "");
-        const contactId = String(content.contactId || content.contact_id || content.contact?.id || "");
-        const text = String(content.text || content.body || content.message || "");
-        const msgType = String(content.type || content.messageType || "text");
+        // Helena MESSAGE_RECEIVED fields
+        const sessionId = String(content.sessionId || "");
+        const text = String(content.text || "");
+        const msgType = String(content.type || "TEXT").toLowerCase();
 
-        console.log(`[Webhook] MSG parsed: session=${sessionId}, channel=${channelId}, contact=${contactId}, text="${text.substring(0, 50)}"`);
+        console.log(`[Webhook] MSG parsed: session=${sessionId}, text="${text.substring(0, 50)}"`);
 
         if (!sessionId) {
           console.log("[Webhook] No sessionId found, skipping");
@@ -117,7 +125,7 @@ export async function POST(request: NextRequest) {
         // Verificar se sessão existe no Supabase (veio da LP)
         const { data: session } = await supabase
           .from("sessions")
-          .select("status")
+          .select("status, helena_contact_id")
           .eq("helena_session_id", sessionId)
           .single();
 
@@ -133,6 +141,27 @@ export async function POST(request: NextRequest) {
           break;
         }
 
+        // Buscar channelId e contactId da sessão no Helena
+        let msgChannelId = "";
+        let msgContactId = session.helena_contact_id || "";
+        try {
+          const sessionRes = await fetch(`https://api.helena.run/chat/v2/session/${sessionId}`, {
+            headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
+          });
+          if (sessionRes.ok) {
+            const sessionData = await sessionRes.json();
+            msgChannelId = sessionData.channelId || "";
+            msgContactId = sessionData.contactId || msgContactId;
+          }
+        } catch (e) {
+          console.error("[Webhook] Failed to fetch session details:", e);
+        }
+
+        if (!msgChannelId || !msgContactId) {
+          console.log(`[Webhook] Missing channelId=${msgChannelId} or contactId=${msgContactId}, cannot reply`);
+          break;
+        }
+
         console.log(`[Webhook] Processing message with agent...`);
 
         try {
@@ -140,8 +169,8 @@ export async function POST(request: NextRequest) {
           console.log(`[Webhook] Agent response:`, JSON.stringify(response));
 
           if (response.reply) {
-            console.log(`[Webhook] Sending reply via Helena: channel=${channelId}, contact=${contactId}`);
-            await sendMessage(channelId, contactId, response.reply);
+            console.log(`[Webhook] Sending reply via Helena: channel=${msgChannelId}, contact=${msgContactId}`);
+            await sendMessage(msgChannelId, msgContactId, response.reply);
             console.log(`[Webhook] Agent replied successfully: ${sessionId}`);
           }
         } catch (err) {
