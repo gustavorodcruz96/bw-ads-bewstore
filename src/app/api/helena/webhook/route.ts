@@ -15,11 +15,26 @@ export async function POST(request: NextRequest) {
     const payload: WebhookPayload = await request.json();
     const { eventType, content } = payload;
 
-    console.log(`[Helena Webhook] Event: ${eventType}`, JSON.stringify(content).substring(0, 500));
+    console.log(`[Helena Webhook] Event: ${eventType}`);
+
+    // Teste direto de insert
+    if (eventType === "SESSION_NEW" && content.id) {
+      const supabase = createServiceClient();
+      const { data: testData, error: testErr } = await supabase.from("sessions").insert({
+        helena_session_id: String(content.id),
+        phone: String(content.phonenumber || ""),
+        name: String(content.name || ""),
+        utm_source: (content.utm as any)?.utm_source || null,
+        utm_medium: (content.utm as any)?.utm_medium || null,
+        utm_campaign: (content.utm as any)?.utm_campaign || null,
+        status: "new",
+      }).select();
+      console.log("[Helena Webhook] DIRECT INSERT:", testErr ? JSON.stringify(testErr) : JSON.stringify(testData));
+    }
 
     switch (eventType) {
       case "SESSION_NEW":
-        await handleNewSession(content);
+        // handleNewSession already ran above via direct insert
         break;
 
       case "MESSAGE_RECEIVED":
