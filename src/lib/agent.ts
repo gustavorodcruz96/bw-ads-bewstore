@@ -25,6 +25,23 @@ FLUXO NATURAL DA CONVERSA:
 6. Quando o cliente demonstrar interesse firme em um modelo, diga algo como: "[nome], vou te passar pro nosso especialista que vai te dar as melhores condições e disponibilidade, beleza?"
 7. Após isso, a conversa será transferida para um vendedor humano
 
+FLUXO DE TROCA (quando o cliente quer dar o aparelho atual como parte do pagamento):
+Se o cliente mencionar "troca", "trocar", "dar meu aparelho", "usar como entrada":
+1. Diga que aceita sim, e que precisa avaliar o aparelho dele
+2. Peça as seguintes informações UMA DE CADA VEZ (não mande tudo junto):
+   - Modelo e armazenamento do aparelho atual (ex: iPhone 13, 128GB)
+   - Saúde da bateria (pode ver em Ajustes > Bateria > Saúde da Bateria)
+   - Cor do aparelho
+   - Se o Face ID está funcionando
+   - Se tem marcas de uso (riscos, amassados)
+   - Se o vidro traseiro e a tela estão íntegros (trincados ou quebrados?)
+   - Se as câmeras estão íntegras
+   - Se já teve contato com água
+   - Se já teve alguma peça trocada
+3. Peça fotos do aparelho (frente, traseira e laterais)
+4. Depois de coletar tudo, diga: "[nome], anotei tudo! Vou passar pro nosso especialista avaliar seu aparelho e te dar o melhor valor de troca, beleza?"
+5. Marque shouldTransfer: true
+
 O QUE VOCÊ SABE RESPONDER:
 - Diferenças entre modelos (iPhone 12 vs 13 vs 14 vs 15, Pro vs normal, etc)
 - Vantagens de cada modelo (câmera, tela, bateria, processador)
@@ -32,6 +49,7 @@ O QUE VOCÊ SABE RESPONDER:
 - Formas de pagamento: PIX, cartão, débito, parcelamento
 - Localização: Belo Horizonte, MG. Fazemos entrega em BH e região
 - Processo de compra: o especialista vai verificar disponibilidade e condições
+- Aceitamos aparelhos usados como parte do pagamento (troca)
 
 ATENÇÃO COM CONTEXTO:
 - Se o cliente diz "tenho um iPhone 13" isso NÃO significa que ele QUER um iPhone 13. Ele está dizendo o que TEM hoje.
@@ -50,6 +68,7 @@ REGRAS:
 - Se o cliente já sabe o que quer, não enrole - encaminhe pro especialista
 - Se o cliente está em dúvida, ajude com comparações simples
 - Mantenha a calma se o cliente for agressivo
+- Quando receber transcrição de áudio, responda normalmente como se tivesse ouvido
 
 FORMATO DE RESPOSTA (JSON):
 {
@@ -57,13 +76,14 @@ FORMATO DE RESPOSTA (JSON):
   "shouldTransfer": false,
   "leadQualified": false,
   "extractedInfo": {
-    "modeloDesejado": "modelo mencionado ou null",
-    "interesse": "o que o cliente quer (ex: 'quer iPhone 13 pra usar no dia a dia') ou null",
+    "modeloDesejado": "modelo que quer COMPRAR ou null",
+    "aparelhoAtual": "modelo que TEM HOJE (pra troca) ou null",
+    "interesse": "resumo do que o cliente quer ou null",
     "urgencia": "se mencionou quando precisa ou null",
     "nomeCliente": "nome do cliente ou null"
   }
 }
-- shouldTransfer: true quando o cliente demonstrou interesse firme em um modelo ou pediu atendimento humano
+- shouldTransfer: true quando o cliente demonstrou interesse firme em um modelo, completou o fluxo de troca, ou pediu atendimento humano
 - leadQualified: true quando tem nome + modelo definido (interesse claro)`;
 
 type AgentResponse = {
@@ -72,16 +92,46 @@ type AgentResponse = {
   leadQualified: boolean;
   extractedInfo: {
     modeloDesejado?: string;
+    aparelhoAtual?: string;
     interesse?: string;
     urgencia?: string;
     nomeCliente?: string;
   };
 };
 
+// Transcrever áudio usando OpenAI Whisper
+async function transcribeAudio(audioUrl: string): Promise<string> {
+  try {
+    // Baixar o arquivo de áudio
+    const response = await fetch(audioUrl);
+    if (!response.ok) {
+      console.error(`[Agent] Failed to download audio: ${response.status}`);
+      return "";
+    }
+
+    const audioBuffer = await response.arrayBuffer();
+    const audioFile = new File([audioBuffer], "audio.ogg", { type: "audio/ogg" });
+
+    // Enviar para Whisper
+    const transcription = await openai.audio.transcriptions.create({
+      model: "whisper-1",
+      file: audioFile,
+      language: "pt",
+    });
+
+    console.log(`[Agent] Audio transcribed: "${transcription.text.substring(0, 100)}"`);
+    return transcription.text;
+  } catch (error) {
+    console.error("[Agent] Transcription error:", error instanceof Error ? error.message : error);
+    return "";
+  }
+}
+
 export async function processMessage(
   helenaSessionId: string,
   messageText: string,
-  messageType: string = "text"
+  messageType: string = "text",
+  audioUrl?: string
 ): Promise<AgentResponse> {
   const supabase = createServiceClient();
 
@@ -109,10 +159,20 @@ export async function processMessage(
 
   // Mensagem atual
   let userContent = messageText;
-  if (messageType === "audio") {
-    userContent = "[Cliente enviou um áudio que não consegui ouvir no momento]";
+
+  if (messageType === "audio" && audioUrl) {
+    const transcription = await transcribeAudio(audioUrl);
+    if (transcription) {
+      userContent = `[Áudio transcrito]: ${transcription}`;
+    } else {
+      userContent = "[Cliente enviou um áudio mas não foi possível transcrever. Peça para digitar a mensagem.]";
+    }
   } else if (messageType === "image") {
-    userContent = "[Cliente enviou uma imagem]";
+    userContent = "[Cliente enviou uma foto/imagem]";
+  } else if (messageType === "video") {
+    userContent = "[Cliente enviou um vídeo]";
+  } else if (messageType === "audio" && !audioUrl) {
+    userContent = "[Cliente enviou um áudio mas não foi possível acessar. Peça para digitar a mensagem.]";
   }
 
   messages.push({ role: "user", content: userContent });

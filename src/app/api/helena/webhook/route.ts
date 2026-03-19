@@ -116,7 +116,12 @@ export async function POST(request: NextRequest) {
         const text = String(content.text || "");
         const msgType = String(content.type || "TEXT").toLowerCase();
 
-        console.log(`[Webhook] MSG parsed: session=${sessionId}, text="${text.substring(0, 50)}"`);
+        // Extrair URL do áudio se for mensagem de áudio
+        const details = content.details as Record<string, unknown> | null;
+        const fileInfo = details?.file as Record<string, string> | null;
+        const audioUrl = (msgType === "audio" || msgType === "ptt") ? (fileInfo?.publicUrl || "") : "";
+
+        console.log(`[Webhook] MSG parsed: session=${sessionId}, type=${msgType}, text="${(text || "").substring(0, 50)}"${audioUrl ? `, audioUrl=${audioUrl.substring(0, 80)}` : ""}`);
 
         if (!sessionId) {
           console.log("[Webhook] No sessionId found, skipping");
@@ -185,7 +190,7 @@ export async function POST(request: NextRequest) {
         console.log(`[Webhook] Processing message with agent...`);
 
         try {
-          const response = await processMessage(sessionId, text, msgType);
+          const response = await processMessage(sessionId, text, msgType, audioUrl || undefined);
           console.log(`[Webhook] Agent response:`, JSON.stringify(response));
 
           if (response.reply) {
