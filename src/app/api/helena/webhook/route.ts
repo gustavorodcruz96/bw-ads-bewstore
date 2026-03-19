@@ -122,8 +122,8 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // Verificar se sessão existe no Supabase (veio da LP)
-        const { data: session } = await supabase
+        // Verificar se sessão existe no Supabase
+        let { data: session } = await supabase
           .from("sessions")
           .select("status, helena_contact_id")
           .eq("helena_session_id", sessionId)
@@ -131,8 +131,48 @@ export async function POST(request: NextRequest) {
 
         console.log(`[Webhook] Session lookup result:`, session);
 
+        // Se sessão não existe, pode ter chegado antes do SESSION_NEW
+        // Buscar dados da sessão no Helena e criar no Supabase
         if (!session) {
-          console.log(`[Webhook] Session ${sessionId} not in Supabase, skipping`);
+          console.log(`[Webhook] Session not found, creating from Helena API...`);
+          try {
+            const sessionRes = await fetch(`https://api.helena.run/chat/v2/session/${sessionId}`, {
+              headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
+            });
+            if (sessionRes.ok) {
+              const helenaSession = await sessionRes.json();
+              const utm = (helenaSession.utm || {}) as Record<string, string>;
+              const utmSource = utm?.source || null;
+
+              await supabase.from("sessions").insert({
+                helena_session_id: sessionId,
+                helena_contact_id: helenaSession.contactId || null,
+                phone: null,
+                name: null,
+                utm_source: utmSource,
+                utm_medium: utm?.medium || null,
+                utm_campaign: utm?.campaign || null,
+                utm_content: utm?.content || null,
+                ttclid: utm?.clid || null,
+                status: "new",
+              });
+
+              // Re-fetch para pegar o registro criado
+              const { data: newSession } = await supabase
+                .from("sessions")
+                .select("status, helena_contact_id")
+                .eq("helena_session_id", sessionId)
+                .single();
+              session = newSession;
+              console.log(`[Webhook] Session created on-the-fly: ${sessionId}, utm=${utmSource}`);
+            }
+          } catch (e) {
+            console.error("[Webhook] Failed to create session:", e);
+          }
+        }
+
+        if (!session) {
+          console.log(`[Webhook] Session ${sessionId} could not be created, skipping`);
           break;
         }
 
