@@ -99,10 +99,22 @@ export async function POST(request: NextRequest) {
       }
 
       case "MESSAGE_RECEIVED": {
-        // Helena direction: FROM_HUB = do cliente, TO_HUB = do agente/bot
         const direction = String(content.direction || "");
         const origin = String(content.origin || "");
-        console.log(`[Webhook] MESSAGE direction=${direction}, origin=${origin}`);
+        const sessionId = String(content.sessionId || "");
+        console.log(`[Webhook] MESSAGE direction=${direction}, origin=${origin}, session=${sessionId}`);
+
+        if (!sessionId) break;
+
+        // Se mensagem é de um HUMANO do time (TO_HUB e não é BOT) → marcar takeover
+        if (direction === "TO_HUB" && origin !== "BOT" && origin !== "SYSTEM") {
+          console.log(`[Webhook] Human agent sent message in ${sessionId}, marking human_takeover`);
+          await supabase
+            .from("sessions")
+            .update({ status: "negotiation", updated_at: new Date().toISOString() })
+            .eq("helena_session_id", sessionId);
+          break;
+        }
 
         // Só processar mensagens do cliente (FROM_HUB) e não de bots
         if (direction !== "FROM_HUB") break;
@@ -112,35 +124,26 @@ export async function POST(request: NextRequest) {
         console.log(`[Webhook] Agent enabled: ${agentOn}`);
         if (!agentOn) break;
 
-        // Helena MESSAGE_RECEIVED fields
-        const sessionId = String(content.sessionId || "");
         const text = String(content.text || "");
         const msgType = String(content.type || "TEXT").toLowerCase();
 
-        // Extrair URL do áudio se for mensagem de áudio
+        // Extrair URL do áudio
         const details = content.details as Record<string, unknown> | null;
         const fileInfo = details?.file as Record<string, string> | null;
         const audioUrl = (msgType === "audio" || msgType === "ptt") ? (fileInfo?.publicUrl || "") : "";
 
-        console.log(`[Webhook] MSG parsed: session=${sessionId}, type=${msgType}, text="${(text || "").substring(0, 50)}"${audioUrl ? `, audioUrl=${audioUrl.substring(0, 80)}` : ""}`);
+        console.log(`[Webhook] MSG: type=${msgType}, text="${(text || "").substring(0, 50)}"${audioUrl ? `, audio=${audioUrl.substring(0, 60)}` : ""}`);
 
-        if (!sessionId) {
-          console.log("[Webhook] No sessionId found, skipping");
-          break;
-        }
-
-        // Verificar se sessão existe no Supabase (inclui utm_source para filtro)
+        // Verificar se sessão existe no Supabase
         let { data: session } = await supabase
           .from("sessions")
           .select("status, helena_contact_id, utm_source")
           .eq("helena_session_id", sessionId)
           .single();
 
-        console.log(`[Webhook] Session lookup result:`, session);
-
-        // Se sessão não existe, verificar no Helena se tem UTM (veio da LP)
+        // Se sessão não existe, criar automaticamente
         if (!session) {
-          console.log(`[Webhook] Session not found, checking Helena API...`);
+          console.log(`[Webhook] Session not found, creating...`);
           try {
             const sessionRes = await fetch(`https://api.helena.run/chat/v2/session/${sessionId}`, {
               headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
@@ -148,22 +151,30 @@ export async function POST(request: NextRequest) {
             if (sessionRes.ok) {
               const helenaSession = await sessionRes.json();
               const utm = (helenaSession.utm || {}) as Record<string, string>;
-              const utmSource = utm?.source || null;
 
-              // SÓ criar sessão se veio da LP (tiktok ou SITE)
-              const srcLower = (utmSource || "").toLowerCase();
-              const isLP = srcLower === "tiktok" || srcLower === "site";
-              if (!isLP) {
-                console.log(`[Webhook] Session ${sessionId} utm="${utmSource}" - not from LP, skipping agent`);
-                break;
+              // Buscar telefone e nome do contato
+              let phone = "";
+              let name = "";
+              const contactId = helenaSession.contactId || "";
+              if (contactId) {
+                try {
+                  const cRes = await fetch(`https://api.helena.run/core/v1/contact/${contactId}`, {
+                    headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
+                  });
+                  if (cRes.ok) {
+                    const c = await cRes.json();
+                    phone = (c.phoneNumber || "").replace("|", "");
+                    name = c.name || "";
+                  }
+                } catch {}
               }
 
               await supabase.from("sessions").insert({
                 helena_session_id: sessionId,
-                helena_contact_id: helenaSession.contactId || null,
-                phone: null,
-                name: null,
-                utm_source: utmSource,
+                helena_contact_id: contactId || null,
+                phone: phone || null,
+                name: name || null,
+                utm_source: utm?.source || null,
                 utm_medium: utm?.medium || null,
                 utm_campaign: utm?.campaign || null,
                 utm_content: utm?.content || null,
@@ -177,27 +188,15 @@ export async function POST(request: NextRequest) {
                 .eq("helena_session_id", sessionId)
                 .single();
               session = newSession;
-              console.log(`[Webhook] Session created from LP: ${sessionId}, utm=${utmSource}`);
+              console.log(`[Webhook] Session created: ${sessionId}`);
             }
           } catch (e) {
-            console.error("[Webhook] Failed to check session:", e);
+            console.error("[Webhook] Failed to create session:", e);
           }
         }
 
         if (!session) {
           console.log(`[Webhook] Session ${sessionId} not found/created, skipping`);
-          break;
-        }
-
-        // FILTRO PRINCIPAL: só responder se sessão veio da LP
-        // Helena converte utm_source para source e pode retornar "SITE", "tiktok", etc.
-        // Aceitar: "tiktok", "TIKTOK", "SITE" (Helena classifica chat URL como SITE)
-        const sessionUtm = (session.utm_source || "").toLowerCase().trim();
-        const validSources = ["tiktok", "tik_tok", "site"];
-        const isFromLP = validSources.includes(sessionUtm);
-        console.log(`[Webhook] UTM filter: utm_source="${session.utm_source}", isFromLP=${isFromLP}`);
-        if (!isFromLP) {
-          console.log(`[Webhook] Session ${sessionId} utm_source="${session.utm_source}" - not from LP, skipping agent`);
           break;
         }
 

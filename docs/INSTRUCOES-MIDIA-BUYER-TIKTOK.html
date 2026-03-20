@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instruções Mídia Buyer - Bew Store TikTok Ads</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  @media print {
+    body { font-size: 10pt; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+  }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .header h1 { font-size: 24pt; font-weight: 800; margin-bottom: 8px; }
+  .header .subtitle { font-size: 13pt; opacity: 0.8; }
+  .header .date { font-size: 9pt; opacity: 0.6; margin-top: 12px; }
+  .header .badge {
+    display: inline-block;
+    background: #c8956c;
+    color: white;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 9pt;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  h2 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #c8956c;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #333;
+    margin: 20px 0 10px;
+  }
+
+  p { margin-bottom: 10px; }
+
+  .info-box {
+    background: #f8f4f0;
+    border-left: 4px solid #c8956c;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+  }
+
+  .warning-box {
+    background: #fff3e0;
+    border-left: 4px solid #ff9800;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+  }
+
+  .critical-box {
+    background: #fce4ec;
+    border-left: 4px solid #e53935;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+  }
+
+  .success-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 10pt;
+  }
+
+  th {
+    background: #1a1a1a;
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  tr:nth-child(even) { background: #f9f9f9; }
+
+  .code-block {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    margin: 12px 0;
+    word-break: break-all;
+  }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 8px 0 8px 32px;
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 8px;
+    font-size: 14pt;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .col-card {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .col-card h4 {
+    font-size: 11pt;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #c8956c;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 8pt;
+    font-weight: 600;
+    margin: 2px;
+  }
+  .tag-done { background: #e8f5e9; color: #2e7d32; }
+  .tag-buyer { background: #e3f2fd; color: #1565c0; }
+  .tag-critical { background: #fce4ec; color: #c62828; }
+
+  .funnel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .funnel-step {
+    background: #1a1a1a;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 9pt;
+    font-weight: 600;
+    text-align: center;
+  }
+  .funnel-arrow { font-size: 16pt; color: #c8956c; }
+
+  .footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+    text-align: center;
+    font-size: 9pt;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- CAPA -->
+<div class="header">
+  <h1>B&W Store</h1>
+  <div class="subtitle">Instruções para Mídia Buyer - TikTok Ads</div>
+  <div class="badge">CONFIDENCIAL - USO INTERNO</div>
+  <div class="date">Março 2026</div>
+</div>
+
+<!-- O QUE JÁ ESTÁ PRONTO -->
+<h2>1. O Que Já Está Pronto (Parte Técnica)</h2>
+
+<p>Toda a infraestrutura técnica já foi configurada. A mídia buyer <strong>NÃO precisa</strong> se preocupar com nada abaixo - já está funcionando:</p>
+
+<div class="success-box">
+  <strong>✅ Infraestrutura completa e funcionando:</strong>
+  <ul style="margin-top: 8px; padding-left: 20px;">
+    <li>Landing Page publicada em <strong>ads.bewstore.com.br</strong></li>
+    <li>TikTok Pixel instalado e disparando (Pixel + Events API)</li>
+    <li>Eventos configurados: ViewContent, ClickButton, Contact, CompletePayment</li>
+    <li>Integração WhatsApp via Helena CRM</li>
+    <li>Agente IA de pré-atendimento ativo (responde automaticamente leads do TikTok)</li>
+    <li>Painel administrativo com tracking de conversões em tempo real</li>
+    <li>Rastreamento server-side (resiste a ad blockers)</li>
+  </ul>
+</div>
+
+<h3>Fluxo Completo do Lead</h3>
+
+<div class="funnel">
+  <div class="funnel-step">Anúncio<br>TikTok</div>
+  <div class="funnel-arrow">→</div>
+  <div class="funnel-step">Landing<br>Page</div>
+  <div class="funnel-arrow">→</div>
+  <div class="funnel-step">Clica<br>WhatsApp</div>
+  <div class="funnel-arrow">→</div>
+  <div class="funnel-step">IA faz<br>Pré-venda</div>
+  <div class="funnel-arrow">→</div>
+  <div class="funnel-step">Vendedor<br>Humano</div>
+  <div class="funnel-arrow">→</div>
+  <div class="funnel-step">Venda<br>Confirmada</div>
+</div>
+
+<h3>Dados Técnicos (referência)</h3>
+
+<table>
+  <tr><th>Item</th><th>Valor</th></tr>
+  <tr><td>Pixel ID</td><td><code>D6U2EQRC77UFQHA2BBAG</code></td></tr>
+  <tr><td>Landing Page</td><td><code>https://ads.bewstore.com.br</code></td></tr>
+  <tr><td>Eventos Pixel</td><td>ViewContent, ClickButton</td></tr>
+  <tr><td>Eventos Server</td><td>Contact, CompletePayment</td></tr>
+  <tr><td>Deduplicação</td><td>Ativa (event_id compartilhado)</td></tr>
+</table>
+
+<!-- O QUE A MÍDIA BUYER PRECISA FAZER -->
+<div class="page-break"></div>
+
+<h2>2. O Que a Mídia Buyer Precisa Fazer</h2>
+
+<!-- 2.1 ESTRUTURA DE CAMPANHAS -->
+<h3>2.1 Estrutura de Campanhas</h3>
+
+<table>
+  <tr><th>Campanha</th><th>Objetivo</th><th>% Budget</th><th>Audiência</th></tr>
+  <tr>
+    <td><strong>[PROSP] iPhones Seminovos</strong></td>
+    <td>Traffic → otimizar para clique</td>
+    <td>70%</td>
+    <td>Interesse + Comportamento</td>
+  </tr>
+  <tr>
+    <td><strong>[RETG] Visitantes LP</strong></td>
+    <td>Traffic → otimizar para Contact</td>
+    <td>20%</td>
+    <td>Custom Audience (ViewContent 7d)</td>
+  </tr>
+  <tr>
+    <td><strong>[SMART+] Teste</strong></td>
+    <td>Automático TikTok</td>
+    <td>10%</td>
+    <td>Broad (TikTok decide)</td>
+  </tr>
+</table>
+
+<div class="warning-box">
+  <strong>⚠️ Por que Traffic e não Conversions?</strong><br>
+  Para usar objetivo Conversions, cada ad group precisa de 50 conversões/semana para sair da learning phase. Como estamos começando, Traffic gera volume mais rápido. <strong>Migrar para Conversions quando atingir 50+ contacts/semana.</strong>
+</div>
+
+<!-- 2.2 URL OBRIGATÓRIA -->
+<h3>2.2 URL da Landing Page (OBRIGATÓRIO)</h3>
+
+<div class="critical-box">
+  <strong>🚨 CRÍTICO: Toda campanha DEVE usar a URL abaixo com UTMs.</strong><br>
+  Sem UTMs, o agente de IA NÃO responde o lead e o rastreamento de conversão NÃO funciona.
+</div>
+
+<p><strong>URL base:</strong></p>
+<div class="code-block">
+https://ads.bewstore.com.br?utm_source=tiktok&utm_medium=cpc&utm_campaign=NOME_DA_CAMPANHA&utm_content=NOME_DO_ANUNCIO
+</div>
+
+<p><strong>Com macros do TikTok (recomendado):</strong></p>
+<div class="code-block">
+https://ads.bewstore.com.br?utm_source=tiktok&utm_medium=cpc&utm_campaign=__CAMPAIGN_NAME__&utm_content=__AID_NAME__
+</div>
+
+<p>As macros <code>__CAMPAIGN_NAME__</code> e <code>__AID_NAME__</code> são substituídas automaticamente pelo TikTok com os nomes reais da campanha e do anúncio.</p>
+
+<!-- 2.3 AUDIÊNCIAS -->
+<div class="page-break"></div>
+
+<h3>2.3 Configuração de Audiências</h3>
+
+<h4>Prospecting - Ad Group 1: Interesse iPhone</h4>
+<table>
+  <tr><td><strong>Localização</strong></td><td>Belo Horizonte + 50km (Grande BH)</td></tr>
+  <tr><td><strong>Idade</strong></td><td>18-45 anos</td></tr>
+  <tr><td><strong>Interesses</strong></td><td>iPhone, Apple, Smartphones, Tecnologia, Celulares</td></tr>
+  <tr><td><strong>Comportamento</strong></td><td>Engajou com conteúdo de tecnologia</td></tr>
+</table>
+
+<h4>Prospecting - Ad Group 2: Comportamento Comprador</h4>
+<table>
+  <tr><td><strong>Localização</strong></td><td>Belo Horizonte + 50km</td></tr>
+  <tr><td><strong>Idade</strong></td><td>22-40 anos</td></tr>
+  <tr><td><strong>Interesses</strong></td><td>Compras online, E-commerce, Marketplace</td></tr>
+  <tr><td><strong>Comportamento</strong></td><td>Compradores frequentes</td></tr>
+</table>
+
+<h4>Prospecting - Ad Group 3: Lookalike (quando tiver dados)</h4>
+<table>
+  <tr><td><strong>Fonte</strong></td><td>Custom audience de quem disparou Contact ou CompletePayment</td></tr>
+  <tr><td><strong>Tamanho</strong></td><td>1-3% (começar tight, expandir depois)</td></tr>
+</table>
+
+<h4>Retargeting</h4>
+<table>
+  <tr><td><strong>Audiência</strong></td><td>Custom Audience: ViewContent ou ClickButton (7 dias)</td></tr>
+  <tr><td><strong>Exclusão</strong></td><td>Excluir quem já disparou Contact (já entrou no WhatsApp)</td></tr>
+</table>
+
+<!-- 2.4 CRIATIVOS -->
+<h3>2.4 Estratégia de Criativos</h3>
+
+<div class="info-box">
+  <strong>TikTok é creative-first.</strong> 80% do resultado vem da qualidade do criativo. Mínimo 6 criativos por ad group.
+</div>
+
+<h4>6 Tipos de Vídeo Recomendados</h4>
+
+<table>
+  <tr><th>#</th><th>Tipo</th><th>Conceito</th><th>Hook (1-2s)</th></tr>
+  <tr><td>1</td><td><strong>Unboxing</strong></td><td>Abrir caixa do iPhone seminovo, mostrar estado perfeito</td><td>"Olha o estado desse iPhone 15 por metade do preço"</td></tr>
+  <tr><td>2</td><td><strong>Comparação</strong></td><td>Seminovo vs Novo lado a lado - impossível distinguir</td><td>"Você pagaria R$2000 a mais por isso?"</td></tr>
+  <tr><td>3</td><td><strong>Bastidores</strong></td><td>Processo de verificação/teste do aparelho na loja</td><td>"É assim que a gente garante que seu iPhone é perfeito"</td></tr>
+  <tr><td>4</td><td><strong>Depoimento</strong></td><td>Cliente real contando experiência de compra</td><td>"Comprei meu iPhone na Bew e olha o resultado"</td></tr>
+  <tr><td>5</td><td><strong>Trade-in</strong></td><td>Pessoa trocando iPhone velho por modelo mais novo</td><td>"Trouxe meu iPhone 11 e saí com um 15"</td></tr>
+  <tr><td>6</td><td><strong>Preço choque</strong></td><td>Mostrar preço Bew vs Apple Store oficial</td><td>"iPhone 14 Pro por quanto? Chega no WhatsApp"</td></tr>
+</table>
+
+<h4>Regras Obrigatórias dos Criativos</h4>
+
+<ul class="checklist">
+  <li><strong>Formato vertical 9:16</strong> (1080x1920) — NUNCA horizontal ou quadrado</li>
+  <li><strong>Som ligado SEMPRE</strong> — 93% do TikTok é com som, nunca rode vídeo mudo</li>
+  <li><strong>Hook em 1-2 segundos</strong> — se não prender atenção, o usuário passa</li>
+  <li><strong>Parecer orgânico</strong> — vídeo estilo UGC, NÃO corporativo/estúdio</li>
+  <li><strong>Texto na safe zone</strong> — nada nos primeiros 150px (topo) nem últimos 450px (rodapé)</li>
+  <li><strong>Rotacionar a cada 5-7 dias</strong> — fadiga criativa é rápida no TikTok</li>
+  <li><strong>Testar Spark Ads</strong> — impulsionar posts orgânicos gera ~3% CTR vs ~2% normal</li>
+  <li><strong>CTA personalizado</strong> — não usar o padrão, criar CTA como "Fale Conosco" ou "Saiba Mais"</li>
+</ul>
+
+<!-- SAFE ZONE -->
+<div class="page-break"></div>
+
+<h4>Safe Zone do TikTok</h4>
+
+<div style="background: #f5f5f5; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 9pt; text-align: center; margin: 16px 0;">
+<pre style="text-align: left; display: inline-block;">
+┌─────────────────────────────┐
+│     ⛔ ZONA INSEGURA        │  Topo: 0-150px
+│     (barra de status)       │  (ícones do sistema)
+├─────────────────────────────┤
+│                        │ ⛔ │
+│                        │    │
+│    ✅ ZONA SEGURA      │ íco│  Direita: últimos 140px
+│    900 × 1320 px       │ nes│  (like, comentário, share)
+│                        │    │
+│    Coloque texto,      │    │
+│    logo e CTAs aqui    │    │
+│                        │    │
+├─────────────────────────────┤
+│     ⛔ ZONA INSEGURA        │  Rodapé: 1470-1920px
+│     (legenda + CTA)         │  (texto do anúncio)
+└─────────────────────────────┘
+</pre>
+</div>
+
+<!-- 2.5 CONFIGURAÇÕES -->
+<h3>2.5 Configurações na Campanha</h3>
+
+<table>
+  <tr><th>Configuração</th><th>Valor</th><th>Motivo</th></tr>
+  <tr><td>Pixel</td><td>D6U2EQRC77UFQHA2BBAG</td><td>Já está instalado na LP</td></tr>
+  <tr><td>Optimization Event</td><td>Click (início) → ClickButton (depois)</td><td>Escalar conforme volume</td></tr>
+  <tr><td>Placement</td><td>Só TikTok (remover Pangle)</td><td>Foco na plataforma principal</td></tr>
+  <tr><td>Search Ads Toggle</td><td><strong>ATIVAR</strong></td><td>Aparecer em buscas "iPhone seminovo BH"</td></tr>
+  <tr><td>Dayparting</td><td>10h - 22h</td><td>Horário ativo do público no TikTok</td></tr>
+  <tr><td>Bidding</td><td>Lowest Cost (semana 1-2)</td><td>Deixar TikTok encontrar audiência</td></tr>
+  <tr><td>Budget diário</td><td>Mínimo R$ 50/dia total</td><td>70% prosp / 20% retg / 10% smart+</td></tr>
+</table>
+
+<!-- 2.6 BUDGET -->
+<h3>2.6 Budget e Bidding</h3>
+
+<div class="two-col">
+  <div class="col-card">
+    <h4>Budget Recomendado: R$ 50-100/dia</h4>
+    <table style="margin: 0;">
+      <tr><td>Prospecting</td><td>70% → R$ 35-70/dia</td></tr>
+      <tr><td>Retargeting</td><td>20% → R$ 10-20/dia</td></tr>
+      <tr><td>Smart+</td><td>10% → R$ 5-10/dia</td></tr>
+    </table>
+  </div>
+  <div class="col-card">
+    <h4>Regras de Bidding</h4>
+    <p><strong>Semana 1-2:</strong> Lowest Cost<br>(deixar o TikTok aprender)</p>
+    <p><strong>Semana 3+:</strong> Cost Cap<br>(quando souber o CPA médio, definir teto)</p>
+  </div>
+</div>
+
+<div class="warning-box">
+  <strong>⚠️ Regra dos 50x:</strong> Budget diário por ad group deve ser ≥ 50x o CPA target.<br>
+  <strong>⚠️ 3x Kill Rule:</strong> Se um ad group gastar 3x o CPA target sem conversão → MATAR.<br>
+  <strong>⚠️ Learning Phase:</strong> NÃO editar ad groups durante a learning phase (reseta o aprendizado).
+</div>
+
+<!-- OTIMIZAÇÃO -->
+<div class="page-break"></div>
+
+<h2>3. Otimização e Métricas</h2>
+
+<h3>3.1 Framework de Teste de Criativos</h3>
+
+<table>
+  <tr><th>Dia</th><th>Ação</th></tr>
+  <tr><td><strong>Dia 0</strong></td><td>Subir 6 criativos por ad group</td></tr>
+  <tr><td><strong>Dia 3</strong></td><td>Matar criativos com CTR &lt; 0.5%</td></tr>
+  <tr><td><strong>Dia 7</strong></td><td>Escalar winners (duplicar ad group, NÃO aumentar budget no mesmo)</td></tr>
+  <tr><td><strong>Dia 7</strong></td><td>Criar 3-5 variações do hook do criativo winner</td></tr>
+  <tr><td><strong>Dia 14</strong></td><td>Renovar criativos com fadiga (CTR caindo)</td></tr>
+  <tr><td><strong>Semanal</strong></td><td>Repetir ciclo de teste</td></tr>
+</table>
+
+<h3>3.2 Métricas de Referência</h3>
+
+<table>
+  <tr><th>Métrica</th><th>✅ Bom</th><th>⚠️ Atenção</th><th>❌ Ruim</th></tr>
+  <tr><td>CTR (in-feed)</td><td>≥ 1.0%</td><td>0.5% - 1.0%</td><td>&lt; 0.5%</td></tr>
+  <tr><td>CPM (Brasil)</td><td>&lt; R$ 20</td><td>R$ 20-35</td><td>&gt; R$ 35</td></tr>
+  <tr><td>CPC para LP</td><td>&lt; R$ 1</td><td>R$ 1-3</td><td>&gt; R$ 3</td></tr>
+  <tr><td>Watch Time médio</td><td>≥ 6 segundos</td><td>3-6 segundos</td><td>&lt; 3 segundos</td></tr>
+  <tr><td>Criativos por ad group</td><td>≥ 6</td><td>3-5</td><td>&lt; 3</td></tr>
+  <tr><td>Idade do criativo (se CTR caindo)</td><td>&lt; 7 dias</td><td>7-14 dias</td><td>&gt; 14 dias</td></tr>
+</table>
+
+<h3>3.3 Funil de Conversão (acompanhar semanalmente)</h3>
+
+<table>
+  <tr><th>Etapa</th><th>Evento</th><th>Meta</th><th>Se abaixo da meta</th></tr>
+  <tr><td>Impressão → Visita LP</td><td>ViewContent</td><td>CTR &gt; 1%</td><td>Melhorar criativos (hook fraco)</td></tr>
+  <tr><td>Visita LP → Click WhatsApp</td><td>ClickButton</td><td>&gt; 15% da LP</td><td>Melhorar LP: CTA maior, copy mais urgente</td></tr>
+  <tr><td>Click → Conversa</td><td>Contact</td><td>&gt; 50%</td><td>Mensagem pré-preenchida ruim ou WhatsApp lento</td></tr>
+  <tr><td>Conversa → Venda</td><td>CompletePayment</td><td>&gt; 10%</td><td>Treinar vendedores, melhorar follow-up</td></tr>
+</table>
+
+<!-- ESCALAMENTO -->
+<h3>3.4 Quando Escalar</h3>
+
+<div class="two-col">
+  <div class="col-card">
+    <h4>✅ Escalar quando:</h4>
+    <ul style="padding-left: 16px; font-size: 10pt;">
+      <li>CPA abaixo do target por 3+ dias</li>
+      <li>Ad group saiu da learning phase</li>
+      <li>CTR estável acima de 1%</li>
+      <li>Taxa de conversão Contact → Sale &gt; 10%</li>
+    </ul>
+    <p style="margin-top: 8px; font-size: 9pt;"><strong>Como escalar:</strong> Duplicar ad group com budget 20% maior. NUNCA aumentar budget em mais de 20% no mesmo ad group.</p>
+  </div>
+  <div class="col-card">
+    <h4>❌ Matar quando:</h4>
+    <ul style="padding-left: 16px; font-size: 10pt;">
+      <li>Gastou 3x CPA target sem conversão</li>
+      <li>CTR &lt; 0.5% após 3 dias</li>
+      <li>Watch time &lt; 3 segundos</li>
+      <li>CPA subindo consistentemente</li>
+    </ul>
+    <p style="margin-top: 8px; font-size: 9pt;"><strong>Regra:</strong> Não esperar mais que 3 dias para decidir. Dinheiro gasto em criativo ruim é dinheiro perdido.</p>
+  </div>
+</div>
+
+<!-- RESUMO -->
+<div class="page-break"></div>
+
+<h2>4. Checklist de Lançamento</h2>
+
+<ul class="checklist">
+  <li>Produzir 6 criativos verticais (9:16) com hooks fortes</li>
+  <li>Configurar campanha Prospecting com 2-3 ad groups</li>
+  <li>Configurar campanha Retargeting com custom audience</li>
+  <li>Configurar campanha Smart+ (teste com 10% budget)</li>
+  <li>Usar URL da LP com UTMs em TODAS as campanhas</li>
+  <li>Ativar Search Ads Toggle em todas as campanhas</li>
+  <li>Configurar Pixel D6U2EQRC77UFQHA2BBAG nas campanhas</li>
+  <li>Definir dayparting: 10h-22h</li>
+  <li>Definir budget mínimo: R$ 50/dia</li>
+  <li>Monitorar após 3 dias: matar CTR &lt; 0.5%</li>
+  <li>Monitorar após 7 dias: escalar winners</li>
+  <li>Criar variações dos criativos winners</li>
+</ul>
+
+<h2>5. Resumo: Quem Faz o Quê</h2>
+
+<table>
+  <tr><th>Responsabilidade</th><th>Quem</th></tr>
+  <tr><td>Landing page, pixel, tracking, agente IA, painel admin</td><td><span class="tag tag-done">PRONTO</span> Equipe técnica</td></tr>
+  <tr><td>Estrutura de campanhas no TikTok Ads Manager</td><td><span class="tag tag-buyer">MÍDIA BUYER</span></td></tr>
+  <tr><td>Produção de criativos (vídeos)</td><td><span class="tag tag-buyer">MÍDIA BUYER</span> + Bew Store</td></tr>
+  <tr><td>Configuração de audiências e targeting</td><td><span class="tag tag-buyer">MÍDIA BUYER</span></td></tr>
+  <tr><td>Definição e gestão de budget/bidding</td><td><span class="tag tag-buyer">MÍDIA BUYER</span></td></tr>
+  <tr><td>Otimização e teste de criativos (semanal)</td><td><span class="tag tag-buyer">MÍDIA BUYER</span></td></tr>
+  <tr><td>Monitoramento de conversões no painel</td><td><span class="tag tag-done">AUTOMÁTICO</span> Painel Admin</td></tr>
+  <tr><td>Pré-atendimento ao lead</td><td><span class="tag tag-done">AUTOMÁTICO</span> Agente IA</td></tr>
+  <tr><td>Fechamento da venda</td><td>Vendedor Bew Store</td></tr>
+</table>
+
+<div class="critical-box" style="margin-top: 24px;">
+  <strong>🚨 LEMBRETE MAIS IMPORTANTE:</strong><br>
+  A URL de TODAS as campanhas DEVE conter <code>utm_source=tiktok</code>. Sem isso, o agente de IA não responde e as conversões não são rastreadas. Use a URL exata fornecida na seção 2.2.
+</div>
+
+<div class="footer">
+  <p><strong>B&W Store</strong> — Documento interno — Março 2026</p>
+  <p>Dúvidas técnicas: contato com equipe de desenvolvimento</p>
+</div>
+
+</div>
+</body>
+</html>

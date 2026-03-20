@@ -5,9 +5,11 @@ export async function GET() {
   try {
     const supabase = createServiceClient();
 
+    // Filtrar apenas leads do TikTok/LP (SITE = chat URL, tiktok = UTM direto)
     const { data, error } = await supabase
       .from("sessions")
       .select("*")
+      .or("utm_source.ilike.tiktok,utm_source.ilike.site")
       .order("created_at", { ascending: false })
       .limit(50);
 
