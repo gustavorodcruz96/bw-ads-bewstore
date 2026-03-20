@@ -211,19 +211,18 @@ export async function processMessage(
     .order("created_at", { ascending: true })
     .limit(20);
 
-  // Se é a primeira interação do agente, buscar contexto
+  // SEMPRE buscar nome do contato no Helena (não depender do histórico)
   let helenaContext = "";
-  let contactName = "";
+  const contactName = await fetchContactName(helenaSessionId);
+  if (contactName) {
+    console.log(`[Agent] Contact name from Helena: ${contactName}`);
+  }
+
+  // Se é a primeira interação do agente, buscar histórico completo
   if (!history || history.length === 0) {
-    // Buscar histórico de mensagens da sessão
     helenaContext = await fetchHelenaHistory(helenaSessionId);
     if (helenaContext) {
       console.log(`[Agent] Loaded ${helenaContext.split("\n").length} messages from Helena history`);
-    }
-    // Buscar nome do contato
-    contactName = await fetchContactName(helenaSessionId);
-    if (contactName) {
-      console.log(`[Agent] Contact name from Helena: ${contactName}`);
     }
   }
 
@@ -232,12 +231,17 @@ export async function processMessage(
     { role: "system", content: SYSTEM_PROMPT },
   ];
 
-  // Adicionar contexto do Helena se existir
-  if (helenaContext || contactName) {
+  // SEMPRE adicionar contexto do cliente (nome + histórico se houver)
+  {
     let ctx = "CONTEXTO DO CLIENTE:\n";
-    if (contactName) ctx += `- Nome do cliente: ${contactName}\n`;
-    if (helenaContext) ctx += `\nHistórico recente da conversa:\n${helenaContext}\n`;
-    ctx += "\nUse este contexto. NÃO repita perguntas já respondidas. Se já sabe o nome, use-o.";
+    if (contactName) {
+      ctx += `- Nome do cliente (do cadastro): ${contactName}\n`;
+      ctx += `- IMPORTANTE: Já sabe o nome! Use "${contactName}" nas respostas. NÃO pergunte o nome novamente.\n`;
+    }
+    if (helenaContext) {
+      ctx += `\nHistórico recente da conversa (mensagens anteriores):\n${helenaContext}\n`;
+      ctx += "\nNÃO repita perguntas já respondidas no histórico acima.";
+    }
     messages.push({ role: "system", content: ctx });
   }
 

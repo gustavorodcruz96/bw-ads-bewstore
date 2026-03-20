@@ -4,6 +4,39 @@ import { createServiceClient } from "@/lib/supabase";
 import { processMessage, isAgentEnabled } from "@/lib/agent";
 import { sendMessage, transferSession } from "@/lib/helena";
 
+// Verificar se um atendente humano respondeu recentemente na sessão Helena
+async function hasRecentHumanResponse(sessionId: string, minutesWindow: number = 30): Promise<boolean> {
+  try {
+    const res = await fetch(
+      `https://api.helena.run/chat/v1/session/${sessionId}/message?limit=10&order=createdAt:desc`,
+      { headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` } }
+    );
+    if (!res.ok) return false;
+
+    const data = await res.json();
+    const items = data?.items || data || [];
+    if (!Array.isArray(items)) return false;
+
+    const now = Date.now();
+    const windowMs = minutesWindow * 60 * 1000;
+
+    for (const msg of items) {
+      // TO_HUB = mensagem enviada pelo atendente para o cliente
+      if (msg.direction === "TO_HUB" && msg.origin !== "BOT" && msg.origin !== "SYSTEM") {
+        const msgTime = new Date(msg.createdAt || msg.date || "").getTime();
+        if (now - msgTime < windowMs) {
+          console.log(`[Webhook] Human responded ${Math.round((now - msgTime) / 60000)}min ago in ${sessionId}`);
+          return true;
+        }
+      }
+    }
+    return false;
+  } catch (e) {
+    console.error("[Webhook] Failed to check human response:", e);
+    return false;
+  }
+}
+
 type WebhookPayload = {
   eventType: string;
   date: string;
@@ -234,6 +267,20 @@ export async function POST(request: NextRequest) {
         if (["sale", "completed"].includes(session.status)) {
           console.log(`[Webhook] Session ${sessionId} status=${session.status}, skipping`);
           break;
+        }
+
+        // Verificar se um atendente humano respondeu recentemente (30 min)
+        // Se sim, não responder - deixar o humano cuidar
+        if (!isFromLPMessage) {
+          const humanActive = await hasRecentHumanResponse(sessionId, 30);
+          if (humanActive) {
+            console.log(`[Webhook] Human agent active in ${sessionId}, AI skipping`);
+            await supabase
+              .from("sessions")
+              .update({ status: "negotiation", agent_handled: false, updated_at: new Date().toISOString() })
+              .eq("helena_session_id", sessionId);
+            break;
+          }
         }
 
         console.log(`[Webhook] Processing message with agent...`);
