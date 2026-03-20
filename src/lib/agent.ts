@@ -127,6 +127,32 @@ async function transcribeAudio(audioUrl: string): Promise<string> {
   }
 }
 
+// Buscar histórico de mensagens da sessão no Helena
+async function fetchHelenaHistory(sessionId: string): Promise<string> {
+  try {
+    const res = await fetch(
+      `https://api.helena.run/chat/v1/session/${sessionId}/message?limit=20&order=createdAt:asc`,
+      { headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` } }
+    );
+    if (!res.ok) return "";
+
+    const data = await res.json();
+    const items = data?.items || data || [];
+    if (!Array.isArray(items) || items.length === 0) return "";
+
+    const lines = items.map((msg: Record<string, unknown>) => {
+      const dir = msg.direction === "FROM_HUB" ? "Cliente" : "Vendedor";
+      const text = String(msg.text || "[mídia]").substring(0, 200);
+      return `${dir}: ${text}`;
+    });
+
+    return lines.join("\n");
+  } catch (e) {
+    console.error("[Agent] Failed to fetch Helena history:", e);
+    return "";
+  }
+}
+
 export async function processMessage(
   helenaSessionId: string,
   messageText: string,
@@ -135,7 +161,7 @@ export async function processMessage(
 ): Promise<AgentResponse> {
   const supabase = createServiceClient();
 
-  // Buscar histórico da conversa
+  // Buscar histórico do agente (nossas interações anteriores)
   const { data: history } = await supabase
     .from("agent_logs")
     .select("role, content")
@@ -143,10 +169,27 @@ export async function processMessage(
     .order("created_at", { ascending: true })
     .limit(20);
 
+  // Se é a primeira interação do agente, buscar histórico do Helena (conversas anteriores com vendedores)
+  let helenaContext = "";
+  if (!history || history.length === 0) {
+    helenaContext = await fetchHelenaHistory(helenaSessionId);
+    if (helenaContext) {
+      console.log(`[Agent] Loaded ${helenaContext.split("\n").length} messages from Helena history`);
+    }
+  }
+
   // Montar mensagens para o OpenAI
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
     { role: "system", content: SYSTEM_PROMPT },
   ];
+
+  // Adicionar contexto do Helena se existir (como mensagem de sistema adicional)
+  if (helenaContext) {
+    messages.push({
+      role: "system",
+      content: `CONTEXTO: Este cliente já conversou antes com vendedores. Histórico recente:\n\n${helenaContext}\n\nUse este contexto para entender o que o cliente já discutiu, mas NÃO repita perguntas que já foram respondidas. Continue a conversa naturalmente.`,
+    });
+  }
 
   if (history && history.length > 0) {
     for (const msg of history) {
