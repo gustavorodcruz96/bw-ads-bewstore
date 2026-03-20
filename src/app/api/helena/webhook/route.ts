@@ -210,14 +210,19 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // Se sessão existe sem UTM mas mensagem é da LP, atualizar UTM
-        if (!session.utm_source && isFromLPMessage) {
-          console.log(`[Webhook] Updating session ${sessionId} with utm_source=SITE (detected LP message)`);
+        // Mensagem da LP (Atendimento #xxx) → reativar agente e resetar status
+        if (isFromLPMessage) {
+          console.log(`[Webhook] LP message detected in ${sessionId}, reactivating agent`);
           await supabase
             .from("sessions")
-            .update({ utm_source: "SITE", updated_at: new Date().toISOString() })
+            .update({
+              utm_source: session.utm_source || "SITE",
+              status: "in_progress",
+              agent_handled: true,
+              updated_at: new Date().toISOString(),
+            })
             .eq("helena_session_id", sessionId);
-          session = { ...session, utm_source: "SITE" };
+          session = { ...session, utm_source: session.utm_source || "SITE", status: "in_progress", agent_handled: true };
         }
 
         // Se IA foi desativada manualmente pelo atendente (/parar)
