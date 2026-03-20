@@ -149,9 +149,9 @@ export async function POST(request: NextRequest) {
               const utm = (helenaSession.utm || {}) as Record<string, string>;
               const utmSource = utm?.source || null;
 
-              // SÓ criar sessão se veio da LP (tem UTM)
-              if (!utmSource) {
-                console.log(`[Webhook] Session ${sessionId} has NO UTM - not from LP, skipping agent`);
+              // SÓ criar sessão se veio do TikTok (LP)
+              if (!utmSource || utmSource.toLowerCase() !== "tiktok") {
+                console.log(`[Webhook] Session ${sessionId} utm="${utmSource}" - not from TikTok, skipping agent`);
                 break;
               }
 
@@ -186,9 +186,10 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // FILTRO PRINCIPAL: só responder se sessão veio da LP (tem utm_source)
-        if (!session.utm_source) {
-          console.log(`[Webhook] Session ${sessionId} has no UTM - not from LP, skipping agent`);
+        // FILTRO PRINCIPAL: só responder se sessão veio da LP do TikTok
+        const sessionUtm = (session.utm_source || "").toLowerCase();
+        if (sessionUtm !== "tiktok") {
+          console.log(`[Webhook] Session ${sessionId} utm_source="${session.utm_source}" - not from TikTok LP, skipping agent`);
           break;
         }
 
