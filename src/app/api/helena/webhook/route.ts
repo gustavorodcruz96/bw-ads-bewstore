@@ -4,36 +4,33 @@ import { createServiceClient } from "@/lib/supabase";
 import { processMessage, isAgentEnabled } from "@/lib/agent";
 import { sendMessage, transferSession } from "@/lib/helena";
 
-// Verificar se um atendente humano respondeu recentemente na sessão Helena
-async function hasRecentHumanResponse(sessionId: string, minutesWindow: number = 30): Promise<boolean> {
+// Verificar se um atendente humano está atribuído à sessão no Helena
+// Consulta a sessão diretamente - se userId existe, um humano assumiu
+async function isHumanAssigned(sessionId: string): Promise<boolean> {
   try {
     const res = await fetch(
-      `https://api.helena.run/chat/v1/session/${sessionId}/message?limit=10&order=createdAt:desc`,
+      `https://api.helena.run/chat/v2/session/${sessionId}`,
       { headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` } }
     );
     if (!res.ok) return false;
 
-    const data = await res.json();
-    const items = data?.items || data || [];
-    if (!Array.isArray(items)) return false;
+    const session = await res.json();
+    const userId = session.userId;
+    const status = session.status;
 
-    const now = Date.now();
-    const windowMs = minutesWindow * 60 * 1000;
+    console.log(`[Webhook] Helena session check: userId=${userId || "none"}, status=${status}`);
 
-    for (const msg of items) {
-      // TO_HUB = mensagem enviada pelo atendente para o cliente
-      if (msg.direction === "TO_HUB" && msg.origin !== "BOT" && msg.origin !== "SYSTEM") {
-        const msgTime = new Date(msg.createdAt || msg.date || "").getTime();
-        if (now - msgTime < windowMs) {
-          console.log(`[Webhook] Human responded ${Math.round((now - msgTime) / 60000)}min ago in ${sessionId}`);
-          return true;
-        }
-      }
+    // Se tem userId atribuído E status é IN_PROGRESS, um humano está atendendo
+    if (userId && status === "IN_PROGRESS") {
+      console.log(`[Webhook] Human agent ${userId} is assigned to ${sessionId}`);
+      return true;
     }
+
     return false;
   } catch (e) {
-    console.error("[Webhook] Failed to check human response:", e);
-    return false;
+    console.error("[Webhook] Failed to check session assignment:", e);
+    // Em caso de erro, NÃO responder (seguro)
+    return true;
   }
 }
 
@@ -269,12 +266,12 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // Verificar se um atendente humano respondeu recentemente (30 min)
-        // Se sim, não responder - deixar o humano cuidar
+        // VERIFICAÇÃO DEFINITIVA: consultar Helena se um humano está atribuído
+        // userId no Helena = vendedor assumiu → IA NÃO responde
         if (!isFromLPMessage) {
-          const humanActive = await hasRecentHumanResponse(sessionId, 30);
+          const humanActive = await isHumanAssigned(sessionId);
           if (humanActive) {
-            console.log(`[Webhook] Human agent active in ${sessionId}, AI skipping`);
+            console.log(`[Webhook] Human agent assigned in Helena for ${sessionId}, AI will NOT respond`);
             await supabase
               .from("sessions")
               .update({ status: "negotiation", agent_handled: false, updated_at: new Date().toISOString() })
@@ -341,10 +338,22 @@ export async function POST(request: NextRequest) {
         break;
       }
 
-      case "SESSION_UPDATE":
-      case "SESSION_COMPLETE": {
-        const status = content.status as string;
+      case "SESSION_UPDATE": {
         const sessionId = String(content.id || "");
+        const status = content.status as string;
+        const userId = content.userId as string | null;
+
+        console.log(`[Webhook] SESSION_UPDATE: session=${sessionId}, status=${status}, userId=${userId || "none"}`);
+
+        // Se um atendente humano foi atribuído (userId preenchido + IN_PROGRESS)
+        // → desativar IA nessa sessão IMEDIATAMENTE
+        if (userId && status === "IN_PROGRESS") {
+          console.log(`[Webhook] Human assigned to ${sessionId}, disabling AI immediately`);
+          await supabase
+            .from("sessions")
+            .update({ status: "negotiation", agent_handled: false, updated_at: new Date().toISOString() })
+            .eq("helena_session_id", sessionId);
+        }
 
         if (status === "COMPLETED") {
           await supabase
@@ -352,6 +361,17 @@ export async function POST(request: NextRequest) {
             .update({ status: "completed", updated_at: new Date().toISOString() })
             .eq("helena_session_id", sessionId);
         }
+
+        break;
+      }
+
+      case "SESSION_COMPLETE": {
+        const sessionId = String(content.id || "");
+
+        await supabase
+          .from("sessions")
+          .update({ status: "completed", updated_at: new Date().toISOString() })
+          .eq("helena_session_id", sessionId);
 
         break;
       }
