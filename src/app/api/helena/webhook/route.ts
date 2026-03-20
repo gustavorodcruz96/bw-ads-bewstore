@@ -127,12 +127,17 @@ export async function POST(request: NextRequest) {
         const text = String(content.text || "");
         const msgType = String(content.type || "TEXT").toLowerCase();
 
+        // Detectar mensagem da LP: "Atendimento #XXXXX: ..."
+        const isFromLPMessage = /^Atendimento\s+#\d+:/i.test(text) ||
+          text.includes("Vi os iPhones seminovos") ||
+          text.includes("quero saber mais");
+
         // Extrair URL do áudio
         const details = content.details as Record<string, unknown> | null;
         const fileInfo = details?.file as Record<string, string> | null;
         const audioUrl = (msgType === "audio" || msgType === "ptt") ? (fileInfo?.publicUrl || "") : "";
 
-        console.log(`[Webhook] MSG: type=${msgType}, text="${(text || "").substring(0, 50)}"${audioUrl ? `, audio=${audioUrl.substring(0, 60)}` : ""}`);
+        console.log(`[Webhook] MSG: type=${msgType}, isFromLP=${isFromLPMessage}, text="${(text || "").substring(0, 50)}"${audioUrl ? `, audio=${audioUrl.substring(0, 60)}` : ""}`);
 
         // Verificar se sessão existe no Supabase
         let { data: session } = await supabase
@@ -169,12 +174,15 @@ export async function POST(request: NextRequest) {
                 } catch {}
               }
 
+              // Se mensagem veio da LP mas Helena não registrou UTM, forçar como SITE
+              const utmSource = utm?.source || (isFromLPMessage ? "SITE" : null);
+
               await supabase.from("sessions").insert({
                 helena_session_id: sessionId,
                 helena_contact_id: contactId || null,
                 phone: phone || null,
                 name: name || null,
-                utm_source: utm?.source || null,
+                utm_source: utmSource,
                 utm_medium: utm?.medium || null,
                 utm_campaign: utm?.campaign || null,
                 utm_content: utm?.content || null,
@@ -198,6 +206,16 @@ export async function POST(request: NextRequest) {
         if (!session) {
           console.log(`[Webhook] Session ${sessionId} not found/created, skipping`);
           break;
+        }
+
+        // Se sessão existe sem UTM mas mensagem é da LP, atualizar UTM
+        if (!session.utm_source && isFromLPMessage) {
+          console.log(`[Webhook] Updating session ${sessionId} with utm_source=SITE (detected LP message)`);
+          await supabase
+            .from("sessions")
+            .update({ utm_source: "SITE", updated_at: new Date().toISOString() })
+            .eq("helena_session_id", sessionId);
+          session = { ...session, utm_source: "SITE" };
         }
 
         if (["negotiation", "sale", "completed"].includes(session.status)) {
