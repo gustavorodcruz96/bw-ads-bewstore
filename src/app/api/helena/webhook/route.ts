@@ -106,13 +106,33 @@ export async function POST(request: NextRequest) {
 
         if (!sessionId) break;
 
-        // Se mensagem é de um HUMANO do time (TO_HUB e não é BOT) → marcar takeover
+        const msgText = String(content.text || "").trim();
+
+        // Comandos do atendente humano (TO_HUB)
         if (direction === "TO_HUB" && origin !== "BOT" && origin !== "SYSTEM") {
-          console.log(`[Webhook] Human agent sent message in ${sessionId}, marking human_takeover`);
-          await supabase
-            .from("sessions")
-            .update({ status: "negotiation", updated_at: new Date().toISOString() })
-            .eq("helena_session_id", sessionId);
+          const cmd = msgText.toLowerCase();
+
+          // /parar - desativa IA nesta conversa
+          if (cmd === "/parar" || cmd === "/pausar" || cmd === "/desativar") {
+            console.log(`[Webhook] Command /parar in ${sessionId} - disabling AI`);
+            await supabase
+              .from("sessions")
+              .update({ agent_handled: false, updated_at: new Date().toISOString() })
+              .eq("helena_session_id", sessionId);
+            break;
+          }
+
+          // /ativar - reativa IA nesta conversa
+          if (cmd === "/ativar" || cmd === "/ligar" || cmd === "/ia") {
+            console.log(`[Webhook] Command /ativar in ${sessionId} - enabling AI`);
+            await supabase
+              .from("sessions")
+              .update({ agent_handled: true, status: "in_progress", updated_at: new Date().toISOString() })
+              .eq("helena_session_id", sessionId);
+            break;
+          }
+
+          // Mensagem normal do atendente - NÃO desativa IA (coexistem)
           break;
         }
 
@@ -124,7 +144,7 @@ export async function POST(request: NextRequest) {
         console.log(`[Webhook] Agent enabled: ${agentOn}`);
         if (!agentOn) break;
 
-        const text = String(content.text || "");
+        const text = msgText;
         const msgType = String(content.type || "TEXT").toLowerCase();
 
         // Detectar mensagem da LP: "Atendimento #XXXXX: ..."
@@ -142,7 +162,7 @@ export async function POST(request: NextRequest) {
         // Verificar se sessão existe no Supabase
         let { data: session } = await supabase
           .from("sessions")
-          .select("status, helena_contact_id, utm_source")
+          .select("status, helena_contact_id, utm_source, agent_handled")
           .eq("helena_session_id", sessionId)
           .single();
 
@@ -192,7 +212,7 @@ export async function POST(request: NextRequest) {
 
               const { data: newSession } = await supabase
                 .from("sessions")
-                .select("status, helena_contact_id, utm_source")
+                .select("status, helena_contact_id, utm_source, agent_handled")
                 .eq("helena_session_id", sessionId)
                 .single();
               session = newSession;
@@ -218,8 +238,14 @@ export async function POST(request: NextRequest) {
           session = { ...session, utm_source: "SITE" };
         }
 
-        if (["negotiation", "sale", "completed"].includes(session.status)) {
-          console.log(`[Webhook] Session ${sessionId} status=${session.status}, handled by human, skipping`);
+        // Se IA foi desativada manualmente pelo atendente (/parar)
+        if (session.agent_handled === false) {
+          console.log(`[Webhook] Session ${sessionId} AI disabled by agent command, skipping`);
+          break;
+        }
+
+        if (["sale", "completed"].includes(session.status)) {
+          console.log(`[Webhook] Session ${sessionId} status=${session.status}, skipping`);
           break;
         }
 
