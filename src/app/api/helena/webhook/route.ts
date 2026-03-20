@@ -128,19 +128,18 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // Verificar se sessão existe no Supabase
+        // Verificar se sessão existe no Supabase (inclui utm_source para filtro)
         let { data: session } = await supabase
           .from("sessions")
-          .select("status, helena_contact_id")
+          .select("status, helena_contact_id, utm_source")
           .eq("helena_session_id", sessionId)
           .single();
 
         console.log(`[Webhook] Session lookup result:`, session);
 
-        // Se sessão não existe, pode ter chegado antes do SESSION_NEW
-        // Buscar dados da sessão no Helena e criar no Supabase
+        // Se sessão não existe, verificar no Helena se tem UTM (veio da LP)
         if (!session) {
-          console.log(`[Webhook] Session not found, creating from Helena API...`);
+          console.log(`[Webhook] Session not found, checking Helena API...`);
           try {
             const sessionRes = await fetch(`https://api.helena.run/chat/v2/session/${sessionId}`, {
               headers: { Authorization: `Bearer ${process.env.HELENA_API_TOKEN}` },
@@ -149,6 +148,12 @@ export async function POST(request: NextRequest) {
               const helenaSession = await sessionRes.json();
               const utm = (helenaSession.utm || {}) as Record<string, string>;
               const utmSource = utm?.source || null;
+
+              // SÓ criar sessão se veio da LP (tem UTM)
+              if (!utmSource) {
+                console.log(`[Webhook] Session ${sessionId} has NO UTM - not from LP, skipping agent`);
+                break;
+              }
 
               await supabase.from("sessions").insert({
                 helena_session_id: sessionId,
@@ -163,22 +168,27 @@ export async function POST(request: NextRequest) {
                 status: "new",
               });
 
-              // Re-fetch para pegar o registro criado
               const { data: newSession } = await supabase
                 .from("sessions")
-                .select("status, helena_contact_id")
+                .select("status, helena_contact_id, utm_source")
                 .eq("helena_session_id", sessionId)
                 .single();
               session = newSession;
-              console.log(`[Webhook] Session created on-the-fly: ${sessionId}, utm=${utmSource}`);
+              console.log(`[Webhook] Session created from LP: ${sessionId}, utm=${utmSource}`);
             }
           } catch (e) {
-            console.error("[Webhook] Failed to create session:", e);
+            console.error("[Webhook] Failed to check session:", e);
           }
         }
 
         if (!session) {
-          console.log(`[Webhook] Session ${sessionId} could not be created, skipping`);
+          console.log(`[Webhook] Session ${sessionId} not found/created, skipping`);
+          break;
+        }
+
+        // FILTRO PRINCIPAL: só responder se sessão veio da LP (tem utm_source)
+        if (!session.utm_source) {
+          console.log(`[Webhook] Session ${sessionId} has no UTM - not from LP, skipping agent`);
           break;
         }
 
