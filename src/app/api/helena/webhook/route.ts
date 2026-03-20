@@ -150,9 +150,11 @@ export async function POST(request: NextRequest) {
               const utm = (helenaSession.utm || {}) as Record<string, string>;
               const utmSource = utm?.source || null;
 
-              // SÓ criar sessão se veio do TikTok (LP)
-              if (!utmSource || utmSource.toLowerCase() !== "tiktok") {
-                console.log(`[Webhook] Session ${sessionId} utm="${utmSource}" - not from TikTok, skipping agent`);
+              // SÓ criar sessão se veio da LP (tiktok ou SITE)
+              const srcLower = (utmSource || "").toLowerCase();
+              const isLP = srcLower === "tiktok" || srcLower === "site";
+              if (!isLP) {
+                console.log(`[Webhook] Session ${sessionId} utm="${utmSource}" - not from LP, skipping agent`);
                 break;
               }
 
@@ -187,13 +189,15 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // FILTRO PRINCIPAL: só responder se sessão veio da LP do TikTok
-        // Aceita: "tiktok", "TIKTOK", "Tiktok" (case-insensitive)
+        // FILTRO PRINCIPAL: só responder se sessão veio da LP
+        // Helena converte utm_source para source e pode retornar "SITE", "tiktok", etc.
+        // Aceitar: "tiktok", "TIKTOK", "SITE" (Helena classifica chat URL como SITE)
         const sessionUtm = (session.utm_source || "").toLowerCase().trim();
-        const isFromLP = sessionUtm === "tiktok" || sessionUtm === "tik_tok";
+        const validSources = ["tiktok", "tik_tok", "site"];
+        const isFromLP = validSources.includes(sessionUtm);
         console.log(`[Webhook] UTM filter: utm_source="${session.utm_source}", isFromLP=${isFromLP}`);
         if (!isFromLP) {
-          console.log(`[Webhook] Session ${sessionId} utm_source="${session.utm_source}" - not from TikTok LP, skipping agent`);
+          console.log(`[Webhook] Session ${sessionId} utm_source="${session.utm_source}" - not from LP, skipping agent`);
           break;
         }
 

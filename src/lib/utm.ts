@@ -68,8 +68,10 @@ export function buildHelenaWhatsAppURL(utmData: UTMData): string {
 
   const base = `https://api.helena.run/chat/v1/channel/wa/${phone}?text=${message}`;
 
+  // Helena aceita tanto utm_source quanto source - enviar ambos para garantir
   const utmParams = [
     utmData.utm_source && `utm_source=${encodeURIComponent(utmData.utm_source)}`,
+    utmData.utm_source && `source=${encodeURIComponent(utmData.utm_source)}`,
     utmData.utm_medium && `utm_medium=${encodeURIComponent(utmData.utm_medium)}`,
     utmData.utm_campaign && `utm_campaign=${encodeURIComponent(utmData.utm_campaign)}`,
     utmData.utm_content && `utm_content=${encodeURIComponent(utmData.utm_content)}`,
