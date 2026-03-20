@@ -108,31 +108,13 @@ export async function POST(request: NextRequest) {
 
         const msgText = String(content.text || "").trim();
 
-        // Comandos do atendente humano (TO_HUB)
+        // Atendente humano respondeu → IA para nessa conversa
         if (direction === "TO_HUB" && origin !== "BOT" && origin !== "SYSTEM") {
-          const cmd = msgText.toLowerCase();
-
-          // /parar - desativa IA nesta conversa
-          if (cmd === "/parar" || cmd === "/pausar" || cmd === "/desativar") {
-            console.log(`[Webhook] Command /parar in ${sessionId} - disabling AI`);
-            await supabase
-              .from("sessions")
-              .update({ agent_handled: false, updated_at: new Date().toISOString() })
-              .eq("helena_session_id", sessionId);
-            break;
-          }
-
-          // /ativar - reativa IA nesta conversa
-          if (cmd === "/ativar" || cmd === "/ligar" || cmd === "/ia") {
-            console.log(`[Webhook] Command /ativar in ${sessionId} - enabling AI`);
-            await supabase
-              .from("sessions")
-              .update({ agent_handled: true, status: "in_progress", updated_at: new Date().toISOString() })
-              .eq("helena_session_id", sessionId);
-            break;
-          }
-
-          // Mensagem normal do atendente - NÃO desativa IA (coexistem)
+          console.log(`[Webhook] Human agent responded in ${sessionId}, stopping AI`);
+          await supabase
+            .from("sessions")
+            .update({ status: "negotiation", agent_handled: false, updated_at: new Date().toISOString() })
+            .eq("helena_session_id", sessionId);
           break;
         }
 
