@@ -8,6 +8,7 @@ declare global {
         track: (event: string, params?: Record<string, unknown>) => void;
       };
     };
+    dataLayer?: Record<string, unknown>[];
   }
 }
 
@@ -29,7 +30,17 @@ export async function trackEvent({ event, properties, eventId }: TrackEventParam
     });
   }
 
-  // 2. Server-side: enviar para nossa API (que repassa ao TikTok Events API)
+  // 2. GTM dataLayer (Google Ads conversions)
+  if (typeof window !== "undefined") {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event,
+      ...properties,
+      event_id: id,
+    });
+  }
+
+  // 3. Server-side: enviar para nossa API (que repassa ao TikTok Events API)
   try {
     await fetch("/api/track", {
       method: "POST",
@@ -48,24 +59,24 @@ export async function trackEvent({ event, properties, eventId }: TrackEventParam
   }
 }
 
-export function trackViewContent() {
+export function trackViewContent(options?: { content_id?: string; content_name?: string }) {
   return trackEvent({
     event: "ViewContent",
     properties: {
       content_type: "product",
-      content_id: "iphone-seminovo-lp",
-      content_name: "iPhone Seminovo - Landing Page",
+      content_id: options?.content_id ?? "iphone-seminovo-lp",
+      content_name: options?.content_name ?? "iPhone Seminovo - Landing Page",
     },
   });
 }
 
-export function trackClickButton() {
+export function trackClickButton(options?: { content_id?: string; content_name?: string }) {
   return trackEvent({
     event: "ClickButton",
     properties: {
       content_type: "product",
-      content_id: "whatsapp-cta",
-      content_name: "WhatsApp CTA - iPhone Seminovo",
+      content_id: options?.content_id ?? "whatsapp-cta",
+      content_name: options?.content_name ?? "WhatsApp CTA - iPhone Seminovo",
     },
   });
 }
