@@ -42,8 +42,8 @@ import macbookDuo from "@/assets/Macbook/17a0be17b66b8cfca4b1591599f51d5a.jpg";
 import macbookDuoDark from "@/assets/Macbook/441970bd662214533542a54e9536d5fd.jpg";
 import macbookRepair from "@/assets/Macbook/700e8d5e4a80e0be997cb614796eaeb1.jpg";
 import macbookAirBlue from "@/assets/Macbook/7d66c734771fd1eab1a6a8247f81ac08.jpg";
+import cesarFilhoImg from "@/assets/cesar-filho.webp";
 import fabianoImg from "@/assets/fabiano-menotti.webp";
-import celsoImg from "@/assets/celso.webp";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -94,7 +94,7 @@ const BENEFITS = [
     icon: Shield,
     title: "Garantia real em serviços",
     description:
-      "Garantia documentada de 90 dias em todos os serviços realizados.",
+      "Garantia documentada de 1 ano em todos os serviços realizados.",
   },
   {
     icon: Clock,
@@ -160,9 +160,9 @@ const HOW_IT_WORKS = [
 ];
 
 const VIDEOS = [
-  { id: "rodrigo-faro-mp4", mp4: "https://pub-9f5ae7ae2f2f4419acfdfd64cd5218ff.r2.dev/IMG_0623.mp4", image: rodrigoFaro, title: "Rodrigo Faro" },
+  { id: "VUD-y46fu80", image: cesarFilhoImg, title: "César Filho" },
   { id: "R25c_h89KR0", image: fabianoImg, title: "Fabiano" },
-  { id: "RM14u8q53Go", image: celsoImg, title: "Celso Portiolli" },
+  { id: "rodrigo-faro-mp4", mp4: "https://pub-9f5ae7ae2f2f4419acfdfd64cd5218ff.r2.dev/IMG_0623.mp4", image: rodrigoFaro, title: "Rodrigo Faro" },
 ];
 
 const TESTIMONIALS = [
@@ -204,7 +204,7 @@ const FAQS = [
   },
   {
     q: "O reparo tem garantia?",
-    a: "Sim. Todos os nossos serviços incluem garantia de 90 dias cobrindo peças e mão de obra.",
+    a: "Sim. Todos os nossos serviços incluem garantia de 1 ano cobrindo peças e mão de obra.",
   },
   {
     q: "Vocês são uma assistência técnica autorizada Apple?",
@@ -481,7 +481,7 @@ export default function MacbookPage() {
               className="text-lg md:text-xl text-gray-300 mb-10 max-w-lg leading-relaxed animate-fade-up"
               style={{ animationDelay: "0.2s" }}
             >
-              Diagnóstico técnico, orçamento transparente e garantia de 90 dias
+              Diagnóstico técnico, orçamento transparente e garantia de 1 ano
               em todos os serviços. MacBook Air, Pro e Neo, Intel ao M5.
             </p>
 
@@ -515,7 +515,7 @@ export default function MacbookPage() {
               style={{ animationDelay: "0.4s" }}
             >
               <span className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-[#D2A89B]" /> Garantia 90 dias
+                <Shield className="w-4 h-4 text-[#D2A89B]" /> Garantia 1 ano
               </span>
               <span className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-[#D2A89B]" /> Orçamento sem compromisso
@@ -1177,7 +1177,7 @@ export default function MacbookPage() {
               <img src={bewLogo.src} alt="B&W Store" className="h-12 mb-6" />
               <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
                 Especialistas em manutenção de MacBook Air e Pro em Belo
-                Horizonte. Qualidade, agilidade e garantia de 90 dias.
+                Horizonte. Qualidade, agilidade e garantia de 1 ano.
               </p>
               <div className="flex gap-4">
                 <a
@@ -1267,9 +1267,10 @@ export default function MacbookPage() {
         rel="noopener noreferrer"
         aria-label="Falar com a Bew Store pelo WhatsApp"
         onClick={handleWhatsAppClick}
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] shadow-lg shadow-black/30 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-lg shadow-black/30 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+        style={{ background: "linear-gradient(135deg, #1A6B37, #145A2D)" }}
       >
-        <WhatsAppIcon className="w-7 h-7 md:w-8 md:h-8 text-white" />
+        <WhatsAppIcon className="w-9 h-9 md:w-10 md:h-10 text-white" />
       </a>
     </main>
   );
