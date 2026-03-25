@@ -38,7 +38,7 @@ const IphoneHighlightSection = () => {
           </div>
 
           <img
-            src={imgIphone}
+            src={typeof imgIphone === "string" ? imgIphone : imgIphone.src}
             alt="iPhone com bateria nova"
             loading="lazy"
             className="mx-auto mt-4 md:mt-0 md:absolute md:bottom-0 md:right-6 w-[240px] sm:w-[280px] md:w-[380px] lg:w-[400px] h-auto object-cover"

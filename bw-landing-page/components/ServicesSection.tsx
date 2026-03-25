@@ -104,7 +104,7 @@ const ServicesSection = () => {
               {/* Image Container */}
               <div className={`absolute transition-transform duration-700 ease-out group-hover:scale-105 ${service.imageStyle}`}>
                 <img
-                  src={service.image}
+                  src={typeof service.image === "string" ? service.image : service.image.src}
                   alt={service.title}
                   className="w-full h-auto drop-shadow-2xl opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                 />

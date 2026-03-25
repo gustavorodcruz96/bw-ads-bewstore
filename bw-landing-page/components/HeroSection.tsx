@@ -64,7 +64,7 @@ const HeroSection = () => {
           <div className="relative flex justify-center lg:justify-end animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <div className="relative">
               <img
-                src={heroImage}
+                src={typeof heroImage === "string" ? heroImage : heroImage.src}
                 alt="iPhone com bateria nova"
                 className="w-full max-w-md lg:max-w-lg opacity-80 brightness-75 saturate-50"
               />

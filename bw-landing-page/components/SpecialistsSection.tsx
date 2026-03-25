@@ -84,7 +84,7 @@ const SpecialistsSection = () => {
             <div className="bg-gradient-to-br from-secondary via-muted to-background rounded-[2rem] p-2 h-full shadow-2xl shadow-black/10 transition-transform duration-500 group-hover:scale-[1.02]">
               <div className="relative h-full w-full overflow-hidden rounded-[1.5rem]">
                 <img
-                  src={especialistaMain}
+                  src={typeof especialistaMain === "string" ? especialistaMain : especialistaMain.src}
                   alt="Técnico especialista B&W realizando diagnóstico em dispositivo"
                   loading="lazy"
                   className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
@@ -146,7 +146,7 @@ const SpecialistsSection = () => {
             <div className="bg-gradient-to-tr from-background via-muted to-secondary rounded-[2rem] p-2 h-full shadow-2xl shadow-black/10 transition-transform duration-500 group-hover:scale-[1.02]">
               <div className="relative h-full w-full overflow-hidden rounded-[1.5rem]">
                 <img
-                  src={especialistaSecondary}
+                  src={typeof especialistaSecondary === "string" ? especialistaSecondary : especialistaSecondary.src}
                   alt="Técnico B&W em atendimento especializado ao cliente"
                   loading="lazy"
                   className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"

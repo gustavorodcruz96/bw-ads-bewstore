@@ -25,7 +25,7 @@ const videos = [
 interface VideoCardProps {
   video: {
     id: string;
-    image: string;
+    image: string | { src: string };
     title: string;
   };
 }
@@ -38,7 +38,7 @@ const VideoCard = ({ video }: VideoCardProps) => {
       <div className="relative w-full">
         {/* Imagem que define a altura do card */}
         <img 
-          src={video.image} 
+          src={typeof video.image === "string" ? video.image : video.image.src}
           alt={video.title} 
           className="w-full h-auto object-cover opacity-90 transition-transform duration-700 group-hover:scale-105 block" 
         />

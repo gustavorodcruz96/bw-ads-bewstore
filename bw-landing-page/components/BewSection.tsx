@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
+import type { StaticImageData } from "next/image";
 import img42 from "@/assets/imgi_42_2025-04-03.webp";
 import img44 from "@/assets/imgi_44_2025-04-03.webp";
 import img70 from "@/assets/imgi_70_unnamed.webp";
 import img74 from "@/assets/imgi_74_unnamed.webp";
 
-const images = [img42, img44, img70, img74];
+const images: StaticImageData[] = [img42, img44, img70, img74];
 
 const BewSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Preload images to prevent flickering
   useEffect(() => {
-    images.forEach((src) => {
+    images.forEach((imgData) => {
       const img = new Image();
-      img.src = src;
+      img.src = imgData.src;
     });
   }, []);
 
@@ -44,7 +45,7 @@ const BewSection = () => {
                     }`}
                   >
                     <img
-                      src={src}
+                      src={src.src}
                       alt={`B&W Store Ambiente ${index + 1}`}
                       className="w-full h-full object-cover will-change-opacity"
                     />

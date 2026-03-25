@@ -49,7 +49,7 @@ const Header = () => {
       <div className="container flex items-center justify-between">
         <a href="#" className="flex items-center gap-2">
           <img 
-            src={logo} 
+            src={typeof logo === "string" ? logo : logo.src}
             alt="B&W Store" 
             className={`h-10 transition-all duration-300 ${isScrolled ? 'invert' : ''}`} 
           />

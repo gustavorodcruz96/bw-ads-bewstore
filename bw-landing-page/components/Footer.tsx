@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row gap-12">
           {/* Brand */}
           <div className="md:basis-[36%] lg:basis-[38%] md:min-w-[260px] lg:min-w-[280px]">
-            <img src={logo} alt="B&W Store" className="h-12 mb-6" />
+            <img src={typeof logo === "string" ? logo : logo.src} alt="B&W Store" className="h-12 mb-6" />
             <p className="text-gray-400 mb-6 max-w-md">
               Especialistas em substituição de bateria para iPhone, iPad e Apple Watch. 
               Qualidade, agilidade e garantia de autonomia.
