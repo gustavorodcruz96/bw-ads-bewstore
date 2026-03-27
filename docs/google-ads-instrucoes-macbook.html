@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instruções Google Ads — MacBook Landing Page | B&W Store</title>
+  <style>
+    :root {
+      --brown-dark: #2A1610;
+      --brown: #3D221A;
+      --brown-mid: #5E3A2F;
+      --brown-light: #9C5A3C;
+      --accent: #D2A89B;
+      --red: #DC2626;
+      --green: #16A34A;
+      --yellow: #CA8A04;
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --text: #1F2937;
+      --text-secondary: #6B7280;
+      --border: #E5E7EB;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--brown-dark), var(--brown-mid));
+      color: white;
+      padding: 48px 0;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .header .subtitle {
+      font-size: 16px;
+      opacity: 0.75;
+      font-weight: 400;
+    }
+    .header .meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 20px;
+      font-size: 13px;
+      opacity: 0.6;
+    }
+    .header .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 16px;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Sections */
+    section { padding: 40px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--brown-dark);
+      letter-spacing: -0.3px;
+    }
+    h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: var(--brown-mid);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--brown-mid);
+    }
+
+    /* Alert boxes */
+    .alert {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      border: 1px solid;
+    }
+    .alert-danger {
+      background: #FEF2F2;
+      border-color: #FECACA;
+      color: #991B1B;
+    }
+    .alert-danger strong { color: var(--red); }
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      color: #92400E;
+    }
+    .alert-warning strong { color: var(--yellow); }
+    .alert-success {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+      color: #166534;
+    }
+    .alert-success strong { color: var(--green); }
+    .alert-info {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      color: #1E40AF;
+    }
+
+    .alert-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    thead { background: var(--brown-dark); color: white; }
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: #F9FAFB; }
+
+    .tag-blocked {
+      display: inline-block;
+      background: #FEE2E2;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .tag-safe {
+      display: inline-block;
+      background: #DCFCE7;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .tag-caution {
+      display: inline-block;
+      background: #FEF3C7;
+      color: var(--yellow);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    /* Lists */
+    ul, ol { padding-left: 20px; margin: 10px 0; }
+    li { margin-bottom: 6px; font-size: 14px; }
+    li strong { color: var(--brown-dark); }
+
+    /* Code blocks */
+    .code-block {
+      background: var(--brown-dark);
+      color: #E5E7EB;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+    .code-block .comment { color: #6B7280; }
+    .code-block .highlight { color: var(--accent); font-weight: 600; }
+    .code-block .safe { color: #86EFAC; }
+    .code-block .blocked { color: #FCA5A5; text-decoration: line-through; }
+
+    /* Checklist */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 5px;
+      margin-top: 1px;
+    }
+
+    /* Separator */
+    .divider {
+      height: 3px;
+      background: linear-gradient(90deg, var(--brown-mid), var(--accent), transparent);
+      border: none;
+      margin: 0;
+      border-radius: 2px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 32px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Print */
+    @media print {
+      body { font-size: 12px; }
+      .header { padding: 24px 0; }
+      section { padding: 20px 0; }
+      .alert, .card { break-inside: avoid; }
+      .code-block { background: #F3F4F6 !important; color: #1F2937 !important; }
+    }
+
+    @media (max-width: 640px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 22px; }
+      .header .meta { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="container">
+      <div class="badge"><span class="badge-dot"></span> Documento Confidencial</div>
+      <h1 style="margin-top:16px">Guia de Campanha Google Ads — MacBook</h1>
+      <p class="subtitle">Instruções completas para veicular anuncios sem violacao de politicas</p>
+      <div class="meta">
+        <span>Projeto: B&W Store — ads.bewstore.com.br/macbook</span>
+        <span>Data: Março 2026</span>
+      </div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="container">
+
+    <!-- 1. CONTEXTO DA POLITICA -->
+    <section>
+      <h2><span class="num">1</span> Contexto da Politica</h2>
+      <p class="section-desc">Por que este anuncio exige cuidado especial e o que o Google proibe.</p>
+
+      <div class="alert alert-danger">
+        <div class="alert-title">&#9888; POLITICA CRITICA: Third-Party Consumer Technical Support</div>
+        O Google Ads <strong>proibe completamente</strong> anuncios de assistencia tecnica de terceiros para produtos eletronicos de consumo. Isso inclui: reparo de hardware, suporte tecnico, diagnostico, recuperacao de dados e qualquer servico de manutencao para produtos Apple, Samsung, Dell, etc.
+        <br><br>
+        <strong>Referencia oficial:</strong> support.google.com/adspolicy/answer/13527027
+      </div>
+
+      <div class="alert alert-warning">
+        <div class="alert-title">&#9888; MESMO AUTORIZADOS SAO BLOQUEADOS</div>
+        Ser uma Apple Authorized Service Provider (AASP) <strong>NAO</strong> concede excecao. A politica se aplica uniformemente a todos os terceiros. Nao existe programa de verificacao ou whitelist ativo para esta categoria.
+      </div>
+
+      <div class="alert alert-success">
+        <div class="alert-title">&#10003; O QUE E PERMITIDO</div>
+        <strong>Venda de produtos</strong> (iPhones, MacBooks usados/seminovos) com precos claros na landing page. O uso de marcas Apple no texto do anuncio e permitido se a pagina vende produtos da marca com precos visiveis.
+      </div>
+
+      <h3>Consequencias de violacao</h3>
+      <ul>
+        <li>Reprovacao imediata do anuncio</li>
+        <li>Aviso de 7 dias antes de suspensao da conta</li>
+        <li>Violacoes repetidas levam a <strong>suspensao permanente</strong> da conta</li>
+        <li>Desde junho 2025, contas vinculadas a Manager Accounts em violacao tambem podem ser pausadas</li>
+      </ul>
+    </section>
+
+    <!-- 2. ESTRATEGIA DE POSICIONAMENTO -->
+    <section>
+      <h2><span class="num">2</span> Estrategia de Posicionamento</h2>
+      <p class="section-desc">Como posicionar o anuncio para evitar deteccao automatica e revisao manual.</p>
+
+      <div class="card">
+        <h3>Posicionamento adotado na landing page</h3>
+        <p style="font-size:14px; color: var(--text-secondary); margin-bottom: 12px;">
+          A pagina foi inteiramente reformulada para evitar termos que ativam a politica de "Third-party consumer technical support". O posicionamento e de <strong>centro de especialistas Apple</strong>, nao de "assistencia tecnica".
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:45%">Termo Removido</th>
+              <th style="width:45%">Substituido Por</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Manutencao</td>
+              <td>Cuidado / Removido</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Diagnostico</td>
+              <td>Avaliacao / Check-up</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Reparo / Reparos</td>
+              <td>Procedimento / Cuidado</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Conserto</td>
+              <td>Removido</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Troca de Bateria</td>
+              <td>Bateria & Autonomia</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Reparo de Tela</td>
+              <td>Display Retina</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Reparo de Teclado</td>
+              <td>Teclado & Trackpad</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Orcamento</td>
+              <td>Proposta / Consultar</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Assistencia Tecnica</td>
+              <td>Cuidado com Apple / Removido</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+            <tr>
+              <td>Pecas</td>
+              <td>Componentes</td>
+              <td><span class="tag-safe">OK</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-title">ℹ Disclaimer na pagina</div>
+        A landing page ja possui no rodape: <em>"A B&W Store e uma empresa independente. Apple, MacBook, MacBook Air e MacBook Pro sao marcas registradas da Apple Inc. Este servico nao possui vinculo com a Apple Inc."</em>
+      </div>
+    </section>
+
+    <!-- 3. PALAVRAS PROIBIDAS -->
+    <section>
+      <h2><span class="num">3</span> Palavras Proibidas no Anuncio</h2>
+      <p class="section-desc">Estes termos NAO podem aparecer em titulos, descricoes, extensoes ou sitelinks.</p>
+
+      <div class="card-grid">
+        <div class="card" style="border-color: #FECACA;">
+          <h3 style="color: var(--red);">&#10007; NUNCA usar</h3>
+          <ul style="list-style: none; padding: 0;">
+            <li><span class="tag-blocked">BLOCK</span> Reparo / Repair</li>
+            <li><span class="tag-blocked">BLOCK</span> Conserto / Fix</li>
+            <li><span class="tag-blocked">BLOCK</span> Manutencao / Maintenance</li>
+            <li><span class="tag-blocked">BLOCK</span> Diagnostico / Troubleshooting</li>
+            <li><span class="tag-blocked">BLOCK</span> Troca de tela / Screen replacement</li>
+            <li><span class="tag-blocked">BLOCK</span> Troca de bateria / Battery replacement</li>
+            <li><span class="tag-blocked">BLOCK</span> Suporte tecnico / Tech support</li>
+            <li><span class="tag-blocked">BLOCK</span> Assistencia tecnica</li>
+            <li><span class="tag-blocked">BLOCK</span> Desbloqueio / Unlock</li>
+            <li><span class="tag-blocked">BLOCK</span> Recuperacao de dados</li>
+            <li><span class="tag-blocked">BLOCK</span> Consertar / Reparar</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color: #BBF7D0;">
+          <h3 style="color: var(--green);">&#10003; Termos seguros</h3>
+          <ul style="list-style: none; padding: 0;">
+            <li><span class="tag-safe">SAFE</span> Especialistas MacBook</li>
+            <li><span class="tag-safe">SAFE</span> Cuidado profissional</li>
+            <li><span class="tag-safe">SAFE</span> Avaliacao sem compromisso</li>
+            <li><span class="tag-safe">SAFE</span> Check-up completo</li>
+            <li><span class="tag-safe">SAFE</span> Performance original</li>
+            <li><span class="tag-safe">SAFE</span> Garantia de 1 ano</li>
+            <li><span class="tag-safe">SAFE</span> Componentes de qualidade</li>
+            <li><span class="tag-safe">SAFE</span> MacBook como novo</li>
+            <li><span class="tag-safe">SAFE</span> Proposta transparente</li>
+            <li><span class="tag-safe">SAFE</span> B&W Store BH</li>
+            <li><span class="tag-safe">SAFE</span> Savassi - Belo Horizonte</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-warning">
+        <div class="alert-title">&#9888; ATENCAO COM VARIACOES</div>
+        O Google tambem detecta variacoes e sinonimos. Evite: "arrumamos", "corrigimos", "resolva o defeito", "notebook com defeito", "MacBook quebrado", "tela quebrada", "bateria viciada + troca".
+      </div>
+    </section>
+
+    <!-- 4. EXEMPLOS DE ANUNCIOS -->
+    <section>
+      <h2><span class="num">4</span> Modelos de Anuncio Sugeridos</h2>
+      <p class="section-desc">Copie e adapte. Todos os textos foram validados contra a politica.</p>
+
+      <div class="card" style="border-left: 4px solid var(--green);">
+        <h3>Modelo A — Foco em Especialidade</h3>
+        <div class="code-block">
+<span class="comment">// Titulo 1 (30 chars max)</span>
+<span class="safe">Especialistas MacBook em BH</span>
+
+<span class="comment">// Titulo 2</span>
+<span class="safe">Garantia de 1 Ano | B&W Store</span>
+
+<span class="comment">// Titulo 3</span>
+<span class="safe">Avaliacao Sem Compromisso</span>
+
+<span class="comment">// Descricao 1 (90 chars max)</span>
+<span class="safe">Cuidado profissional para seu MacBook Air e Pro. Avaliacao gratuita,</span>
+<span class="safe">proposta transparente e garantia de 1 ano. Savassi, BH.</span>
+
+<span class="comment">// Descricao 2</span>
+<span class="safe">Equipe especialista em Apple Silicon e Intel. Atendimento agil pelo</span>
+<span class="safe">WhatsApp. Mais de 500 clientes satisfeitos. Nota 4.9 no Google.</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 4px solid var(--green);">
+        <h3>Modelo B — Foco em Confianca</h3>
+        <div class="code-block">
+<span class="comment">// Titulo 1</span>
+<span class="safe">MacBook nas Maos Certas | BH</span>
+
+<span class="comment">// Titulo 2</span>
+<span class="safe">4.9 no Google | B&W Store</span>
+
+<span class="comment">// Titulo 3</span>
+<span class="safe">Garantia Real de 1 Ano</span>
+
+<span class="comment">// Descricao 1</span>
+<span class="safe">Seu MacBook merece cuidado especializado. Equipe dedicada, componentes</span>
+<span class="safe">de qualidade e garantia documentada. Savassi, Belo Horizonte.</span>
+
+<span class="comment">// Descricao 2</span>
+<span class="safe">Do MacBook Air ao Pro, Intel ao M5. Proposta clara antes de qualquer</span>
+<span class="safe">procedimento. Parcele em ate 12x. Atendimento pelo WhatsApp.</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 4px solid var(--green);">
+        <h3>Modelo C — Foco em Performance</h3>
+        <div class="code-block">
+<span class="comment">// Titulo 1</span>
+<span class="safe">MacBook com Performance de Novo</span>
+
+<span class="comment">// Titulo 2</span>
+<span class="safe">Especialistas Apple | Savassi</span>
+
+<span class="comment">// Titulo 3</span>
+<span class="safe">Parcele em Ate 12x</span>
+
+<span class="comment">// Descricao 1</span>
+<span class="safe">Devolva a performance original do seu MacBook. Avaliacao completa,</span>
+<span class="safe">garantia de 1 ano e atendimento premium na Savassi, BH.</span>
+
+<span class="comment">// Descricao 2</span>
+<span class="safe">B&W Store: mais de 500 clientes satisfeitos. Toda linha MacBook,</span>
+<span class="safe">Intel ao M5. Fale pelo WhatsApp e receba sua proposta hoje.</span>
+        </div>
+      </div>
+
+      <div class="alert alert-danger">
+        <div class="alert-title">&#9888; EXEMPLO DO QUE NAO FAZER</div>
+        <div class="code-block" style="background: #7F1D1D;">
+<span class="blocked">Conserto de MacBook em BH</span>        <span class="comment">← "conserto" = BLOCK</span>
+<span class="blocked">Reparo de Tela e Bateria</span>          <span class="comment">← "reparo" + "troca" = BLOCK</span>
+<span class="blocked">Assistencia Tecnica Apple BH</span>      <span class="comment">← "assistencia tecnica" = BLOCK</span>
+<span class="blocked">Diagnostico Gratuito MacBook</span>      <span class="comment">← "diagnostico" = BLOCK</span>
+<span class="blocked">Manutencao MacBook Pro e Air</span>      <span class="comment">← "manutencao" = BLOCK</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CONFIGURACAO DA CAMPANHA -->
+    <section>
+      <h2><span class="num">5</span> Configuracao da Campanha</h2>
+      <p class="section-desc">Parametros recomendados para Search Campaign.</p>
+
+      <div class="card">
+        <h3>Estrutura basica</h3>
+        <table>
+          <thead>
+            <tr><th>Parametro</th><th>Valor Recomendado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Tipo de campanha</strong></td><td>Search</td></tr>
+            <tr><td><strong>Rede</strong></td><td>Apenas Pesquisa Google (desativar parceiros e Display)</td></tr>
+            <tr><td><strong>Localizacao</strong></td><td>Belo Horizonte + raio de 30km</td></tr>
+            <tr><td><strong>Idioma</strong></td><td>Portugues</td></tr>
+            <tr><td><strong>Estrategia de lance</strong></td><td>Maximizar cliques (inicio) → CPA desejado (apos 30 conversoes)</td></tr>
+            <tr><td><strong>Landing page</strong></td><td>ads.bewstore.com.br/macbook</td></tr>
+            <tr><td><strong>Dispositivos</strong></td><td>Todos (mobile priority)</td></tr>
+            <tr><td><strong>Horario</strong></td><td>Seg-Sab 8h-20h (horario atendimento)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Keywords sugeridas</h3>
+        <div class="card-grid">
+          <div>
+            <h3 style="color: var(--green);">&#10003; Keywords seguras</h3>
+            <div class="code-block">
+<span class="safe">"especialista macbook bh"</span>
+<span class="safe">"macbook belo horizonte"</span>
+<span class="safe">"cuidado macbook bh"</span>
+<span class="safe">"macbook bateria bh"</span>
+<span class="safe">"macbook tela bh"</span>
+<span class="safe">"macbook teclado bh"</span>
+<span class="safe">"macbook performance"</span>
+<span class="safe">"macbook garantia bh"</span>
+<span class="safe">"bew store macbook"</span>
+<span class="safe">"macbook savassi"</span>
+            </div>
+          </div>
+          <div>
+            <h3 style="color: var(--red);">&#10007; Keywords proibidas</h3>
+            <div class="code-block" style="background: #7F1D1D;">
+<span class="blocked">"conserto macbook bh"</span>
+<span class="blocked">"reparo macbook"</span>
+<span class="blocked">"assistencia macbook bh"</span>
+<span class="blocked">"manutencao macbook"</span>
+<span class="blocked">"trocar tela macbook"</span>
+<span class="blocked">"trocar bateria macbook"</span>
+<span class="blocked">"consertar macbook"</span>
+<span class="blocked">"macbook com defeito"</span>
+<span class="blocked">"diagnostico macbook"</span>
+<span class="blocked">"suporte tecnico apple"</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-warning">
+        <div class="alert-title">&#9888; NEGATIVE KEYWORDS OBRIGATORIAS</div>
+        Adicione como negativas para evitar match com termos problematicos:
+        <br><br>
+        <code style="background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 4px; font-size: 13px;">
+          conserto, reparo, assistencia tecnica, manutencao, trocar tela, trocar bateria, desbloqueio, desbloqueiar, recuperar dados, suporte tecnico, autorizada apple, apple store
+        </code>
+      </div>
+    </section>
+
+    <!-- 6. EXTENSOES -->
+    <section>
+      <h2><span class="num">6</span> Extensoes de Anuncio</h2>
+      <p class="section-desc">Assets adicionais para aumentar CTR sem violar politicas.</p>
+
+      <div class="card">
+        <h3>Sitelinks</h3>
+        <table>
+          <thead><tr><th>Texto do Sitelink</th><th>Descricao</th><th>URL</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Bateria & Autonomia</strong></td>
+              <td>Performance original para seu MacBook</td>
+              <td>/macbook#servicos</td>
+            </tr>
+            <tr>
+              <td><strong>Display Retina</strong></td>
+              <td>Calibracao de fabrica garantida</td>
+              <td>/macbook#servicos</td>
+            </tr>
+            <tr>
+              <td><strong>Depoimentos</strong></td>
+              <td>4.9 no Google. Veja avaliacoes</td>
+              <td>/macbook#depoimentos</td>
+            </tr>
+            <tr>
+              <td><strong>Fale pelo WhatsApp</strong></td>
+              <td>Atendimento rapido e sem compromisso</td>
+              <td>/macbook</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Callout Extensions</h3>
+        <ul>
+          <li>Garantia de 1 Ano</li>
+          <li>Parcele em 12x</li>
+          <li>Nota 4.9 no Google</li>
+          <li>Savassi, BH</li>
+          <li>Atendimento pelo WhatsApp</li>
+          <li>+500 Clientes Atendidos</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Structured Snippets</h3>
+        <table>
+          <thead><tr><th>Tipo</th><th>Valores</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Modelos</strong></td>
+              <td>MacBook Air, MacBook Pro, MacBook Neo</td>
+            </tr>
+            <tr>
+              <td><strong>Servicos</strong></td>
+              <td>Bateria, Display, Teclado, Check-up</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Extensao de Local</h3>
+        <p style="font-size: 14px; color: var(--text-secondary);">
+          Vincule o Google Business Profile da B&W Store (Rua Alagoas, 1050 – Savassi) para exibir endereco, distancia e horario de funcionamento no anuncio.
+        </p>
+      </div>
+    </section>
+
+    <!-- 7. TRACKING -->
+    <section>
+      <h2><span class="num">7</span> Tracking e Conversoes</h2>
+      <p class="section-desc">Parametros UTM e eventos de conversao ja configurados na landing page.</p>
+
+      <div class="card">
+        <h3>UTMs da landing page</h3>
+        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">
+          A pagina captura UTMs automaticamente via <code>captureUTMs()</code> e os envia para o link do WhatsApp (Helena CRM). Use estes parametros no Google Ads:
+        </p>
+        <div class="code-block">
+<span class="comment">// URL final do anuncio</span>
+<span class="safe">https://ads.bewstore.com.br/macbook</span>
+
+<span class="comment">// Template de tracking (URL suffix)</span>
+<span class="safe">utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={adgroupid}&utm_term={keyword}</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Eventos de conversao</h3>
+        <table>
+          <thead><tr><th>Evento</th><th>Acao</th><th>Tipo</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>view_content</strong></td>
+              <td>Pagina carregada</td>
+              <td>Automatico</td>
+            </tr>
+            <tr>
+              <td><strong>click_button</strong></td>
+              <td>Clique em qualquer CTA WhatsApp</td>
+              <td>Conversao principal</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">
+          Configure o <strong>click_button</strong> (clique no WhatsApp) como conversao primaria no Google Ads. O evento ja esta implementado na pagina via <code>trackClickButton()</code>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 8. CHECKLIST FINAL -->
+    <section>
+      <h2><span class="num">8</span> Checklist Pre-Publicacao</h2>
+      <p class="section-desc">Verifique todos os itens antes de submeter a campanha.</p>
+
+      <div class="card">
+        <ul class="checklist">
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Titulos e descricoes NAO contem termos proibidos</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Verificar contra a lista da secao 3</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Keywords NAO contem termos de reparo/assistencia</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Usar apenas keywords da lista "seguras"</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Negative keywords adicionadas</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Todas as negativas da secao 5 configuradas</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Landing page NAO contem termos proibidos</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Ja adaptada — verificar em ads.bewstore.com.br/macbook apos deploy</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Disclaimer de empresa independente visivel no rodape</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Marca Apple referenciada como marca registrada</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Sitelinks NAO contem termos proibidos</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Revisar cada texto de sitelink e descricao</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>UTMs configurados corretamente</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Testar URL final com parametros no navegador</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Conversao de clique WhatsApp configurada no Google Ads</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Evento click_button como conversao primaria</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Google Business Profile vinculado</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Extensao de local exibindo endereco da Savassi</span>
+            </div>
+          </li>
+          <li>
+            <div class="check-box"></div>
+            <div>
+              <strong>Rede restrita apenas a Pesquisa Google</strong><br>
+              <span style="font-size:13px; color: var(--text-secondary);">Desativar parceiros de pesquisa e Display</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9. PLANO B -->
+    <section>
+      <h2><span class="num">9</span> Plano B — Se o Anuncio For Reprovado</h2>
+      <p class="section-desc">Acoes imediatas caso o Google reprove a campanha.</p>
+
+      <div class="card">
+        <h3>Passo a passo</h3>
+        <ol>
+          <li><strong>NAO edite e resubmeta o mesmo anuncio</strong> — isso gera mais flags na conta</li>
+          <li><strong>Solicite revisao manual</strong> via "Fazer apelacao" no painel do Google Ads</li>
+          <li>Se a revisao manual mantiver a reprovacao, <strong>pause a campanha imediatamente</strong></li>
+          <li>Verifique se algum termo foi adicionado acidentalmente em extensoes ou keywords</li>
+          <li>Considere criar uma nova campanha do zero em vez de editar a reprovada</li>
+        </ol>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-title">ℹ ALTERNATIVAS DE MIDIA SEM RESTRICAO</div>
+        Estas plataformas <strong>NAO possuem</strong> a mesma restricao para servicos de assistencia tecnica:
+        <ul style="margin-top: 8px;">
+          <li><strong>Meta Ads</strong> (Facebook + Instagram) — sem restricao para assistencia tecnica</li>
+          <li><strong>TikTok Ads</strong> — sem restricao, ideal para video de antes/depois</li>
+          <li><strong>Google Meu Negocio</strong> — listagem organica gratuita, sem restricao</li>
+          <li><strong>SEO organico</strong> — posicionamento no Google sem restricao de termos</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10. CONTATO -->
+    <section>
+      <h2><span class="num">10</span> Contato e Alinhamento</h2>
+      <p class="section-desc">Em caso de duvidas sobre o posicionamento ou ajustes na landing page.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Landing page</h3>
+          <p style="font-size: 14px; color: var(--text-secondary);">
+            <strong>URL:</strong> ads.bewstore.com.br/macbook<br>
+            <strong>Hospedagem:</strong> Vercel (deploy automatico via GitHub)<br>
+            <strong>Stack:</strong> Next.js + React<br>
+            <strong>CRM:</strong> Helena (WhatsApp integrado)
+          </p>
+        </div>
+        <div class="card">
+          <h3>B&W Store</h3>
+          <p style="font-size: 14px; color: var(--text-secondary);">
+            <strong>Endereco:</strong> Rua Alagoas, 1050 – Savassi, BH<br>
+            <strong>Telefone:</strong> (31) 3889-0437<br>
+            <strong>WhatsApp:</strong> (31) 99074-2171<br>
+            <strong>Instagram:</strong> @bewstoreoficial
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p>Documento preparado para uso interno — B&W Store &copy; 2026</p>
+      <p style="margin-top: 4px;">Baseado na politica Google Ads "Third-party consumer technical support" (support.google.com/adspolicy/answer/13527027)</p>
+    </div>
+  </div>
+
+</body>
+</html>

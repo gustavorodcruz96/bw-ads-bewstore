@@ -50,29 +50,29 @@ import fabianoImg from "@/assets/fabiano-menotti.webp";
 // ---------------------------------------------------------------------------
 
 const MACBOOK_WHATSAPP_MESSAGE =
-  "Olá! Preciso de manutenção para meu MacBook. Gostaria de agendar um diagnóstico! 💻";
+  "Olá! Gostaria de saber mais sobre os cuidados para meu MacBook! 💻";
 
 const STORE_IMAGES = [img42, img44, img70, img74];
 
 const BENTO_SERVICES = [
   {
-    title: "Troca de Bateria",
-    description: "Autonomia original para MacBook Air e Pro — ciclos zerados, duração real.",
+    title: "Bateria & Autonomia",
+    description: "Autonomia original para MacBook Air e Pro — performance como novo.",
     image: macbookAirBlue,
     icon: Battery,
     colSpan: "md:col-span-1",
     rowSpan: "md:row-span-2",
   },
   {
-    title: "Reparo de Tela",
-    description: "Display Retina com calibração de fábrica. Liquid Retina e ProMotion.",
+    title: "Display Retina",
+    description: "Calibração de fábrica. Liquid Retina e ProMotion como originais.",
     image: macbookDuo,
     icon: Monitor,
     colSpan: "md:col-span-2",
     rowSpan: "md:row-span-1",
   },
   {
-    title: "Reparo de Teclado",
+    title: "Teclado & Trackpad",
     description: "Butterfly e Magic Keyboard — teclas, backlight e trackpad.",
     image: macbookDuoDark,
     icon: Keyboard,
@@ -80,8 +80,8 @@ const BENTO_SERVICES = [
     rowSpan: "md:row-span-1",
   },
   {
-    title: "Diagnóstico Completo",
-    description: "Análise técnica com relatório detalhado de hardware e software.",
+    title: "Check-up Completo",
+    description: "Avaliação completa com relatório detalhado de hardware e software.",
     image: macbookRepair,
     icon: Cpu,
     colSpan: "md:col-span-1",
@@ -92,21 +92,21 @@ const BENTO_SERVICES = [
 const BENEFITS = [
   {
     icon: Shield,
-    title: "Garantia real em serviços",
+    title: "Garantia de 1 ano",
     description:
-      "Garantia documentada de 1 ano em todos os serviços realizados.",
+      "Garantia documentada de 1 ano em todos os procedimentos realizados.",
   },
   {
     icon: Clock,
     title: "Agilidade no atendimento",
     description:
-      "Maioria dos reparos concluída em até 48 horas. Atendimento ágil pelo WhatsApp.",
+      "Maioria dos procedimentos concluída em até 48 horas. Atendimento ágil pelo WhatsApp.",
   },
   {
     icon: Wrench,
-    title: "Peças de qualidade",
+    title: "Componentes de qualidade",
     description:
-      "Peças com especificação técnica compatível e alta durabilidade.",
+      "Componentes com especificação técnica compatível e alta durabilidade.",
   },
   {
     icon: CreditCard,
@@ -134,21 +134,21 @@ const HOW_IT_WORKS = [
     icon: MessageCircle,
     title: "Fale conosco",
     description:
-      "Clique no WhatsApp e descreva o problema do seu MacBook. Respondemos em minutos.",
+      "Clique no WhatsApp e descreva a necessidade do seu MacBook. Respondemos em minutos.",
   },
   {
     step: "2",
     icon: Search,
-    title: "Diagnóstico técnico",
+    title: "Avaliação especializada",
     description:
-      "Nosso técnico avalia o equipamento e envia um orçamento claro, sem surpresas.",
+      "Nosso especialista avalia o equipamento e envia uma proposta clara, sem surpresas.",
   },
   {
     step: "3",
     icon: Wrench,
-    title: "Reparo especializado",
+    title: "Cuidado profissional",
     description:
-      "Você aprova, a gente repara. Prazo e garantia informados antes de iniciar.",
+      "Você aprova, nós cuidamos. Prazo e garantia informados antes de iniciar.",
   },
   {
     step: "4",
@@ -170,48 +170,48 @@ const TESTIMONIALS = [
     name: "Isabela Mariana",
     role: "MacBook Air M1",
     content:
-      "Meu MacBook Air estava desligando sozinho com 30% de bateria. Levei na B&W, fizeram o diagnóstico na hora e trocaram a bateria no mesmo dia. Voltou a durar o dia todo!",
+      "Meu MacBook Air estava com a bateria fraca. Levei na B&W, avaliaram na hora e resolveram no mesmo dia. Voltou a durar o dia todo!",
     rating: 5,
   },
   {
     name: "Rodrigo Zieguelboim",
     role: 'MacBook Pro 14"',
     content:
-      "O teclado do meu MacBook Pro tinha teclas falhando. Trocaram com peça de qualidade e ficou perfeito. Atendimento transparente, sem surpresas no valor.",
+      "O teclado do meu MacBook Pro não estava funcionando bem. Resolveram com qualidade e ficou perfeito. Atendimento transparente, sem surpresas no valor.",
     rating: 5,
   },
   {
     name: "Welberte Martins",
     role: 'MacBook Pro 16"',
     content:
-      "Tela trincou numa queda. Achei que seria carísimo, mas o orçamento foi muito justo e o reparo ficou impecável. Super recomendo!",
+      "Meu MacBook precisava de atenção na tela. Achei que seria caro, mas a proposta foi muito justa e ficou impecável. Super recomendo!",
     rating: 5,
   },
 ];
 
 const FAQS = [
   {
-    q: "Vocês trabalham com todos os modelos de MacBook?",
+    q: "Vocês atendem todos os modelos de MacBook?",
     a: "Sim. Atendemos desde MacBook Air e Pro com processadores Intel até os modelos mais recentes com chips M4 e M5, incluindo o novo MacBook Neo.",
   },
   {
-    q: "Como funciona o orçamento?",
-    a: "O diagnóstico identifica o problema e geramos um orçamento detalhado. Você só paga se aprovar o serviço. Sem compromisso.",
+    q: "Como funciona a avaliação?",
+    a: "Nossa avaliação identifica a necessidade e geramos uma proposta detalhada. Você só paga se aprovar. Sem compromisso.",
   },
   {
-    q: "Qual o prazo de reparo?",
-    a: "A maioria dos reparos é concluída em até 48 horas após aprovação. Casos mais complexos como reparo de placa-mãe podem levar até 5 dias úteis.",
+    q: "Qual o prazo de atendimento?",
+    a: "A maioria dos procedimentos é concluída em até 48 horas após aprovação. Casos mais complexos podem levar até 5 dias úteis.",
   },
   {
-    q: "O reparo tem garantia?",
-    a: "Sim. Todos os nossos serviços incluem garantia de 1 ano cobrindo peças e mão de obra.",
+    q: "O serviço tem garantia?",
+    a: "Sim. Todos os nossos serviços incluem garantia de 1 ano cobrindo componentes e mão de obra.",
   },
   {
-    q: "Vocês são uma assistência técnica autorizada Apple?",
-    a: "Somos uma empresa independente especializada em manutenção Apple. Isso nos permite oferecer preços mais acessíveis com a mesma qualidade técnica.",
+    q: "Vocês são autorizados pela Apple?",
+    a: "Somos uma empresa independente especializada em produtos Apple. Isso nos permite oferecer preços mais acessíveis com a mesma qualidade técnica.",
   },
   {
-    q: "Onde fica a Bew Store?",
+    q: "Onde fica a B&W Store?",
     a: "Rua Alagoas, 1050 – Savassi, Belo Horizonte - MG. O atendimento inicial é feito pelo WhatsApp para agilizar o processo.",
   },
 ];
@@ -318,8 +318,8 @@ export default function MacbookPage() {
       setWhatsappUrl(buildHelenaWhatsAppURL(utmData, MACBOOK_WHATSAPP_MESSAGE));
     }
     trackViewContent({
-      content_id: "macbook-manutencao-lp",
-      content_name: "MacBook Manutenção - Landing Page",
+      content_id: "macbook-specialist-lp",
+      content_name: "MacBook Specialist - Landing Page",
     });
   }, []);
 
@@ -354,12 +354,12 @@ export default function MacbookPage() {
   const handleWhatsAppClick = () => {
     trackClickButton({
       content_id: "whatsapp-cta-macbook",
-      content_name: "WhatsApp CTA - MacBook Manutenção",
+      content_name: "WhatsApp CTA - MacBook Specialist",
     });
   };
 
   const fallbackUrl =
-    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Preciso%20de%20manuten%C3%A7%C3%A3o%20para%20meu%20MacBook.%20Gostaria%20de%20agendar%20um%20diagn%C3%B3stico!%20%F0%9F%92%BB&utm_source=google&utm_medium=cpc";
+    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20cuidados%20para%20meu%20MacBook!%20%F0%9F%92%BB&utm_source=google&utm_medium=cpc";
   const ctaUrl = whatsappUrl || fallbackUrl;
 
   return (
@@ -400,7 +400,7 @@ export default function MacbookPage() {
             <Button asChild size="sm" className="gap-2" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-4 w-4" />
-                Orçamento
+                Consultar
               </a>
             </Button>
           </nav>
@@ -434,7 +434,7 @@ export default function MacbookPage() {
               <Button asChild className="w-full gap-2 mt-2" onClick={handleWhatsAppClick}>
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
                   <WhatsAppIcon className="h-4 w-4" />
-                  Solicitar Orçamento
+                  Falar com Especialista
                 </a>
               </Button>
             </nav>
@@ -463,7 +463,7 @@ export default function MacbookPage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-gray-300 text-sm font-medium mb-8 animate-fade-up border border-white/10"
             >
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Manutenção MacBook em BH
+              Especialistas MacBook em BH
             </div>
 
             <h1
@@ -481,7 +481,7 @@ export default function MacbookPage() {
               className="text-lg md:text-xl text-gray-300 mb-10 max-w-lg leading-relaxed animate-fade-up"
               style={{ animationDelay: "0.2s" }}
             >
-              Diagnóstico técnico, orçamento transparente e garantia de 1 ano
+              Avaliação especializada, proposta transparente e garantia de 1 ano
               em todos os serviços. MacBook Air, Pro e Neo, Intel ao M5.
             </p>
 
@@ -497,7 +497,7 @@ export default function MacbookPage() {
               >
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="h-5 w-5" />
-                  Solicitar Diagnóstico
+                  Falar com Especialista
                 </a>
               </Button>
               <Button
@@ -518,7 +518,7 @@ export default function MacbookPage() {
                 <Shield className="w-4 h-4 text-[#D2A89B]" /> Garantia 1 ano
               </span>
               <span className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D2A89B]" /> Orçamento sem compromisso
+                <CheckCircle className="w-4 h-4 text-[#D2A89B]" /> Avaliação sem compromisso
               </span>
               <span className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-yellow-500" /> 4.9 no Google
@@ -549,7 +549,7 @@ export default function MacbookPage() {
               Nossos Serviços
             </h2>
             <p className="text-lg text-gray-500">
-              Manutenção especializada para toda a linha MacBook — do Intel ao M5, incluindo o novo Neo.
+              Cuidado especializado para toda a linha MacBook — do Intel ao M5, incluindo o novo Neo.
             </p>
           </div>
 
@@ -603,7 +603,7 @@ export default function MacbookPage() {
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
-                Solicitar orçamento
+                Falar com especialista
               </a>
             </Button>
           </div>
@@ -628,14 +628,14 @@ export default function MacbookPage() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-gray-300 text-sm font-medium mb-8">
               <Search className="w-4 h-4 text-[#D2A89B]" />
-              Diagnóstico técnico gratuito
+              Avaliação sem compromisso
             </div>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Não sabe qual<br />o problema?
+              Não sabe o que seu<br />MacBook precisa?
             </h3>
             <p className="text-gray-300 text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              Nosso diagnóstico técnico identifica exatamente o que seu
-              MacBook precisa. Você recebe o orçamento antes de qualquer reparo.
+              Nossa avaliação especializada identifica exatamente o que seu
+              MacBook precisa. Você recebe a proposta antes de qualquer procedimento.
             </p>
             <Button
               asChild
@@ -645,7 +645,7 @@ export default function MacbookPage() {
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
-                Agendar Diagnóstico
+                Agendar Avaliação
               </a>
             </Button>
           </div>
@@ -748,7 +748,7 @@ export default function MacbookPage() {
 
                 <div className="space-y-5 text-lg text-gray-500 leading-relaxed">
                   <p>
-                    Na B&W Store, redefinimos o conceito de assistência técnica.
+                    Na B&W Store, redefinimos o conceito de cuidado com Apple.
                     Acreditamos que a excelência técnica deve vir acompanhada de
                     transparência absoluta e conforto excepcional.
                   </p>
@@ -803,18 +803,18 @@ export default function MacbookPage() {
             <div className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-3xl p-8 md:p-12 flex flex-col justify-between">
               <div className="max-w-xl">
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                  Diagnóstico técnico especializado
+                  Avaliação técnica especializada
                 </h3>
                 <p className="text-gray-400 mb-8 leading-relaxed text-lg">
                   Cada atendimento começa com uma análise completa de hardware e
-                  software. Identificamos o problema real — sem achismo, sem
-                  surpresas no orçamento.
+                  software. Identificamos a necessidade real — sem achismo, sem
+                  surpresas na proposta.
                 </p>
                 <ul className="space-y-4 text-gray-400">
                   {[
                     "Análise de hardware, bateria e ciclos de carga",
-                    "Diagnóstico de placa-mãe e componentes internos",
-                    "Orçamento detalhado antes de qualquer procedimento",
+                    "Avaliação de placa-mãe e componentes internos",
+                    "Proposta detalhada antes de qualquer procedimento",
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3">
                       <div className="h-1.5 w-1.5 rounded-full bg-[#D2A89B] shrink-0" />
@@ -881,7 +881,7 @@ export default function MacbookPage() {
               </h3>
               <p className="text-gray-400 leading-relaxed text-lg mb-8">
                 Da primeira mensagem à retirada do MacBook, você fala com alguém
-                que entende o problema. Cada etapa é explicada com clareza.
+                que entende a situação. Cada etapa é explicada com clareza.
               </p>
               <div className="flex flex-col gap-4">
                 {[
@@ -920,7 +920,7 @@ export default function MacbookPage() {
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
-                Solicitar orçamento
+                Falar com especialista
               </a>
             </Button>
           </div>
@@ -979,7 +979,7 @@ export default function MacbookPage() {
               Artistas na B&W Store
             </h2>
             <p className="text-lg text-gray-500">
-              Veja quem já confiou na nossa assistência técnica.
+              Veja quem já confiou na B&W Store.
             </p>
           </div>
 
@@ -1061,7 +1061,7 @@ export default function MacbookPage() {
                   <span className="text-[#D2A89B]">sem perder dados.</span>
                 </h2>
                 <p className="text-zinc-300 text-lg leading-relaxed max-w-md">
-                  Diagnóstico técnico, peças de qualidade e instalação
+                  Avaliação especializada, componentes de qualidade e cuidado
                   profissional para devolver o desempenho original do seu
                   MacBook.
                 </p>
@@ -1073,7 +1073,7 @@ export default function MacbookPage() {
                 >
                   <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon className="h-5 w-5" />
-                    Solicitar orçamento agora
+                    Falar com especialista agora
                   </a>
                 </Button>
               </div>
@@ -1083,10 +1083,20 @@ export default function MacbookPage() {
       </section>
 
       {/* ================================================================
-          12. FAQ — Dark
+          12. FAQ — Brown
           ================================================================ */}
-      <section id="faq" className="py-20 md:py-28 bg-zinc-950 scroll-mt-16">
-        <div className="container">
+      <section id="faq" className="relative py-20 md:py-28 overflow-hidden bg-[#3D221A] scroll-mt-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#5E3A2F] via-[#3D221A] to-[#2A1610]" />
+        <div className="absolute inset-0 opacity-[0.04]">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+              backgroundSize: "32px 32px",
+            }}
+          />
+        </div>
+        <div className="container relative z-10">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-14">
               <p className="text-sm font-semibold text-[#D2A89B] uppercase tracking-widest mb-4">
@@ -1106,29 +1116,18 @@ export default function MacbookPage() {
       </section>
 
       {/* ================================================================
-          13. CTA FINAL — Dark gradient
+          13. CTA FINAL — Dark
           ================================================================ */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-[#3D221A]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#5E3A2F] via-[#3D221A] to-[#2A1610]" />
-        <div className="absolute inset-0 opacity-[0.04]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-              backgroundSize: "32px 32px",
-            }}
-          />
-        </div>
-
+      <section className="relative py-24 md:py-32 overflow-hidden bg-zinc-950">
         <div className="container relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Seu MacBook com problema?
+              Seu MacBook precisa de cuidado?
               <br />
-              <span className="text-[#F5E6E0]">A gente resolve.</span>
+              <span className="text-[#D2A89B]">Fale com a gente.</span>
             </h2>
-            <p className="text-xl text-[#D2A89B]/80 mb-10 max-w-xl mx-auto">
-              Solicite seu orçamento agora pelo WhatsApp. Diagnóstico sem
+            <p className="text-xl text-gray-400 mb-10 max-w-xl mx-auto">
+              Fale com nossos especialistas pelo WhatsApp. Avaliação sem
               compromisso e garantia em todos os serviços.
             </p>
 
@@ -1144,14 +1143,14 @@ export default function MacbookPage() {
               </a>
             </Button>
 
-            <div className="mt-14 pt-8 border-t border-white/15">
-              <p className="text-[#D2A89B]/60 text-sm mb-4">Formas de pagamento</p>
+            <div className="mt-14 pt-8 border-t border-white/10">
+              <p className="text-gray-500 text-sm mb-4">Formas de pagamento</p>
               <div className="flex flex-wrap justify-center gap-3">
                 {["PIX", "Cartão de Crédito", "Cartão de Débito", "Dinheiro"].map(
                   (method) => (
                     <span
                       key={method}
-                      className="px-4 py-2 rounded-full bg-white/10 text-[#F5E6E0] text-sm font-medium border border-white/10"
+                      className="px-4 py-2 rounded-full bg-white/5 text-gray-300 text-sm font-medium border border-white/10"
                     >
                       {method}
                     </span>
@@ -1160,7 +1159,7 @@ export default function MacbookPage() {
               </div>
             </div>
 
-            <p className="mt-8 text-[#D2A89B]/40 text-sm">
+            <p className="mt-8 text-gray-600 text-sm">
               Atendimento de segunda a sábado, das 9h às 18h
             </p>
           </div>
@@ -1176,8 +1175,8 @@ export default function MacbookPage() {
             <div className="md:basis-[36%] lg:basis-[38%] md:min-w-[260px]">
               <img src={bewLogo.src} alt="B&W Store" className="h-12 mb-6" />
               <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-                Especialistas em manutenção de MacBook Air e Pro em Belo
-                Horizonte. Qualidade, agilidade e garantia de 1 ano.
+                Especialistas em MacBook Air e Pro em Belo Horizonte.
+                Qualidade, agilidade e garantia de 1 ano.
               </p>
               <div className="flex gap-4">
                 <a
@@ -1222,15 +1221,15 @@ export default function MacbookPage() {
             </div>
 
             <div className="md:flex-1">
-              <h4 className="font-semibold text-lg mb-6">Serviços MacBook</h4>
+              <h4 className="font-semibold text-lg mb-6">Soluções MacBook</h4>
               <ul className="space-y-3">
                 {[
-                  "Troca de Bateria",
-                  "Reparo de Tela",
-                  "Reparo de Teclado",
+                  "Bateria & Autonomia",
+                  "Display Retina",
+                  "Teclado & Trackpad",
                   "Limpeza e Pasta Térmica",
-                  "Diagnóstico Completo",
-                  "Reparo de Placa-Mãe",
+                  "Check-up Completo",
+                  "Placa-Mãe & Lógica",
                 ].map((service) => (
                   <li key={service}>
                     <a href="#servicos" className="text-gray-400 hover:text-white transition-colors text-sm">
@@ -1250,8 +1249,9 @@ export default function MacbookPage() {
                 © {new Date().getFullYear()} B&W Store. Todos os direitos reservados.
               </p>
               <p className="text-gray-600 text-xs max-w-xl">
-                Este serviço não possui vínculo com a Apple Inc. ou com qualquer
-                assistência técnica autorizada Apple.
+                A B&W Store é uma empresa independente. Apple, MacBook, MacBook Air
+                e MacBook Pro são marcas registradas da Apple Inc. Este serviço não
+                possui vínculo com a Apple Inc.
               </p>
             </div>
           </div>
