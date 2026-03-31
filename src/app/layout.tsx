@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import Script from "next/script";
 import "@/index.css";
 
 const montserrat = Montserrat({
@@ -26,12 +27,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon-bew.webp" />
         <script src="/tiktok-pixel.js" />
-        <script
-          type="application/javascript"
-          src="https://cdn.helena.run/scripts/widget/v2/h-widget-min.js"
-          data-companyid="80256f32-1762-433d-a12a-a7fcb1b91598"
-          data-widgetid="57e71c97-4bb3-45a2-966f-e79b4a746067"
-        />
         {gtmId && (
           <script
             dangerouslySetInnerHTML={{
@@ -59,6 +54,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </noscript>
         )}
         {children}
+        <Script
+          src="https://cdn.helena.run/scripts/widget/v2/h-widget-min.js"
+          data-companyid="80256f32-1762-433d-a12a-a7fcb1b91598"
+          data-widgetid="57e71c97-4bb3-45a2-966f-e79b4a746067"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
