@@ -50,7 +50,7 @@ import fabianoImg from "@/assets/fabiano-menotti.webp";
 // ---------------------------------------------------------------------------
 
 const MACBOOK_WHATSAPP_MESSAGE =
-  "Olá! Gostaria de saber mais sobre os cuidados para meu MacBook! 💻";
+  "Olá! Gostaria de saber mais sobre os cuidados para meu MacBook! 💻 #GMA2";
 
 const STORE_IMAGES = [img42, img44, img70, img74];
 
@@ -359,7 +359,7 @@ export default function MacbookPage() {
   };
 
   const fallbackUrl =
-    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20cuidados%20para%20meu%20MacBook!%20%F0%9F%92%BB&utm_source=google&utm_medium=cpc#GMA2";
+    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20cuidados%20para%20meu%20MacBook!%20%F0%9F%92%BB%20%23GMA2&utm_source=google&utm_medium=cpc";
   const ctaUrl = whatsappUrl || fallbackUrl;
 
   return (
