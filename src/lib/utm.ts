@@ -77,7 +77,8 @@ export function buildHelenaWhatsAppURL(utmData: UTMData, customMessage?: string)
     utmData.utm_content && `utm_content=${encodeURIComponent(utmData.utm_content)}`,
   ].filter(Boolean);
 
-  return utmParams.length > 0 ? `${base}&${utmParams.join("&")}` : base;
+  const url = utmParams.length > 0 ? `${base}&${utmParams.join("&")}` : base;
+  return `${url}#GMA2`;
 }
 
 export function generateEventId(): string {

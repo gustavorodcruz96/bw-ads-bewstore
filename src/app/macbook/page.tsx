@@ -359,7 +359,7 @@ export default function MacbookPage() {
   };
 
   const fallbackUrl =
-    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20cuidados%20para%20meu%20MacBook!%20%F0%9F%92%BB&utm_source=google&utm_medium=cpc";
+    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20cuidados%20para%20meu%20MacBook!%20%F0%9F%92%BB&utm_source=google&utm_medium=cpc#GMA2";
   const ctaUrl = whatsappUrl || fallbackUrl;
 
   return (
@@ -1267,7 +1267,7 @@ export default function MacbookPage() {
         rel="noopener noreferrer"
         aria-label="Falar com a Bew Store pelo WhatsApp"
         onClick={handleWhatsAppClick}
-        className="h-widget-trigger fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-lg shadow-black/30 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-lg shadow-black/30 flex items-center justify-center transition-transform duration-200 hover:scale-110"
         style={{ background: "linear-gradient(135deg, #1A6B37, #145A2D)" }}
       >
         <WhatsAppIcon className="w-9 h-9 md:w-10 md:h-10 text-white" />
