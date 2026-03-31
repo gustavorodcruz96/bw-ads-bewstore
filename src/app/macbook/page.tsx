@@ -397,7 +397,7 @@ export default function MacbookPage() {
                 {item.label}
               </a>
             ))}
-            <Button asChild size="sm" className="gap-2" onClick={handleWhatsAppClick}>
+            <Button asChild size="sm" className="gap-2 h-widget-trigger" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-4 w-4" />
                 Consultar
@@ -431,7 +431,7 @@ export default function MacbookPage() {
                   {item.label}
                 </a>
               ))}
-              <Button asChild className="w-full gap-2 mt-2" onClick={handleWhatsAppClick}>
+              <Button asChild className="w-full gap-2 mt-2 h-widget-trigger" onClick={handleWhatsAppClick}>
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
                   <WhatsAppIcon className="h-4 w-4" />
                   Falar com Especialista
@@ -492,7 +492,7 @@ export default function MacbookPage() {
               <Button
                 asChild
                 size="lg"
-                className="gap-3 text-base px-8 py-6"
+                className="gap-3 text-base px-8 py-6 h-widget-trigger"
                 onClick={handleWhatsAppClick}
               >
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -562,7 +562,7 @@ export default function MacbookPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleWhatsAppClick}
-                className={`relative group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 ${service.colSpan} ${service.rowSpan} block`}
+                className={`h-widget-trigger relative group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 ${service.colSpan} ${service.rowSpan} block`}
               >
                 {/* Image background */}
                 <img
@@ -598,7 +598,7 @@ export default function MacbookPage() {
             <Button
               asChild
               size="lg"
-              className="px-10 py-7 text-base gap-2"
+              className="px-10 py-7 text-base gap-2 h-widget-trigger"
               onClick={handleWhatsAppClick}
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -640,7 +640,7 @@ export default function MacbookPage() {
             <Button
               asChild
               size="lg"
-              className="gap-3 text-lg px-10 py-7"
+              className="gap-3 text-lg px-10 py-7 h-widget-trigger"
               onClick={handleWhatsAppClick}
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -915,7 +915,7 @@ export default function MacbookPage() {
             <Button
               asChild
               size="lg"
-              className="px-10 py-7 text-base gap-2"
+              className="px-10 py-7 text-base gap-2 h-widget-trigger"
               onClick={handleWhatsAppClick}
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -1068,7 +1068,7 @@ export default function MacbookPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="gap-2 text-base px-8 py-6"
+                  className="gap-2 text-base px-8 py-6 h-widget-trigger"
                   onClick={handleWhatsAppClick}
                 >
                   <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -1134,7 +1134,7 @@ export default function MacbookPage() {
             <Button
               asChild
               size="lg"
-              className="gap-3 text-lg px-10 py-7"
+              className="gap-3 text-lg px-10 py-7 h-widget-trigger"
               onClick={handleWhatsAppClick}
             >
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -1212,7 +1212,7 @@ export default function MacbookPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={handleWhatsAppClick}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="h-widget-trigger text-gray-400 hover:text-white transition-colors"
                   >
                     (31) 99074-2171
                   </a>
@@ -1267,7 +1267,7 @@ export default function MacbookPage() {
         rel="noopener noreferrer"
         aria-label="Falar com a Bew Store pelo WhatsApp"
         onClick={handleWhatsAppClick}
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-lg shadow-black/30 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+        className="h-widget-trigger fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-lg shadow-black/30 flex items-center justify-center transition-transform duration-200 hover:scale-110"
         style={{ background: "linear-gradient(135deg, #1A6B37, #145A2D)" }}
       >
         <WhatsAppIcon className="w-9 h-9 md:w-10 md:h-10 text-white" />
