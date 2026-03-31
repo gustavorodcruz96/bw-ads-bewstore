@@ -25,4 +25,5 @@ dist-ssr
 .vercel
 .next
 .env.local
+gtm-service-account.json
 _backup_vite_pages
