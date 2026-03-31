@@ -63,7 +63,7 @@ export function getStoredUTMs(): UTMData {
 export function buildHelenaWhatsAppURL(utmData: UTMData, customMessage?: string): string {
   const phone = process.env.NEXT_PUBLIC_HELENA_PHONE || "5531990742171";
   const message = encodeURIComponent(
-    customMessage ?? "Olá! Vi os iPhones seminovos no anúncio e quero saber mais! 📱"
+    customMessage ?? "Olá! Vi os iPhones seminovos no anúncio e quero saber mais! 📱 #GMA2"
   );
 
   const base = `https://api.helena.run/chat/v1/channel/wa/${phone}?text=${message}`;

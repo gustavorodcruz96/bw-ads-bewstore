@@ -75,7 +75,7 @@ export default function LandingPage() {
   };
 
   const fallbackUrl =
-    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Vi%20o%20an%C3%BAncio%20e%20quero%20saber%20mais%20sobre%20os%20iPhones%20seminovos!%20%F0%9F%93%B1&utm_source=tiktok&utm_medium=cpc";
+    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Vi%20o%20an%C3%BAncio%20e%20quero%20saber%20mais%20sobre%20os%20iPhones%20seminovos!%20%F0%9F%93%B1%20%23GMA2&utm_source=tiktok&utm_medium=cpc";
 
   return (
     <main className="min-h-screen bg-background">
