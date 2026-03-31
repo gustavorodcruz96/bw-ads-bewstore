@@ -26,18 +26,6 @@ export default function RootLayout({
     <html lang="pt-BR" className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon-bew.webp" />
-        <script src="/tiktok-pixel.js" />
-        {gtmId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${gtmId}');`,
-            }}
-          />
-        )}
       </head>
       <body
         suppressHydrationWarning
@@ -54,6 +42,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </noscript>
         )}
         {children}
+
+        {/* Google Tag Manager — beforeInteractive ensures execution before hydration */}
+        {gtmId && (
+          <Script
+            id="gtm-script"
+            strategy="beforeInteractive"
+            src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}
+          />
+        )}
+        {gtmId && (
+          <Script
+            id="gtm-init"
+            strategy="beforeInteractive"
+          >{`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}</Script>
+        )}
+
+        {/* TikTok Pixel */}
+        <Script src="/tiktok-pixel.js" strategy="afterInteractive" />
+
+        {/* Helena Widget */}
         <Script
           src="https://cdn.helena.run/scripts/widget/v2/h-widget-min.js"
           data-companyid="80256f32-1762-433d-a12a-a7fcb1b91598"
