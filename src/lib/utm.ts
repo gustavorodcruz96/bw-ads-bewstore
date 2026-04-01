@@ -4,6 +4,7 @@ const UTM_PARAMS = [
   "utm_campaign",
   "utm_content",
   "utm_term",
+  "gclid",
   "ttclid",
 ] as const;
 
@@ -13,6 +14,7 @@ type UTMData = {
   utm_campaign?: string;
   utm_content?: string;
   utm_term?: string;
+  gclid?: string;
   ttclid?: string;
   ttp?: string;
 };
@@ -75,6 +77,8 @@ export function buildHelenaWhatsAppURL(utmData: UTMData, customMessage?: string)
     utmData.utm_medium && `utm_medium=${encodeURIComponent(utmData.utm_medium)}`,
     utmData.utm_campaign && `utm_campaign=${encodeURIComponent(utmData.utm_campaign)}`,
     utmData.utm_content && `utm_content=${encodeURIComponent(utmData.utm_content)}`,
+    utmData.utm_term && `utm_term=${encodeURIComponent(utmData.utm_term)}`,
+    utmData.gclid && `gclid=${encodeURIComponent(utmData.gclid)}`,
   ].filter(Boolean);
 
   const url = utmParams.length > 0 ? `${base}&${utmParams.join("&")}` : base;
