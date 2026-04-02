@@ -310,13 +310,8 @@ export default function MacbookPage() {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const macbookUrl = process.env.NEXT_PUBLIC_HELENA_MACBOOK_URL;
-    if (macbookUrl) {
-      setWhatsappUrl(macbookUrl);
-    } else {
-      const utmData = captureUTMs();
-      setWhatsappUrl(buildHelenaWhatsAppURL(utmData, MACBOOK_WHATSAPP_MESSAGE));
-    }
+    const utmData = captureUTMs();
+    setWhatsappUrl(buildHelenaWhatsAppURL(utmData, MACBOOK_WHATSAPP_MESSAGE));
     trackViewContent({
       content_id: "macbook-specialist-lp",
       content_name: "MacBook Specialist - Landing Page",
