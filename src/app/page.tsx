@@ -15,11 +15,6 @@ import {
   Smartphone,
 } from "lucide-react";
 
-// Wrapper para usar WhatsAppIcon como ícone de benefit
-function WhatsAppBenefitIcon({ className }: { className?: string }) {
-  return <img src="/whatsapp.svg" alt="WhatsApp" className={`${className} invert brightness-200`} />;
-}
-
 const BENEFITS = [
   {
     icon: Shield,
@@ -32,7 +27,7 @@ const BENEFITS = [
     description: "IMEI limpo, sem bloqueio, pronto para uso",
   },
   {
-    icon: WhatsAppBenefitIcon,
+    icon: WhatsAppIcon,
     title: "Atendimento via WhatsApp",
     description: "Nossos consultores ajudam você a escolher o iPhone ideal",
   },
