@@ -18,13 +18,52 @@ jobs:
         run: npm ci --legacy-peer-deps
       - name: Build
         run: npm run build
+      - name: Export public landing pages
+        run: |
+          rm -rf out
+          mkdir -p out/_next
+          cp -R public/. out/
+          cp -R .next/static out/_next/static
+
+          npm run start > /tmp/bw-next-start.log 2>&1 &
+          NEXT_PID=$!
+          trap 'kill "$NEXT_PID" 2>/dev/null || true' EXIT
+
+          READY=0
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:3000/ > /dev/null; then
+              READY=1
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$READY" != "1" ]; then
+            cat /tmp/bw-next-start.log
+            exit 1
+          fi
+
+          export_page() {
+            route="$1"
+            target="$2"
+            mkdir -p "$(dirname "$target")"
+            curl -fsS "http://127.0.0.1:3000${route}" -o "$target"
+          }
+
+          export_page "/" "out/index.html"
+          export_page "/macbook" "out/macbook/index.html"
+          export_page "/manutencao-ipad" "out/manutencao-ipad/index.html"
+          export_page "/troca-de-vidro-ipad" "out/troca-de-vidro-ipad/index.html"
+          export_page "/troca-de-tela-ipad" "out/troca-de-tela-ipad/index.html"
+          export_page "/troca-de-vidro-apple-watch" "out/troca-de-vidro-apple-watch/index.html"
+          export_page "/walberto" "out/walberto/index.html"
       - name: Create SPA .htaccess
         run: |
-          cat > dist/.htaccess << 'EOF'
+          cat > out/.htaccess << 'EOF'
           <IfModule mod_rewrite.c>
             RewriteEngine On
             RewriteBase /
-            RewriteRule ^index\\.html$ - [L]
+            RewriteRule ^index\.html$ - [L]
             RewriteCond %{REQUEST_FILENAME} !-f
             RewriteCond %{REQUEST_FILENAME} !-d
             RewriteRule . /index.html [L]
@@ -38,7 +77,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           protocol: ftp
           port: 21
-          local-dir: dist/
+          local-dir: out/
           server-dir: /
           timeout: 120000
           dangerous-clean-slate: false
