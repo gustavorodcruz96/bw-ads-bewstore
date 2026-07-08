@@ -43,6 +43,10 @@ import iPadGlass from "@/assets/Tela para iPad.webp";
 import deviceGlassSet from "@/assets/bg-bew-telas.webp";
 import deviceGlassSetAlt from "@/assets/capa-bg-bew.webp";
 import watchGlass from "@/assets/Vidro Apple Watch.webp";
+import appleWatchGlassHero from "@/assets/generated-campaigns/apple-watch-glass-hero.webp";
+import iPadGlassHero from "@/assets/generated-campaigns/ipad-glass-hero.webp";
+import iPadMaintenanceHero from "@/assets/generated-campaigns/ipad-maintenance-hero.webp";
+import iPadScreenHero from "@/assets/generated-campaigns/ipad-screen-hero.webp";
 
 type Variant =
   | "ipad-maintenance"
@@ -160,7 +164,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Olá! Gostaria de saber mais sobre manutenção para meu iPad! #GIPAD1",
     badge: "Especialistas iPad em BH",
     heroAlt: "iPad em manutenção especializada",
-    heroImage: iPadBattery,
+    heroImage: iPadMaintenanceHero,
     heroLines: ["Seu iPad", "merece", "cuidado especialista."],
     heroDescription:
       "Avaliação técnica para iPad com proposta transparente, garantia e atendimento especializado na Savassi.",
@@ -171,7 +175,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       {
         title: "Diagnóstico Completo",
         description: "Análise de tela, bateria, conectores, áudio, câmeras e sistema.",
-        image: iPadBattery,
+        image: iPadMaintenanceHero,
         icon: Search,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-2",
@@ -201,7 +205,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         rowSpan: "md:row-span-1",
       },
     ],
-    midCtaImage: iPadGlass,
+    midCtaImage: iPadMaintenanceHero,
     midCtaTitle: "Não sabe qual serviço seu iPad precisa?",
     midCtaDescription:
       "Avaliamos primeiro para indicar o caminho correto: vidro, tela, bateria, conector ou reparo específico.",
@@ -218,7 +222,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Proposta detalhada antes do reparo",
       "Entrega com testes finais e garantia",
     ],
-    highlightImage: iPadBattery,
+    highlightImage: iPadMaintenanceHero,
     highlightTitle: ["Seu iPad funcionando de novo,", "com segurança."],
     highlightDescription:
       "Diagnóstico profissional, peças de qualidade e atendimento transparente para iPad em Belo Horizonte.",
@@ -286,7 +290,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Olá! Gostaria de um orçamento para troca de vidro do meu iPad! #GIPAD2",
     badge: "Troca de vidro iPad em BH",
     heroAlt: "Troca de vidro de iPad",
-    heroImage: iPadGlass,
+    heroImage: iPadGlassHero,
     heroLines: ["Vidro do iPad", "trincou?", "A gente resolve."],
     heroDescription:
       "Troca de vidro de iPad com avaliação técnica, proposta transparente e acabamento cuidadoso.",
@@ -297,7 +301,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       {
         title: "Troca de Vidro",
         description: "Substituição do vidro frontal conforme modelo e condição do iPad.",
-        image: iPadGlass,
+        image: iPadGlassHero,
         icon: Tablet,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-2",
@@ -327,7 +331,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         rowSpan: "md:row-span-1",
       },
     ],
-    midCtaImage: iPadGlass,
+    midCtaImage: iPadGlassHero,
     midCtaTitle: "Vidro quebrado não precisa virar dor de cabeça.",
     midCtaDescription:
       "Fale pelo WhatsApp e envie o modelo do iPad. A equipe orienta se é caso de vidro, tela ou conjunto.",
@@ -344,7 +348,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Procedimento conforme o modelo do iPad",
       "Teste final de toque e visual",
     ],
-    highlightImage: iPadGlass,
+    highlightImage: iPadGlassHero,
     highlightTitle: ["Vidro novo,", "experiência renovada."],
     highlightDescription:
       "Recupere a aparência e o uso do seu iPad com atendimento especializado em Belo Horizonte.",
@@ -412,7 +416,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Olá! Gostaria de um orçamento para troca de tela do meu iPad! #GIPAD3",
     badge: "Troca de tela iPad em BH",
     heroAlt: "Troca de tela de iPad",
-    heroImage: iPadGlass,
+    heroImage: iPadScreenHero,
     heroLines: ["Tela do iPad", "falhando?", "Conte com especialistas."],
     heroDescription:
       "Troca de tela de iPad para falhas de imagem, manchas, linhas, touch irregular ou impacto.",
@@ -423,7 +427,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       {
         title: "Troca de Tela",
         description: "Substituição do conjunto de tela conforme modelo e diagnóstico.",
-        image: iPadGlass,
+        image: iPadScreenHero,
         icon: Monitor,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-2",
@@ -453,7 +457,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         rowSpan: "md:row-span-1",
       },
     ],
-    midCtaImage: iPadGlass,
+    midCtaImage: iPadScreenHero,
     midCtaTitle: "Linhas, manchas ou touch falhando?",
     midCtaDescription:
       "Envie seu modelo pelo WhatsApp e receba orientação sobre troca de tela, vidro ou diagnóstico presencial.",
@@ -470,7 +474,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Verificação de touch e sensores",
       "Entrega testada e com garantia",
     ],
-    highlightImage: iPadGlass,
+    highlightImage: iPadScreenHero,
     highlightTitle: ["Tela nítida,", "uso tranquilo."],
     highlightDescription:
       "Troca de tela de iPad com avaliação profissional, acabamento cuidadoso e atendimento próximo.",
@@ -538,7 +542,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Olá! Gostaria de um orçamento para troca de vidro do meu Apple Watch! #GAW1",
     badge: "Vidro Apple Watch em BH",
     heroAlt: "Troca de vidro de Apple Watch",
-    heroImage: watchGlass,
+    heroImage: appleWatchGlassHero,
     heroLines: ["Vidro do Watch", "quebrou?", "Ajuste fino é aqui."],
     heroDescription:
       "Troca de vidro de Apple Watch com avaliação técnica, acabamento cuidadoso e orientação pelo WhatsApp.",
@@ -549,7 +553,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       {
         title: "Troca de Vidro",
         description: "Substituição do vidro conforme série, tamanho e condição do Watch.",
-        image: watchGlass,
+        image: appleWatchGlassHero,
         icon: Watch,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-2",
@@ -579,7 +583,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         rowSpan: "md:row-span-1",
       },
     ],
-    midCtaImage: watchGlass,
+    midCtaImage: appleWatchGlassHero,
     midCtaTitle: "Pequeno no tamanho, delicado no reparo.",
     midCtaDescription:
       "Envie fotos do Apple Watch pelo WhatsApp e receba orientação sobre vidro, tela e viabilidade do reparo.",
@@ -596,7 +600,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Avaliação de vidro, tela e touch",
       "Montagem cuidadosa e teste final",
     ],
-    highlightImage: watchGlass,
+    highlightImage: appleWatchGlassHero,
     highlightTitle: ["Seu Watch de volta", "ao uso diário."],
     highlightDescription:
       "Troca de vidro de Apple Watch com atendimento especializado em Belo Horizonte.",
@@ -832,7 +836,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             alt={config.heroAlt}
             className="h-full w-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/55 to-black/10" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
         </div>
 
