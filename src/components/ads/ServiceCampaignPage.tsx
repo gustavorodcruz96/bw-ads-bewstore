@@ -17,7 +17,6 @@ import {
   Instagram,
   MapPin,
   Menu,
-  MessageCircle,
   Monitor,
   Phone,
   Search,
@@ -128,7 +127,7 @@ const COMMON_BENEFITS = [
 const HOW_IT_WORKS = [
   {
     step: "1",
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     title: "Fale no WhatsApp",
     description: "Conte o modelo e o que aconteceu. Nossa equipe já orienta os próximos passos.",
   },
