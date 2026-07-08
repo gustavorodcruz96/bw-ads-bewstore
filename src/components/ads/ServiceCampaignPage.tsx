@@ -95,8 +95,8 @@ const STORE_IMAGES = [storeImg42, storeImg44, storeImg70, storeImg74];
 const COMMON_BENEFITS = [
   {
     icon: Shield,
-    title: "Garantia de 1 ano",
-    description: "Garantia documentada nos procedimentos realizados pela Bew Store.",
+    title: "Condições documentadas",
+    description: "Prazo, valores e condições do serviço são informados antes da aprovação.",
   },
   {
     icon: Clock,
@@ -106,7 +106,7 @@ const COMMON_BENEFITS = [
   {
     icon: Wrench,
     title: "Processo técnico",
-    description: "Equipamento avaliado por especialistas em dispositivos Apple.",
+    description: "Equipamento avaliado por equipe técnica em atendimento presencial.",
   },
   {
     icon: CreditCard,
@@ -148,7 +148,7 @@ const HOW_IT_WORKS = [
     step: "4",
     icon: CheckCircle,
     title: "Entrega testada",
-    description: "O dispositivo passa por testes finais e volta com garantia do serviço.",
+    description: "O dispositivo passa por testes finais e recebe as condições documentadas do serviço.",
   },
 ];
 
@@ -161,9 +161,9 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
     badge: "Manutenção, vidro e tela de iPad em BH",
     heroAlt: "Manutenção, troca de vidro e troca de tela de iPad",
     heroImage: iPadMaintenanceHero,
-    heroLines: ["Manutenção de iPad,", "vidro e tela", "com especialista."],
+    heroLines: ["Manutenção de iPad,", "vidro e tela", "com avaliação local."],
     heroDescription:
-      "Diagnóstico técnico, troca de vidro e troca de tela de iPad com proposta transparente e atendimento especializado na Savassi.",
+      "Diagnóstico técnico, troca de vidro e troca de tela de iPad com proposta transparente e atendimento presencial na Savassi.",
     proof: ["Troca de vidro", "Troca de tela", "Avaliação técnica"],
     servicesLead:
       "Uma página única para cuidar do seu iPad: manutenção, vidro quebrado, tela falhando e avaliação completa.",
@@ -194,7 +194,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       },
       {
         title: "Diagnóstico Completo",
-        description: "Confirmamos se o caso é vidro, tela, conjunto frontal ou outro reparo.",
+        description: "Confirmamos se o caso é vidro, tela, conjunto frontal ou outro procedimento.",
         image: deviceGlassSet,
         icon: Search,
         colSpan: "md:col-span-1",
@@ -204,19 +204,19 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
     midCtaImage: iPadMaintenanceHero,
     midCtaTitle: "Não sabe se é vidro, tela ou manutenção?",
     midCtaDescription:
-      "Envie o modelo e fotos pelo WhatsApp. A equipe orienta se é troca de vidro, troca de tela ou outro reparo.",
+      "Envie o modelo e fotos pelo WhatsApp. A equipe orienta se é troca de vidro, troca de tela ou outro procedimento.",
     howLead: "Do WhatsApp ao iPad pronto, com clareza em cada etapa.",
     experienceCopy: [
-      "Na B&W Store, seu iPad passa por uma triagem cuidadosa antes do orçamento. Você entende se o caso é vidro, tela, bateria, conector ou outro reparo antes de aprovar.",
-      "O atendimento acontece em um ambiente pensado para produtos Apple, com laboratório organizado e comunicação direta pelo WhatsApp.",
+      "Na B&W Store, seu iPad passa por uma triagem cuidadosa antes do orçamento. Você entende se o caso é vidro, tela, bateria, conector ou outro procedimento antes de aprovar.",
+      "O atendimento acontece em ambiente técnico organizado, com comunicação direta pelo WhatsApp e orçamento antes de qualquer procedimento.",
     ],
-    specialistTitle: "Técnicos que entendem iPad",
+    specialistTitle: "Equipe técnica para iPad",
     specialistDescription:
-      "Avaliamos o conjunto do aparelho para evitar troca desnecessária de peças e indicar o reparo certo: vidro, tela ou manutenção.",
+      "Avaliamos o conjunto do aparelho para evitar troca desnecessária de peças e indicar o procedimento mais adequado: vidro, tela ou manutenção.",
     specialistBullets: [
       "Teste de vidro, tela, touch, bateria e conectores",
-      "Proposta detalhada antes do reparo",
-      "Entrega com testes finais e garantia",
+      "Proposta detalhada antes do procedimento",
+      "Entrega com testes finais e condições documentadas",
     ],
     highlightImage: iPadMaintenanceHero,
     highlightTitle: ["Seu iPad funcionando de novo,", "com segurança."],
@@ -247,8 +247,8 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         a: "Não. Você recebe a proposta antes de aprovar qualquer procedimento.",
       },
       {
-        q: "Tem garantia?",
-        a: "Sim. Os procedimentos realizados pela Bew Store contam com garantia informada na proposta.",
+        q: "Como são informadas as condições do serviço?",
+        a: "Antes de aprovar, você recebe a proposta com escopo, prazo e condições aplicáveis ao procedimento.",
       },
       {
         q: "Onde fica a loja?",
@@ -287,10 +287,10 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
     badge: "Vidro Apple Watch em BH",
     heroAlt: "Troca de vidro de Apple Watch",
     heroImage: appleWatchGlassHero,
-    heroLines: ["Vidro do Watch", "quebrou?", "Ajuste fino é aqui."],
+    heroLines: ["Vidro do Watch", "quebrou?", "avaliação local."],
     heroDescription:
       "Troca de vidro de Apple Watch com avaliação técnica, acabamento cuidadoso e orientação pelo WhatsApp.",
-    proof: ["Avaliação sem compromisso", "Microeletrônica especializada", "Garantia do serviço"],
+    proof: ["Avaliação sem compromisso", "Atendimento presencial", "Condições documentadas"],
     servicesLead:
       "Apple Watch exige atenção a vedação, touch e acabamento. A avaliação vem primeiro.",
     services: [
@@ -304,7 +304,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       },
       {
         title: "Teste de Touch",
-        description: "Verificação de resposta ao toque e estabilidade após o reparo.",
+        description: "Verificação de resposta ao toque e estabilidade após o procedimento.",
         image: watchGlass,
         icon: CheckCircle,
         colSpan: "md:col-span-2",
@@ -328,13 +328,13 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       },
     ],
     midCtaImage: appleWatchGlassHero,
-    midCtaTitle: "Pequeno no tamanho, delicado no reparo.",
+    midCtaTitle: "Pequeno no tamanho, exige procedimento cuidadoso.",
     midCtaDescription:
-      "Envie fotos do Apple Watch pelo WhatsApp e receba orientação sobre vidro, tela e viabilidade do reparo.",
-    howLead: "Do orçamento ao teste final, tudo com cuidado de microeletrônica.",
+      "Envie fotos do Apple Watch pelo WhatsApp e receba orientação sobre vidro, tela e viabilidade do procedimento.",
+    howLead: "Do orçamento ao teste final, tudo com cuidado técnico.",
     experienceCopy: [
-      "O Apple Watch tem estrutura compacta e exige reparo delicado. Por isso, avaliamos série, tamanho, touch e condição do vidro antes da proposta.",
-      "A comunicação é direta pelo WhatsApp, com orientação clara sobre prazo, garantia e cuidados depois do serviço.",
+      "O Apple Watch tem estrutura compacta e exige procedimento delicado. Por isso, avaliamos série, tamanho, touch e condição do vidro antes da proposta.",
+      "A comunicação é direta pelo WhatsApp, com orientação clara sobre prazo, condições aplicáveis e cuidados depois do serviço.",
     ],
     specialistTitle: "Cuidado para Apple Watch",
     specialistDescription:
@@ -347,7 +347,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
     highlightImage: appleWatchGlassHero,
     highlightTitle: ["Seu Watch de volta", "ao uso diário."],
     highlightDescription:
-      "Troca de vidro de Apple Watch com atendimento especializado em Belo Horizonte.",
+      "Troca de vidro de Apple Watch com atendimento presencial em Belo Horizonte.",
     footerTitle: "Apple Watch",
     footerServices: [
       "Troca de vidro",
@@ -373,8 +373,8 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         a: "Depende do dano. A avaliação mostra se o vidro é suficiente ou se há dano no conjunto.",
       },
       {
-        q: "O serviço tem garantia?",
-        a: "Sim. A garantia e as condições são informadas com a proposta.",
+        q: "Como são informadas as condições do serviço?",
+        a: "A proposta informa escopo, prazo e condições aplicáveis antes da aprovação.",
       },
       {
         q: "Onde fica a B&W Store?",
@@ -400,7 +400,7 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         name: "Marcela D.",
         role: "Apple Watch SE",
         content:
-          "Achei que não teria conserto, mas avaliaram e resolveram com garantia.",
+          "Achei que não teria solução, mas avaliaram e explicaram as condições antes do serviço.",
         rating: 5,
       },
     ],
@@ -565,7 +565,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
               <Button asChild className="h-widget-trigger mt-2 w-full gap-2" onClick={handleWhatsAppClick}>
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
                   <WhatsAppIcon className="h-4 w-4" />
-                  Falar com Especialista
+                  Falar com a equipe
                 </a>
               </Button>
             </nav>
@@ -603,11 +603,16 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
               {config.heroDescription}
             </p>
 
+            <p className="mb-8 max-w-lg rounded-2xl border border-white/10 bg-black/35 px-4 py-3 text-xs leading-relaxed text-gray-400 backdrop-blur-sm animate-fade-up">
+              B&W Store é uma empresa independente, sem vínculo com a Apple Inc. As marcas Apple, iPad e Apple Watch
+              são usadas apenas para identificar modelos compatíveis com os serviços informados.
+            </p>
+
             <div className="flex flex-col gap-4 animate-fade-up sm:flex-row">
               <Button asChild size="lg" className="h-widget-trigger gap-3 px-8 py-6 text-base" onClick={handleWhatsAppClick}>
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="h-5 w-5" />
-                  Falar com Especialista
+                  Falar com a equipe
                 </a>
               </Button>
               <Button
@@ -689,7 +694,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             <Button asChild size="lg" className="h-widget-trigger gap-2 px-10 py-7 text-base" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
-                Falar com especialista
+                Falar com a equipe
               </a>
             </Button>
           </div>
@@ -827,7 +832,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
         <div className="container relative z-10">
           <div className="mx-auto mb-16 max-w-2xl text-center">
             <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#D2A89B]">
-              Equipe especialista
+              Equipe técnica
             </p>
             <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
               {config.specialistTitle}
@@ -839,10 +844,10 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             <div className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm md:p-12">
               <div className="max-w-xl">
                 <h3 className="mb-6 text-2xl font-bold text-white md:text-3xl">
-                  Avaliação técnica especializada
+                  Avaliação técnica presencial
                 </h3>
                 <p className="mb-8 text-lg leading-relaxed text-gray-400">
-                  Cada atendimento começa entendendo o uso, o modelo e a falha do aparelho. A proposta vem com clareza, prazo e garantia.
+                  Cada atendimento começa entendendo o uso, o modelo e a falha do aparelho. A proposta vem com escopo, prazo e condições aplicáveis.
                 </p>
                 <ul className="space-y-4 text-gray-400">
                   {config.specialistBullets.map((item) => (
@@ -855,7 +860,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
               </div>
               <div className="mt-10 flex flex-wrap gap-3 text-xs font-medium md:text-sm">
                 {[
-                  { icon: Award, label: "Técnicos especialistas" },
+                  { icon: Award, label: "Equipe técnica" },
                   { icon: Shield, label: "Laboratório equipado" },
                   { icon: Clock, label: "Processo padronizado" },
                 ].map((badge) => (
@@ -884,7 +889,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
               </div>
               <div className="absolute -bottom-5 left-6 hidden items-center gap-2 rounded-full border border-white/20 bg-white/95 px-5 py-2.5 text-xs font-bold text-zinc-900 shadow-xl md:inline-flex">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-                Equipe especialista
+                Equipe técnica
               </div>
             </div>
           </div>
@@ -893,7 +898,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             <Button asChild size="lg" className="h-widget-trigger gap-2 px-10 py-7 text-base" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
-                Falar com especialista
+                Falar com a equipe
               </a>
             </Button>
           </div>
@@ -991,7 +996,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                 <Button asChild size="lg" className="h-widget-trigger gap-2 px-8 py-6 text-base" onClick={handleWhatsAppClick}>
                   <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon className="h-5 w-5" />
-                    Falar com especialista agora
+                    Falar com a equipe agora
                   </a>
                 </Button>
               </div>
@@ -1039,7 +1044,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
               <span className="text-[#D2A89B]">Fale com a gente.</span>
             </h2>
             <p className="mx-auto mb-10 max-w-xl text-xl text-gray-400">
-              Fale com nossos especialistas pelo WhatsApp. Avaliação sem compromisso e garantia em todos os serviços.
+              Fale com a equipe pelo WhatsApp. A avaliação inicial não obriga aprovação do serviço.
             </p>
             <Button asChild size="lg" className="h-widget-trigger gap-3 px-10 py-7 text-lg" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
@@ -1074,7 +1079,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             <div className="md:min-w-[260px] md:basis-[36%] lg:basis-[38%]">
               <img src={bewLogo.src} alt="B&W Store" className="mb-6 h-12" />
               <p className="mb-6 max-w-md leading-relaxed text-gray-400">
-                {config.footerTitle} em Belo Horizonte. Qualidade, agilidade e garantia.
+                {config.footerTitle} em Belo Horizonte, com atendimento presencial e proposta antes da aprovação.
               </p>
               <div className="flex gap-4">
                 <a
@@ -1131,6 +1136,22 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                     </a>
                   </li>
                 ))}
+              </ul>
+            </div>
+
+            <div className="md:flex-1">
+              <h4 className="mb-6 text-lg font-semibold">Informações legais</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href="/politica-de-privacidade" className="text-sm text-gray-400 transition-colors hover:text-white">
+                    Política de Privacidade
+                  </a>
+                </li>
+                <li>
+                  <a href="/termos-de-uso" className="text-sm text-gray-400 transition-colors hover:text-white">
+                    Termos de Uso
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

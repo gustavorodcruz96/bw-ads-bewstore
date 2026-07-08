@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Manutenção de iPad em Belo Horizonte, troca de vidro e troca de tela com diagnóstico técnico, proposta transparente e atendimento via WhatsApp.",
   keywords:
-    "manutenção ipad bh, troca de vidro ipad bh, troca de tela ipad bh, reparo ipad belo horizonte, assistência ipad bh, bew store",
+    "manutenção ipad bh, troca de vidro ipad bh, troca de tela ipad bh, avaliação ipad belo horizonte, bew store",
 };
 
 export default function IpadMaintenancePage() {

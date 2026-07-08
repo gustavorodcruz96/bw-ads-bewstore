@@ -54,6 +54,8 @@ jobs:
           export_page "/macbook" "out/macbook/index.html"
           export_page "/manutencao-ipad" "out/manutencao-ipad/index.html"
           export_page "/troca-de-vidro-apple-watch" "out/troca-de-vidro-apple-watch/index.html"
+          export_page "/politica-de-privacidade" "out/politica-de-privacidade/index.html"
+          export_page "/termos-de-uso" "out/termos-de-uso/index.html"
           export_page "/walberto" "out/walberto/index.html"
       - name: Create SPA .htaccess
         run: |
