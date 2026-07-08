@@ -1,7 +1,18 @@
 import OpenAI from "openai";
 import { createServiceClient } from "./supabase";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openaiClient: OpenAI | null = null;
+
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("OPENAI_API_KEY is not configured");
+  }
+
+  openaiClient ??= new OpenAI({ apiKey });
+  return openaiClient;
+}
 
 const SYSTEM_PROMPT = `Você é um pré-atendente da B&W Store, uma loja especializada em iPhones seminovos e assistência técnica Apple em Belo Horizonte.
 
@@ -122,6 +133,8 @@ type AgentResponse = {
 // Transcrever áudio usando OpenAI Whisper
 async function transcribeAudio(audioUrl: string): Promise<string> {
   try {
+    const openai = getOpenAIClient();
+
     // Baixar o arquivo de áudio
     const response = await fetch(audioUrl);
     if (!response.ok) {
@@ -201,6 +214,7 @@ export async function processMessage(
   messageType: string = "text",
   audioUrl?: string
 ): Promise<AgentResponse> {
+  const openai = getOpenAIClient();
   const supabase = createServiceClient();
 
   // Buscar histórico do agente (nossas interações anteriores)
