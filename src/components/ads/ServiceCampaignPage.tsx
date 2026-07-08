@@ -23,7 +23,6 @@ import {
   Search,
   Shield,
   Smartphone,
-  Sparkles,
   Star,
   Tablet,
   ThumbsUp,
@@ -39,7 +38,6 @@ import storeImg44 from "@/assets/imgi_44_2025-04-03.webp";
 import storeImg70 from "@/assets/imgi_70_unnamed.webp";
 import storeImg74 from "@/assets/imgi_74_unnamed.webp";
 import iPadBattery from "@/assets/ipad-batery.webp";
-import iPadGlass from "@/assets/Tela para iPad.webp";
 import deviceGlassSet from "@/assets/bg-bew-telas.webp";
 import deviceGlassSetAlt from "@/assets/capa-bg-bew.webp";
 import watchGlass from "@/assets/Vidro Apple Watch.webp";
@@ -50,8 +48,6 @@ import iPadScreenHero from "@/assets/generated-campaigns/ipad-screen-hero.webp";
 
 type Variant =
   | "ipad-maintenance"
-  | "ipad-glass"
-  | "ipad-screen"
   | "apple-watch-glass";
 
 type ServiceItem = {
@@ -159,74 +155,74 @@ const HOW_IT_WORKS = [
 const CAMPAIGNS: Record<Variant, CampaignConfig> = {
   "ipad-maintenance": {
     contentId: "ipad-maintenance-lp",
-    contentName: "Manutencao iPad - Landing Page",
+    contentName: "Manutencao Vidro e Tela iPad - Landing Page",
     whatsappMessage:
-      "Olá! Gostaria de saber mais sobre manutenção para meu iPad! #GIPAD1",
-    badge: "Especialistas iPad em BH",
-    heroAlt: "iPad em manutenção especializada",
+      "Olá! Gostaria de um orçamento para manutenção, troca de vidro ou troca de tela do meu iPad! #GIPAD1",
+    badge: "Manutenção, vidro e tela de iPad em BH",
+    heroAlt: "Manutenção, troca de vidro e troca de tela de iPad",
     heroImage: iPadMaintenanceHero,
-    heroLines: ["Seu iPad", "merece", "cuidado especialista."],
+    heroLines: ["Manutenção de iPad,", "vidro e tela", "com especialista."],
     heroDescription:
-      "Avaliação técnica para iPad com proposta transparente, garantia e atendimento especializado na Savassi.",
-    proof: ["Garantia 1 ano", "Avaliação sem compromisso", "4.9 no Google"],
+      "Diagnóstico técnico, troca de vidro e troca de tela de iPad com proposta transparente e atendimento especializado na Savassi.",
+    proof: ["Troca de vidro", "Troca de tela", "Avaliação técnica"],
     servicesLead:
-      "Do diagnóstico à troca de componentes, cuidamos do seu iPad com método e transparência.",
+      "Uma página única para cuidar do seu iPad: manutenção, vidro quebrado, tela falhando e avaliação completa.",
     services: [
       {
-        title: "Diagnóstico Completo",
-        description: "Análise de tela, bateria, conectores, áudio, câmeras e sistema.",
-        image: iPadMaintenanceHero,
-        icon: Search,
+        title: "Troca de Vidro",
+        description: "Para vidro trincado ou quebrado, com avaliação de touch e acabamento.",
+        image: iPadGlassHero,
+        icon: Tablet,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-2",
       },
       {
-        title: "Tela e Vidro",
-        description: "Avaliação precisa para troca de vidro, tela ou conjunto completo.",
-        image: iPadGlass,
-        icon: Tablet,
+        title: "Troca de Tela",
+        description: "Para falhas de imagem, manchas, linhas, touch irregular ou impacto.",
+        image: iPadScreenHero,
+        icon: Monitor,
         colSpan: "md:col-span-2",
         rowSpan: "md:row-span-1",
       },
       {
-        title: "Bateria e Carga",
-        description: "Correção de autonomia, conector e falhas de carregamento.",
+        title: "Manutenção Técnica",
+        description: "Correção de bateria, conector, áudio, botões, câmeras e falhas gerais.",
         image: iPadBattery,
-        icon: Battery,
+        icon: Wrench,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-1",
       },
       {
-        title: "Botões e Áudio",
-        description: "Microfone, alto-falante, botões e sensores avaliados com cuidado.",
+        title: "Diagnóstico Completo",
+        description: "Confirmamos se o caso é vidro, tela, conjunto frontal ou outro reparo.",
         image: deviceGlassSet,
-        icon: Sparkles,
+        icon: Search,
         colSpan: "md:col-span-1",
         rowSpan: "md:row-span-1",
       },
     ],
     midCtaImage: iPadMaintenanceHero,
-    midCtaTitle: "Não sabe qual serviço seu iPad precisa?",
+    midCtaTitle: "Não sabe se é vidro, tela ou manutenção?",
     midCtaDescription:
-      "Avaliamos primeiro para indicar o caminho correto: vidro, tela, bateria, conector ou reparo específico.",
+      "Envie o modelo e fotos pelo WhatsApp. A equipe orienta se é troca de vidro, troca de tela ou outro reparo.",
     howLead: "Do WhatsApp ao iPad pronto, com clareza em cada etapa.",
     experienceCopy: [
-      "Na B&W Store, seu iPad passa por uma triagem cuidadosa antes do orçamento. Você entende a causa do problema, o prazo e a garantia antes de aprovar.",
+      "Na B&W Store, seu iPad passa por uma triagem cuidadosa antes do orçamento. Você entende se o caso é vidro, tela, bateria, conector ou outro reparo antes de aprovar.",
       "O atendimento acontece em um ambiente pensado para produtos Apple, com laboratório organizado e comunicação direta pelo WhatsApp.",
     ],
     specialistTitle: "Técnicos que entendem iPad",
     specialistDescription:
-      "Avaliamos o conjunto do aparelho para evitar troca desnecessária de peças e preservar o máximo possível do equipamento.",
+      "Avaliamos o conjunto do aparelho para evitar troca desnecessária de peças e indicar o reparo certo: vidro, tela ou manutenção.",
     specialistBullets: [
-      "Teste de tela, touch, bateria e conectores",
+      "Teste de vidro, tela, touch, bateria e conectores",
       "Proposta detalhada antes do reparo",
       "Entrega com testes finais e garantia",
     ],
     highlightImage: iPadMaintenanceHero,
     highlightTitle: ["Seu iPad funcionando de novo,", "com segurança."],
     highlightDescription:
-      "Diagnóstico profissional, peças de qualidade e atendimento transparente para iPad em Belo Horizonte.",
-    footerTitle: "Soluções iPad",
+      "Diagnóstico profissional, troca de vidro, troca de tela e manutenção de iPad em Belo Horizonte.",
+    footerTitle: "iPad",
     footerServices: [
       "Manutenção de iPad",
       "Troca de vidro",
@@ -235,20 +231,20 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
       "Áudio, botões e câmeras",
       "Check-up completo",
     ],
-    finalQuestion: "Seu iPad precisa de cuidado?",
+    finalQuestion: "Seu iPad precisa de manutenção, vidro ou tela?",
     legalDevices: "Apple e iPad são marcas registradas da Apple Inc.",
     faqs: [
       {
-        q: "Vocês fazem manutenção em todos os modelos de iPad?",
-        a: "Atendemos as principais linhas de iPad, iPad Air, iPad mini e iPad Pro. A confirmação do serviço depende do modelo e da avaliação técnica.",
+        q: "Vocês fazem manutenção, troca de vidro e troca de tela de iPad?",
+        a: "Sim. Atendemos manutenção de iPad, troca de vidro e troca de tela, sempre com avaliação do modelo e da condição do aparelho antes da proposta.",
+      },
+      {
+        q: "Como sei se preciso trocar vidro ou tela?",
+        a: "Depende do dano. Se a imagem e o touch estiverem preservados, pode ser caso de vidro. Se houver falha de imagem, manchas ou touch irregular, pode envolver tela ou conjunto frontal.",
       },
       {
         q: "A avaliação tem compromisso?",
         a: "Não. Você recebe a proposta antes de aprovar qualquer procedimento.",
-      },
-      {
-        q: "Qual é o prazo?",
-        a: "O prazo varia por modelo e peça, mas a equipe informa a previsão antes do início do serviço.",
       },
       {
         q: "Tem garantia?",
@@ -279,258 +275,6 @@ const CAMPAIGNS: Record<Variant, CampaignConfig> = {
         role: "iPad mini",
         content:
           "Atendimento rápido pelo WhatsApp e muita transparência no prazo.",
-        rating: 5,
-      },
-    ],
-  },
-  "ipad-glass": {
-    contentId: "ipad-glass-lp",
-    contentName: "Troca de Vidro iPad - Landing Page",
-    whatsappMessage:
-      "Olá! Gostaria de um orçamento para troca de vidro do meu iPad! #GIPAD2",
-    badge: "Troca de vidro iPad em BH",
-    heroAlt: "Troca de vidro de iPad",
-    heroImage: iPadGlassHero,
-    heroLines: ["Vidro do iPad", "trincou?", "A gente resolve."],
-    heroDescription:
-      "Troca de vidro de iPad com avaliação técnica, proposta transparente e acabamento cuidadoso.",
-    proof: ["Avaliação técnica", "Acabamento premium", "Garantia do serviço"],
-    servicesLead:
-      "Se o touch e a imagem estão bons, a troca de vidro pode ser o caminho mais inteligente.",
-    services: [
-      {
-        title: "Troca de Vidro",
-        description: "Substituição do vidro frontal conforme modelo e condição do iPad.",
-        image: iPadGlassHero,
-        icon: Tablet,
-        colSpan: "md:col-span-1",
-        rowSpan: "md:row-span-2",
-      },
-      {
-        title: "Teste de Touch",
-        description: "Verificação de resposta ao toque antes e depois do procedimento.",
-        image: iPadBattery,
-        icon: CheckCircle,
-        colSpan: "md:col-span-2",
-        rowSpan: "md:row-span-1",
-      },
-      {
-        title: "Vedação e Acabamento",
-        description: "Montagem cuidadosa para preservar encaixe, bordas e aparência.",
-        image: deviceGlassSetAlt,
-        icon: Shield,
-        colSpan: "md:col-span-1",
-        rowSpan: "md:row-span-1",
-      },
-      {
-        title: "Limpeza Técnica",
-        description: "Remoção de resíduos e conferência final do conjunto frontal.",
-        image: deviceGlassSet,
-        icon: Sparkles,
-        colSpan: "md:col-span-1",
-        rowSpan: "md:row-span-1",
-      },
-    ],
-    midCtaImage: iPadGlassHero,
-    midCtaTitle: "Vidro quebrado não precisa virar dor de cabeça.",
-    midCtaDescription:
-      "Fale pelo WhatsApp e envie o modelo do iPad. A equipe orienta se é caso de vidro, tela ou conjunto.",
-    howLead: "Um processo claro para recuperar o acabamento do seu iPad.",
-    experienceCopy: [
-      "A troca de vidro exige avaliação cuidadosa: nem todo dano é igual, e o touch precisa ser testado antes da proposta.",
-      "Na B&W Store, você recebe orientação direta sobre viabilidade, prazo, garantia e cuidados depois do reparo.",
-    ],
-    specialistTitle: "Acabamento importa",
-    specialistDescription:
-      "O vidro é parte da experiência do iPad. Por isso, avaliamos toque, bordas, encaixe e aparência antes da entrega.",
-    specialistBullets: [
-      "Avaliação do vidro e do touch",
-      "Procedimento conforme o modelo do iPad",
-      "Teste final de toque e visual",
-    ],
-    highlightImage: iPadGlassHero,
-    highlightTitle: ["Vidro novo,", "experiência renovada."],
-    highlightDescription:
-      "Recupere a aparência e o uso do seu iPad com atendimento especializado em Belo Horizonte.",
-    footerTitle: "Troca de Vidro iPad",
-    footerServices: [
-      "Vidro frontal",
-      "Teste de touch",
-      "Vedação e acabamento",
-      "Limpeza técnica",
-      "Avaliação de tela",
-      "Garantia do serviço",
-    ],
-    finalQuestion: "O vidro do seu iPad quebrou?",
-    legalDevices: "Apple e iPad são marcas registradas da Apple Inc.",
-    faqs: [
-      {
-        q: "Dá para trocar só o vidro do iPad?",
-        a: "Depende do modelo e do estado do touch/tela. A equipe avalia primeiro para indicar se é vidro ou conjunto completo.",
-      },
-      {
-        q: "Preciso saber o modelo exato?",
-        a: "Ajuda bastante. Se não souber, envie fotos pelo WhatsApp que a equipe orienta como identificar.",
-      },
-      {
-        q: "A imagem do iPad precisa estar funcionando?",
-        a: "Para troca apenas do vidro, normalmente a imagem e o touch precisam estar preservados. Confirmamos na avaliação.",
-      },
-      {
-        q: "O reparo tem garantia?",
-        a: "Sim. A garantia e as condições são informadas junto da proposta.",
-      },
-      {
-        q: "Onde fica a B&W Store?",
-        a: "Rua Alagoas, 1050, Savassi, Belo Horizonte - MG.",
-      },
-    ],
-    testimonials: [
-      {
-        name: "Camila A.",
-        role: "iPad 9",
-        content:
-          "O vidro estava bem trincado e voltou com acabamento excelente. Tudo bem explicado.",
-        rating: 5,
-      },
-      {
-        name: "Rafael M.",
-        role: "iPad Air",
-        content:
-          "Mandaram orçamento antes e cumpriram o prazo combinado. Atendimento muito bom.",
-        rating: 5,
-      },
-      {
-        name: "Livia C.",
-        role: "iPad Pro",
-        content:
-          "Gostei da transparência: explicaram a diferença entre vidro e tela antes de aprovar.",
-        rating: 5,
-      },
-    ],
-  },
-  "ipad-screen": {
-    contentId: "ipad-screen-lp",
-    contentName: "Troca de Tela iPad - Landing Page",
-    whatsappMessage:
-      "Olá! Gostaria de um orçamento para troca de tela do meu iPad! #GIPAD3",
-    badge: "Troca de tela iPad em BH",
-    heroAlt: "Troca de tela de iPad",
-    heroImage: iPadScreenHero,
-    heroLines: ["Tela do iPad", "falhando?", "Conte com especialistas."],
-    heroDescription:
-      "Troca de tela de iPad para falhas de imagem, manchas, linhas, touch irregular ou impacto.",
-    proof: ["Teste de imagem", "Teste de touch", "Garantia do serviço"],
-    servicesLead:
-      "Quando a tela afeta imagem ou toque, a avaliação correta evita retrabalho e surpresa.",
-    services: [
-      {
-        title: "Troca de Tela",
-        description: "Substituição do conjunto de tela conforme modelo e diagnóstico.",
-        image: iPadScreenHero,
-        icon: Monitor,
-        colSpan: "md:col-span-1",
-        rowSpan: "md:row-span-2",
-      },
-      {
-        title: "Imagem e Touch",
-        description: "Teste de brilho, linhas, manchas, ghost touch e resposta ao toque.",
-        image: iPadBattery,
-        icon: Tablet,
-        colSpan: "md:col-span-2",
-        rowSpan: "md:row-span-1",
-      },
-      {
-        title: "Conectores Internos",
-        description: "Conferência técnica para descartar mau contato e dano interno.",
-        image: deviceGlassSet,
-        icon: Wrench,
-        colSpan: "md:col-span-1",
-        rowSpan: "md:row-span-1",
-      },
-      {
-        title: "Teste Final",
-        description: "Validação completa antes da entrega: imagem, touch, sensores e carga.",
-        image: deviceGlassSetAlt,
-        icon: CheckCircle,
-        colSpan: "md:col-span-1",
-        rowSpan: "md:row-span-1",
-      },
-    ],
-    midCtaImage: iPadScreenHero,
-    midCtaTitle: "Linhas, manchas ou touch falhando?",
-    midCtaDescription:
-      "Envie seu modelo pelo WhatsApp e receba orientação sobre troca de tela, vidro ou diagnóstico presencial.",
-    howLead: "Diagnóstico antes da troca para indicar o reparo certo.",
-    experienceCopy: [
-      "Falhas de tela podem ter causas diferentes: impacto, cabo, touch, LCD ou conjunto frontal. Por isso, avaliamos antes de trocar.",
-      "Você recebe uma proposta clara e acompanha o serviço pelo WhatsApp, com orientação sobre prazo e garantia.",
-    ],
-    specialistTitle: "Precisão na tela do iPad",
-    specialistDescription:
-      "Nosso processo verifica imagem, touch e conectores para que a troca faça sentido para o problema real.",
-    specialistBullets: [
-      "Teste de imagem, brilho e manchas",
-      "Verificação de touch e sensores",
-      "Entrega testada e com garantia",
-    ],
-    highlightImage: iPadScreenHero,
-    highlightTitle: ["Tela nítida,", "uso tranquilo."],
-    highlightDescription:
-      "Troca de tela de iPad com avaliação profissional, acabamento cuidadoso e atendimento próximo.",
-    footerTitle: "Troca de Tela iPad",
-    footerServices: [
-      "Tela com linhas",
-      "Tela sem imagem",
-      "Touch falhando",
-      "Manchas e vazamentos",
-      "Conectores internos",
-      "Teste final completo",
-    ],
-    finalQuestion: "A tela do seu iPad precisa de troca?",
-    legalDevices: "Apple e iPad são marcas registradas da Apple Inc.",
-    faqs: [
-      {
-        q: "Quando preciso trocar a tela do iPad?",
-        a: "Quando há falha de imagem, manchas, linhas, tela apagada, touch irregular ou dano no conjunto. A avaliação confirma a necessidade.",
-      },
-      {
-        q: "Troca de tela é diferente de troca de vidro?",
-        a: "Sim. Vidro é a camada externa; tela envolve imagem e, em alguns modelos, o conjunto frontal. A equipe explica após avaliar.",
-      },
-      {
-        q: "Vocês testam antes de entregar?",
-        a: "Sim. Fazemos testes de imagem, touch, sensores e funcionamento geral.",
-      },
-      {
-        q: "Tem garantia?",
-        a: "Sim. A garantia e as condições são informadas na proposta.",
-      },
-      {
-        q: "Como faço orçamento?",
-        a: "Clique no WhatsApp, envie o modelo e descreva o problema. A equipe orienta o próximo passo.",
-      },
-    ],
-    testimonials: [
-      {
-        name: "Bruno V.",
-        role: "iPad Pro",
-        content:
-          "Minha tela tinha linhas e o touch falhava. Voltou perfeito e com todos os testes.",
-        rating: 5,
-      },
-      {
-        name: "Ana T.",
-        role: "iPad Air",
-        content:
-          "Atendimento muito claro. Explicaram quando era tela, não só vidro.",
-        rating: 5,
-      },
-      {
-        name: "Felipe N.",
-        role: "iPad",
-        content:
-          "Serviço bem feito e prazo cumprido. Recomendo para iPad em BH.",
         rating: 5,
       },
     ],
