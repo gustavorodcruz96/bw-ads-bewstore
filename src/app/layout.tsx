@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Script from "next/script";
+import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import "@/index.css";
 
 const montserrat = Montserrat({
@@ -26,6 +27,21 @@ export default function RootLayout({
     <html lang="pt-BR" className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon-bew.webp" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(window, document, script) {
+if (!window.lp) {
+    window.lp = window.lp || {};
+    c = document.getElementsByTagName('head')[0];
+    k = document.createElement('script');
+    k.async = 1;
+    k.src = script;
+    c.appendChild(k);
+}
+window.lp.accountCode = 'CSZ1785415950';
+})(window, document, 'https://leaper.nyc3.cdn.digitaloceanspaces.com/leapertk-1.0.js');`,
+          }}
+        />
       </head>
       <body
         suppressHydrationWarning
@@ -42,6 +58,7 @@ export default function RootLayout({
           </noscript>
         )}
         {children}
+        <FloatingWhatsAppButton />
 
         {/* Google Tag Manager — beforeInteractive ensures execution before hydration */}
         {gtmId && (
@@ -61,13 +78,6 @@ export default function RootLayout({
         {/* TikTok Pixel */}
         <Script src="/tiktok-pixel.js" strategy="afterInteractive" />
 
-        {/* Helena Widget */}
-        <Script
-          src="https://cdn.helena.run/scripts/widget/v2/h-widget-min.js"
-          data-companyid="80256f32-1762-433d-a12a-a7fcb1b91598"
-          data-widgetid="57e71c97-4bb3-45a2-966f-e79b4a746067"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

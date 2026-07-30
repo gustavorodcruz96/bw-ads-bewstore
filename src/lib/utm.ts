@@ -20,6 +20,7 @@ type UTMData = {
 };
 
 const STORAGE_KEY = "bw_utm_data";
+export const WHATSAPP_URL = "https://weare.leaper.com.br/flow/CSZ1785415950";
 
 export function captureUTMs(): UTMData {
   if (typeof window === "undefined") return {};
@@ -62,27 +63,8 @@ export function getStoredUTMs(): UTMData {
   }
 }
 
-export function buildHelenaWhatsAppURL(utmData: UTMData, customMessage?: string): string {
-  const phone = process.env.NEXT_PUBLIC_HELENA_PHONE || "5531990742171";
-  const message = encodeURIComponent(
-    customMessage ?? "Olá! Vi os iPhones seminovos no anúncio e quero saber mais! 📱 #TKA2"
-  );
-
-  const base = `https://api.helena.run/chat/v1/channel/wa/${phone}?text=${message}`;
-
-  // Helena aceita tanto utm_source quanto source - enviar ambos para garantir
-  const utmParams = [
-    utmData.utm_source && `utm_source=${encodeURIComponent(utmData.utm_source)}`,
-    utmData.utm_source && `source=${encodeURIComponent(utmData.utm_source)}`,
-    utmData.utm_medium && `utm_medium=${encodeURIComponent(utmData.utm_medium)}`,
-    utmData.utm_campaign && `utm_campaign=${encodeURIComponent(utmData.utm_campaign)}`,
-    utmData.utm_content && `utm_content=${encodeURIComponent(utmData.utm_content)}`,
-    utmData.utm_term && `utm_term=${encodeURIComponent(utmData.utm_term)}`,
-    utmData.gclid && `gclid=${encodeURIComponent(utmData.gclid)}`,
-  ].filter(Boolean);
-
-  const url = utmParams.length > 0 ? `${base}&${utmParams.join("&")}` : base;
-  return url;
+export function buildWhatsAppURL(): string {
+  return WHATSAPP_URL;
 }
 
 export function generateEventId(): string {

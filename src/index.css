@@ -111,11 +111,6 @@
   }
 }
 
-/* Esconder o botão flutuante padrão do Helena Widget (evita duplicar com o nosso) */
-.h-widget-float {
-  display: none !important;
-}
-
 @layer base {
   * {
     @apply border-border;

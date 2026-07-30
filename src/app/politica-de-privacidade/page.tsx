@@ -25,7 +25,7 @@ const sections = [
     title: "3. Como usamos essas informações",
     body: [
       "Usamos as informações para responder solicitações, orientar sobre avaliação presencial, preparar proposta de serviço, melhorar a experiência do site e medir resultados de campanhas.",
-      "Não vendemos dados pessoais. O compartilhamento ocorre apenas com ferramentas necessárias para atendimento, mensuração e operação, como WhatsApp, Helena, Google Tag Manager, Google Ads e TikTok Pixel, quando aplicável.",
+      "Não vendemos dados pessoais. O compartilhamento ocorre apenas com ferramentas necessárias para atendimento, mensuração e operação, como WhatsApp, Leaper, Google Tag Manager, Google Ads e TikTok Pixel, quando aplicável.",
     ],
   },
   {

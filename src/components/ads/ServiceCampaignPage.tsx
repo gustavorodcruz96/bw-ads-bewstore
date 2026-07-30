@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { StaticImageData } from "next/image";
-import { captureUTMs, buildHelenaWhatsAppURL } from "@/lib/utm";
+import { WHATSAPP_URL, captureUTMs } from "@/lib/utm";
 import { trackClickButton, trackViewContent } from "@/lib/tracking";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -438,7 +438,6 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function ServiceCampaignPage({ variant }: { variant: Variant }) {
   const config = CAMPAIGNS[variant];
-  const [whatsappUrl, setWhatsappUrl] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -446,8 +445,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const utmData = captureUTMs();
-    setWhatsappUrl(buildHelenaWhatsAppURL(utmData, config.whatsappMessage));
+    captureUTMs();
     trackViewContent({
       content_id: config.contentId,
       content_name: config.contentName,
@@ -482,10 +480,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
     return () => window.clearInterval(interval);
   }, []);
 
-  const fallbackUrl = `https://api.helena.run/chat/v1/channel/wa/5531990742171?text=${encodeURIComponent(
-    config.whatsappMessage
-  )}&utm_source=google&utm_medium=cpc`;
-  const ctaUrl = whatsappUrl || fallbackUrl;
+  const ctaUrl = WHATSAPP_URL;
 
   const handleWhatsAppClick = () => {
     trackClickButton({
@@ -525,7 +520,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                 {item.label}
               </a>
             ))}
-            <Button asChild size="sm" className="h-widget-trigger gap-2" onClick={handleWhatsAppClick}>
+            <Button asChild size="sm" className="gap-2" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-4 w-4" />
                 Consultar
@@ -561,7 +556,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                   {item.label}
                 </a>
               ))}
-              <Button asChild className="h-widget-trigger mt-2 w-full gap-2" onClick={handleWhatsAppClick}>
+              <Button asChild className="mt-2 w-full gap-2" onClick={handleWhatsAppClick}>
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
                   <WhatsAppIcon className="h-4 w-4" />
                   Falar com a equipe
@@ -608,7 +603,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             </p>
 
             <div className="flex flex-col gap-4 animate-fade-up sm:flex-row">
-              <Button asChild size="lg" className="h-widget-trigger gap-3 px-8 py-6 text-base" onClick={handleWhatsAppClick}>
+              <Button asChild size="lg" className="gap-3 px-8 py-6 text-base" onClick={handleWhatsAppClick}>
                 <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="h-5 w-5" />
                   Falar com a equipe
@@ -663,7 +658,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleWhatsAppClick}
-                className={`h-widget-trigger group relative block overflow-hidden rounded-3xl shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${service.colSpan} ${service.rowSpan}`}
+                className={`group relative block overflow-hidden rounded-3xl shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${service.colSpan} ${service.rowSpan}`}
               >
                 <img
                   src={service.image.src}
@@ -690,7 +685,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
           </div>
 
           <div className="mt-14 text-center">
-            <Button asChild size="lg" className="h-widget-trigger gap-2 px-10 py-7 text-base" onClick={handleWhatsAppClick}>
+            <Button asChild size="lg" className="gap-2 px-10 py-7 text-base" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
                 Falar com a equipe
@@ -717,7 +712,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             <p className="mx-auto mb-10 max-w-xl text-lg leading-relaxed text-gray-300 md:text-xl">
               {config.midCtaDescription}
             </p>
-            <Button asChild size="lg" className="h-widget-trigger gap-3 px-10 py-7 text-lg" onClick={handleWhatsAppClick}>
+            <Button asChild size="lg" className="gap-3 px-10 py-7 text-lg" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
                 Agendar Avaliação
@@ -894,7 +889,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
           </div>
 
           <div className="mt-14 flex justify-center">
-            <Button asChild size="lg" className="h-widget-trigger gap-2 px-10 py-7 text-base" onClick={handleWhatsAppClick}>
+            <Button asChild size="lg" className="gap-2 px-10 py-7 text-base" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-5 w-5" />
                 Falar com a equipe
@@ -992,7 +987,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                 <p className="max-w-md text-lg leading-relaxed text-zinc-300">
                   {config.highlightDescription}
                 </p>
-                <Button asChild size="lg" className="h-widget-trigger gap-2 px-8 py-6 text-base" onClick={handleWhatsAppClick}>
+                <Button asChild size="lg" className="gap-2 px-8 py-6 text-base" onClick={handleWhatsAppClick}>
                   <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon className="h-5 w-5" />
                     Falar com a equipe agora
@@ -1045,7 +1040,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
             <p className="mx-auto mb-10 max-w-xl text-xl text-gray-400">
               Fale com a equipe pelo WhatsApp. A avaliação inicial não obriga aprovação do serviço.
             </p>
-            <Button asChild size="lg" className="h-widget-trigger gap-3 px-10 py-7 text-lg" onClick={handleWhatsAppClick}>
+            <Button asChild size="lg" className="gap-3 px-10 py-7 text-lg" onClick={handleWhatsAppClick}>
               <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="h-6 w-6" />
                 Chamar no WhatsApp
@@ -1117,7 +1112,7 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={handleWhatsAppClick}
-                    className="h-widget-trigger text-gray-400 transition-colors hover:text-white"
+                    className="text-gray-400 transition-colors hover:text-white"
                   >
                     (31) 99074-2171
                   </a>
@@ -1170,17 +1165,6 @@ export function ServiceCampaignPage({ variant }: { variant: Variant }) {
         </div>
       </footer>
 
-      <a
-        href={ctaUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Falar com a Bew Store pelo WhatsApp"
-        onClick={handleWhatsAppClick}
-        className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg shadow-black/30 transition-transform duration-200 hover:scale-110 md:bottom-6 md:right-6 md:h-16 md:w-16"
-        style={{ background: "linear-gradient(135deg, #1A6B37, #145A2D)" }}
-      >
-        <WhatsAppIcon className="h-9 w-9 text-white md:h-10 md:w-10" />
-      </a>
     </main>
   );
 }

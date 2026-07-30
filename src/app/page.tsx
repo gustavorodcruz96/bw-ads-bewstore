@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { captureUTMs, buildHelenaWhatsAppURL } from "@/lib/utm";
+import { useEffect } from "react";
+import { WHATSAPP_URL, captureUTMs } from "@/lib/utm";
 import { trackViewContent, trackClickButton } from "@/lib/tracking";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -57,20 +57,14 @@ const TESTIMONIALS = [
 ];
 
 export default function LandingPage() {
-  const [whatsappUrl, setWhatsappUrl] = useState("");
-
   useEffect(() => {
-    const utmData = captureUTMs();
-    setWhatsappUrl(buildHelenaWhatsAppURL(utmData));
+    captureUTMs();
     trackViewContent();
   }, []);
 
   const handleWhatsAppClick = () => {
     trackClickButton();
   };
-
-  const fallbackUrl =
-    "https://api.helena.run/chat/v1/channel/wa/5531990742171?text=Ol%C3%A1!%20Vi%20o%20an%C3%BAncio%20e%20quero%20saber%20mais%20sobre%20os%20iPhones%20seminovos!%20%F0%9F%93%B1%20%23TKA2&utm_source=tiktok&utm_medium=cpc";
 
   return (
     <main className="min-h-screen bg-background">
@@ -119,7 +113,7 @@ export default function LandingPage() {
                 onClick={handleWhatsAppClick}
               >
                 <a
-                  href={whatsappUrl || fallbackUrl}
+                  href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -289,7 +283,7 @@ export default function LandingPage() {
               onClick={handleWhatsAppClick}
             >
               <a
-                href={whatsappUrl || fallbackUrl}
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -327,17 +321,6 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* FLOATING WHATSAPP BUTTON */}
-      <a
-        href={whatsappUrl || fallbackUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Conversar com a Bew Store pelo WhatsApp"
-        onClick={handleWhatsAppClick}
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] shadow-lg shadow-black/30 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:bg-[#22c55e]"
-      >
-        <WhatsAppIcon className="w-7 h-7 md:w-8 md:h-8 text-white" />
-      </a>
     </main>
   );
 }

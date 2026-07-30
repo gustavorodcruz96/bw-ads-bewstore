@@ -793,7 +793,7 @@ export default function WalbertoPage() {
                 <p><strong className="text-gray-700">URL:</strong> ads.bewstore.com.br/macbook</p>
                 <p><strong className="text-gray-700">Hospedagem:</strong> Vercel (deploy automático via GitHub)</p>
                 <p><strong className="text-gray-700">Stack:</strong> Next.js + React</p>
-                <p><strong className="text-gray-700">CRM:</strong> Helena (WhatsApp integrado)</p>
+                <p><strong className="text-gray-700">Atendimento:</strong> Leaper Flow (WhatsApp integrado)</p>
               </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-5">

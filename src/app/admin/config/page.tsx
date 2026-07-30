@@ -12,18 +12,20 @@ import {
 type ConfigStatus = {
   tiktokPixel: boolean;
   tiktokToken: boolean;
-  helenaToken: boolean;
+  leaperScript: boolean;
   supabase: boolean;
-  webhookUrl: string;
+  leaperFlowUrl: string;
 };
+
+const LEAPER_FLOW_URL = "https://weare.leaper.com.br/flow/CSZ1785415950";
 
 export default function ConfigPage() {
   const [status, setStatus] = useState<ConfigStatus>({
     tiktokPixel: false,
     tiktokToken: false,
-    helenaToken: false,
+    leaperScript: false,
     supabase: false,
-    webhookUrl: "",
+    leaperFlowUrl: LEAPER_FLOW_URL,
   });
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -47,8 +49,7 @@ export default function ConfigPage() {
   }
 
   function copyWebhook() {
-    const url =
-      status.webhookUrl || "https://ads.bewstore.com.br/api/helena/webhook";
+    const url = status.leaperFlowUrl || LEAPER_FLOW_URL;
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -66,9 +67,9 @@ export default function ConfigPage() {
       description: "Events API para tracking server-side",
     },
     {
-      label: "Helena API Token",
-      configured: status.helenaToken,
-      description: "Integração com Helena CRM",
+      label: "Leaper",
+      configured: status.leaperScript,
+      description: "Script e link de atendimento instalados no site",
     },
     {
       label: "Supabase",
@@ -86,8 +87,8 @@ export default function ConfigPage() {
       description: "Gerenciar campanhas e anúncios",
     },
     {
-      label: "Helena CRM",
-      href: "https://app.helena.run",
+      label: "Leaper Flow",
+      href: LEAPER_FLOW_URL,
       description: "Atendimento e gestão de conversas",
     },
     {
@@ -185,21 +186,17 @@ export default function ConfigPage() {
         </div>
       </div>
 
-      {/* Webhook URL */}
+      {/* Atendimento URL */}
       <div className="rounded-2xl border border-gray-800 bg-white/[0.03] p-5 md:p-6 mb-6">
         <h2 className="text-base font-semibold text-white/90 mb-1">
-          Webhook Helena
+          Link Leaper
         </h2>
         <p className="text-sm text-gray-400 mb-4">
-          Configure este URL no Helena em{" "}
-          <span className="text-gray-300">
-            Ajustes → Integrações → Webhooks
-          </span>
-          :
+          Link atual usado nos botões de WhatsApp das páginas:
         </p>
         <div className="flex items-center gap-3 rounded-xl bg-gray-900 border border-gray-800 px-4 py-3">
           <code className="flex-1 text-sm text-emerald-400 font-mono break-all">
-            {status.webhookUrl || "https://ads.bewstore.com.br/api/helena/webhook"}
+            {status.leaperFlowUrl || LEAPER_FLOW_URL}
           </code>
           <button
             onClick={copyWebhook}
@@ -215,9 +212,9 @@ export default function ConfigPage() {
         <div className="mt-3 rounded-lg bg-gray-900/50 border border-gray-800/50 px-4 py-3">
           <p className="text-xs text-gray-500">
             <span className="text-gray-400 font-medium">
-              Eventos necessários:
+              Integração ativa:
             </span>{" "}
-            SESSION_NEW, CONTACT_UPDATE, SESSION_UPDATED
+            script Leaper no head global e CTA flutuante em todas as páginas.
           </p>
         </div>
       </div>

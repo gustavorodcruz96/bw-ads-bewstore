@@ -420,7 +420,7 @@ export default function ConversasPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-white/90">Conversas</h1>
         <p className="text-gray-400 mt-1 text-sm">
-          Conversas rastreadas do WhatsApp via Helena
+          Conversas rastreadas do WhatsApp
         </p>
       </div>
 
@@ -438,7 +438,7 @@ export default function ConversasPage() {
             Nenhuma conversa ainda
           </h3>
           <p className="text-gray-400 text-sm max-w-sm mx-auto">
-            As conversas aparecerão aqui quando o webhook do Helena estiver
+            As conversas aparecerão aqui quando a integração de atendimento estiver
             ativo e os anúncios estiverem rodando.
           </p>
         </div>
