@@ -43,7 +43,7 @@ import macbookDuoDark from "@/assets/Macbook/441970bd662214533542a54e9536d5fd.jp
 import macbookRepair from "@/assets/Macbook/700e8d5e4a80e0be997cb614796eaeb1.jpg";
 import macbookAirBlue from "@/assets/Macbook/7d66c734771fd1eab1a6a8247f81ac08.jpg";
 import cesarFilhoImg from "@/assets/cesar-filho.webp";
-import celsoPortiolliImg from "@/assets/celso.webp";
+import fabianoImg from "@/assets/fabiano-menotti.webp";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -161,7 +161,7 @@ const HOW_IT_WORKS = [
 
 const VIDEOS = [
   { id: "DYSL7Ulreis", image: cesarFilhoImg, title: "César Filho" },
-  { id: "krD_hjQfRnY", image: celsoPortiolliImg, title: "Celso Portiolli" },
+  { id: "R25c_h89KR0", image: fabianoImg, title: "Fabiano" },
   { id: "rodrigo-faro-2026", mp4: "/videos/rodrigo-faro-2026.mp4", image: rodrigoFaro, title: "Rodrigo Faro" },
 ];
 
