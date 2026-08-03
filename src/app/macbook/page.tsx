@@ -37,13 +37,13 @@ import img44 from "@/assets/imgi_44_2025-04-03.webp";
 import img70 from "@/assets/imgi_70_unnamed.webp";
 import img74 from "@/assets/imgi_74_unnamed.webp";
 import macbookProMockup from "@/assets/Macbook/076330438244a523c412dded0649f3a7.jpg";
-import rodrigoFaro from "@/assets/Macbook/rodrigo-faro-scaled.webp";
+import rodrigoFaro from "@/assets/Macbook/rodrigo-faro-2026-thumb.png";
 import macbookDuo from "@/assets/Macbook/17a0be17b66b8cfca4b1591599f51d5a.jpg";
 import macbookDuoDark from "@/assets/Macbook/441970bd662214533542a54e9536d5fd.jpg";
 import macbookRepair from "@/assets/Macbook/700e8d5e4a80e0be997cb614796eaeb1.jpg";
 import macbookAirBlue from "@/assets/Macbook/7d66c734771fd1eab1a6a8247f81ac08.jpg";
 import cesarFilhoImg from "@/assets/cesar-filho.webp";
-import fabianoImg from "@/assets/fabiano-menotti.webp";
+import celsoPortiolliImg from "@/assets/celso.webp";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -160,9 +160,9 @@ const HOW_IT_WORKS = [
 ];
 
 const VIDEOS = [
-  { id: "VUD-y46fu80", image: cesarFilhoImg, title: "César Filho" },
-  { id: "R25c_h89KR0", image: fabianoImg, title: "Fabiano" },
-  { id: "rodrigo-faro-mp4", mp4: "https://pub-9f5ae7ae2f2f4419acfdfd64cd5218ff.r2.dev/IMG_0623.mp4", image: rodrigoFaro, title: "Rodrigo Faro" },
+  { id: "DYSL7Ulreis", image: cesarFilhoImg, title: "César Filho" },
+  { id: "krD_hjQfRnY", image: celsoPortiolliImg, title: "Celso Portiolli" },
+  { id: "rodrigo-faro-2026", mp4: "/videos/rodrigo-faro-2026.mp4", image: rodrigoFaro, title: "Rodrigo Faro" },
 ];
 
 const TESTIMONIALS = [
@@ -278,7 +278,7 @@ function VideoCard({
               autoPlay
               controls
               playsInline
-              className="w-full h-full object-cover"
+              className="h-full w-full bg-black object-contain"
             />
           </div>
         ) : (
